@@ -1637,11 +1637,11 @@ ol {
 
 .class-timetable table thead tr th {
 	font-size: 14px;
-	color: #ffffff;
+	color: #000;
 	background: #d3f300;
 	border-right: 1px solid #363636;
 	padding: 15px 0;
-	font-weight: 400;
+	font-weight: 1000;
 }
 
 .class-timetable table tbody tr td {
