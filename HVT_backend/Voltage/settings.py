@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 ]
 EXTERNAL_APPS = [
     'main',
+    'merch',
+    'registeration',
+    'contact',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
