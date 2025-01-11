@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 EXTERNAL_APPS = [
     'contact', 
     'athlete_records',
+    'merch',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
