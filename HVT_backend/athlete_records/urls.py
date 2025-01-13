@@ -1,6 +1,11 @@
 from django.urls import path
-from .views import AthleteList
+from .views import (
+    AthleteList,
+    CreateAthlete,
+)
 
 urlpatterns = [
-    path('api/athlete_list', AthleteList.as_view(), name='athlete_record')
+
+    path('list/', AthleteList.as_view(), name='athlete_record'), # '/api/athlete_records/list/'
+    path('add/', CreateAthlete.as_view(), name='add-athlete'),
 ]

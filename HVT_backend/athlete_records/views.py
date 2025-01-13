@@ -1,18 +1,26 @@
 from django.shortcuts import render, redirect
-from athlete_records.models import AthleteRecords
+from .models import AthleteRecords
 from .forms import AthleteRecordsForms
+from rest_framework.permissions import (
+    IsAuthenticated,
+)
 from rest_framework.views import APIView
+from rest_framework.generics import (
+    ListAPIView,
+    CreateAPIView,
+)
 from rest_framework.response import Response
 from .serializers import AthleteSerializer
 
-class AthleteList(APIView):
-    def get(self, request):
-        athlete_records = AthleteRecords.objects.all()
-        serializer = AthleteSerializer(athlete_records, many=True)
-        return Response(serializer.data)
+class AthleteList(ListAPIView):
+    allowed_methods = ['GET']
+    serializer_class = AthleteSerializer
+    queryset = AthleteRecords.objects.all()
 
 
-
+class CreateAthlete(CreateAPIView):
+    permission_classes = [IsAuthenticated,]
+    serializer_class = AthleteSerializer
 
 
 # Create your views here.
