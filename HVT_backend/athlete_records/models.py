@@ -58,6 +58,7 @@ class AthleteRecords(models.Model):
     
     class Meta:
         verbose_name = 'Athelete Records'
+        verbose_name_plural = 'Athelete Records'
         
     def __str__(self):
         return f"ID:{self.id} - {self.athlete_meet}"
