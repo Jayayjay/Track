@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HighVoltageTrack</title>
+</head>
+<body>
+    <form action="post">
+        {% csrf_token %}
+        <div>
+            <div class="field padding-bottom--24">
+                <label for="email">Class</label>
+                {{form.athlete_class}}
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="email">Full Name</label>
+                {{form.athlete_name}}
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="email">Athlete Mark</label>
+                {{form.athlete_mark}}
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="email">Athlete Age</label>
+                {{form.athlete_age}}
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="email">Athlete Group</label>
+                {{form.athlete_group}}
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="email">Athlete Date</label>
+                {{form.athlete_date}}
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="email">Meet</label>
+                {{form.athlete_meet}}
+            </div>
+            <div class="field padding-bottom--24">
+                <input type="submit" name="submit" value="Submit Form">
+            </div>
+        </div>
+    </form>
+</body>
+</html>

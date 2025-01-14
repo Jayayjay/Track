@@ -11,7 +11,7 @@ from rest_framework.generics import (
 )
 from rest_framework.response import Response
 from .serializers import AthleteSerializer
-
+from .forms import AthleteRecordsForms
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -36,19 +36,39 @@ class AthleteList(ListAPIView):
         return super().get(request, *args, **kwargs)
 
 
+class CreateAthlete(CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AthleteSerializer
+
+    def post(self, request, *args, **kwargs):
+        # If the request is from an API, process normally
+        if request.META.get('HTTP_ACCEPT', '').startswith('application/json'):
+            return super().post(request, *args, **kwargs)
+        
+        # If the request is from a browser, process the form submission
+        form = AthleteRecordsForms(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('record_view')  # Redirect to the records page
+        return render(request, 'records/new_record.html', {'form': form})
+
+    def get(self, request, *args, **kwargs):
+        # Render the HTML form for creating a new athlete
+        form = AthleteRecordsForms()
+        return render(request, 'records/new_record.html', {'form': form})
+
 
 
 # Create your views here.
-# def record_view(request):
-#     athlete_records = AthleteRecords.objects.all()
-#     context = {'athlete_records': athlete_records}
-#     return render(request, 'templates/records/record.html')
-#     return render(request, 'record/records.html')
-
-# def new_record_view(request):
-#     if request.method == "POST":
-#         form = AthleteRecordsForms(request.POST)
-#         if form.is_valid():
-#             form.save()
+def record_view(request):
+    athlete_records = AthleteRecords.objects.all()
+    context = {'athlete_records': athlete_records}
+    return render(request, 'records/new_record.html')
     
-#     return redirect('')
+def new_record_view(request):
+    if request.method == "POST":
+        form = AthleteRecordsForms(request.POST)
+        if form.is_valid():
+            form.save()
+    
+    return redirect('')
