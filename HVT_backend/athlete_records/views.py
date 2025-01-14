@@ -12,15 +12,30 @@ from rest_framework.generics import (
 from rest_framework.response import Response
 from .serializers import AthleteSerializer
 
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
+from .models import AthleteRecords
+from .serializers import AthleteSerializer
+
 class AthleteList(ListAPIView):
     allowed_methods = ['GET']
     serializer_class = AthleteSerializer
     queryset = AthleteRecords.objects.all()
 
+    def get(self, request, *args, **kwargs):
+        # Get all athlete records from the database
+        athlete_records = self.get_queryset()
+        
+        # If the request is from a browser, render the HTML template
+        if request.META.get('HTTP_ACCEPT', '').startswith('text/html'):
+            return render(request, 'records/record_detail.html', {'athlete_records': athlete_records})
+        
+        # Otherwise, return JSON as usual
+        return super().get(request, *args, **kwargs)
 
-class CreateAthlete(CreateAPIView):
-    permission_classes = [IsAuthenticated,]
-    serializer_class = AthleteSerializer
+
 
 
 # Create your views here.

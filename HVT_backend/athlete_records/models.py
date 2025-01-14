@@ -61,5 +61,5 @@ class AthleteRecords(models.Model):
         verbose_name_plural = 'Athelete Records'
         
     def __str__(self):
-        return f"ID:{self.id} - {self.athlete_meet}"
+        return f"ID:{self.name} - {self.athlete_meet}"
        
