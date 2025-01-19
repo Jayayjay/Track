@@ -1,37 +1,3 @@
-/******************************************************************
-  Template Name: Gym
-  Description:  Gym Fitness HTML Template
-  Author: Colorlib
-  Author URI: https://colorlib.com
-  Version: 1.0
-  Created: Colorlib
-******************************************************************/
-
-/*------------------------------------------------------------------
-[Table of contents]
-
-1.  Template default CSS
-	1.1	Variables
-	1.2	Mixins
-	1.3	Flexbox
-	1.4	Reset
-2.  Helper Css
-3.  Header Section
-4.  Hero Section
-5.  Service Section
-6.  Class Section
-7.  Price Plan Section
-8.  Trainer Section
-9.  Contact
-10.  Footer Style
-
--------------------------------------------------------------------*/
-
-/*----------------------------------------*/
-
-/* Template default CSS
-/*----------------------------------------*/
-
 html,
 body {
 	height: 100%;
@@ -126,7 +92,7 @@ ol {
 }
 
 .section-title h2 {
-	color: #ffffff;
+	color: #0d0c0c;
 	font-size: 32px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -172,7 +138,7 @@ ol {
 	display: inline-block;
 	font-size: 14px;
 	padding: 17px 30px 16px;
-	color: #000;
+	color: #fff;
 	background: #d3f300;
 	line-height: normal;
 	letter-spacing: 1px;
@@ -200,7 +166,7 @@ ol {
 	top: 0;
 	left: 0;
 	z-index: 999999;
-	background: #000;
+	background: #a59090;
 }
 
 .loader {
@@ -220,19 +186,19 @@ ol {
 	0% {
 		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
-		border: 4px solid #f44336;
+		border: 4px solid #d3f300;
 		border-left-color: transparent;
 	}
 	50% {
 		-webkit-transform: rotate(180deg);
 		transform: rotate(180deg);
-		border: 4px solid #673ab7;
+		border: 4px solid #fff;
 		border-left-color: transparent;
 	}
 	100% {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
-		border: 4px solid #f44336;
+		border: 4px solid #d3f300;
 		border-left-color: transparent;
 	}
 }
@@ -240,17 +206,17 @@ ol {
 @-webkit-keyframes loader {
 	0% {
 		-webkit-transform: rotate(0deg);
-		border: 4px solid #f44336;
+		border: 4px solid #d3f300;
 		border-left-color: transparent;
 	}
 	50% {
 		-webkit-transform: rotate(180deg);
-		border: 4px solid #673ab7;
+		border: 4px solid #fff;
 		border-left-color: transparent;
 	}
 	100% {
 		-webkit-transform: rotate(360deg);
-		border: 4px solid #f44336;
+		border: 4px solid #d3f300;
 		border-left-color: transparent;
 	}
 }
@@ -411,7 +377,7 @@ ol {
 }
 
 .nav-menu ul li a {
-	color: #ffffff;
+	color: #000;
 	display: block;
 	font-size: 15px;
 	font-weight: 500;
@@ -1645,7 +1611,7 @@ ol {
 }
 
 .class-timetable table tbody tr td {
-	width: 146px;
+	width: 506px;
 	padding: 35px 0;
 }
 
@@ -1668,6 +1634,7 @@ ol {
 
 .class-timetable table tbody tr td.hover-bg:hover {
 	background: #d3f300;
+	color: #000;
 }
 
 .class-timetable table tbody tr td.blank-td {
