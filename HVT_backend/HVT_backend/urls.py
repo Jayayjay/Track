@@ -9,6 +9,6 @@ urlpatterns = [
     path('season_schedule/', views.season_schedule, name='schedule'),
     path('coaches/', views.coaches, name='coaches'),
     path('contact/', include('contact.urls')),
-    path('api/athlete_records/', include('athlete_records.urls') )
-    
+    path('api/athlete_records/', include('athlete_records.urls')),
+     
 ]

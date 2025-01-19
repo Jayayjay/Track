@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from athlete_records.views import AthleteList
 
 def homepage(request):
     return render(request, 'index.html')
@@ -11,3 +12,6 @@ def coaches(request):
 
 def season_schedule(request):
     return render(request, 'season-timetable.html')
+
+def record_view(request):
+    return render(request, AthleteList)
