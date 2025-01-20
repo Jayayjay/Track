@@ -10,5 +10,6 @@ urlpatterns = [
     path('coaches/', views.coaches, name='coaches'),
     path('contact/', include('contact.urls')),
     path('api/athlete_records/', include('athlete_records.urls')),
+    path('registeration/', views.registeration_view, name='registeration')
      
 ]

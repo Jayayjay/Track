@@ -92,7 +92,7 @@ ol {
 }
 
 .section-title h2 {
-	color: #0d0c0c;
+	color: #fff;
 	font-size: 32px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -377,7 +377,7 @@ ol {
 }
 
 .nav-menu ul li a {
-	color: #000;
+	color: #ffffff;
 	display: block;
 	font-size: 15px;
 	font-weight: 500;
