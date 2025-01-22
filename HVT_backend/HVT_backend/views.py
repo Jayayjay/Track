@@ -17,4 +17,4 @@ def record_view(request):
     return render(request, AthleteList)
 
 def registeration_view(request):
-    return render(request, 'registertion')
+    return render(request, 'registeration.html')

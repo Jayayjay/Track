@@ -52,7 +52,7 @@ p {
 }
 
 img {
-	max-width: 100%;
+	max-width: 90%;
 }
 
 input:focus,
@@ -166,7 +166,7 @@ ol {
 	top: 0;
 	left: 0;
 	z-index: 999999;
-	background: #a59090;
+	background: #030301;
 }
 
 .loader {

@@ -47,7 +47,7 @@
                 <li><a href="{% url 'about' %}">About Us</a></li>
                 <li><a href="{% url 'coaches' %}">Coaches</a></li>
                 <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
-                <li><a href="./team.html">Registeration</a></li>
+                <li><a href="{% url 'registeration' %}">Registeration</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'about' %}">About us</a></li>
@@ -84,7 +84,7 @@
                             <li class="active"><a href="{% url 'index' %}">Home</a></li>
                             <li><a href="{% url 'about' %}">About Us</a></li>
                             <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                            <li><a href="./team.html">Registeration</a></li>
+                            <li><a href="{% url 'registeration' %}">Registeration</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="{% url 'about' %}">About us</a></li>
@@ -125,8 +125,8 @@
                     <div class="breadcrumb-text">
                         <h2>Services</h2>
                         <div class="bt-option">
-                            <a href="./index.html">Home</a>
-                            <span>Services</span>
+                            <a href="{% url 'index' %}">Home</a>
+                            <span>Registeration</span>
                         </div>
                     </div>
                 </div>
@@ -146,10 +146,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-3 order-lg-1 col-md-6 p-0">
                     <div class="ss-pic">
-                        <img src="img/services/services-1.jpg" alt="">
+                        <img src="{% static 'img/services/services-1.jpg' %}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-3 order-lg-2 col-md-6 p-0">
@@ -174,7 +174,7 @@
                 </div>
                 <div class="col-lg-3 order-lg-8 col-md-6 p-0">
                     <div class="ss-pic">
-                        <img src="img/services/services-4.jpg" alt="">
+                        <img src="{% static 'img/logo.png %'}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-3 order-lg-7 col-md-6 p-0">
@@ -184,7 +184,7 @@
                         </p>
                         <a href="#">Explore</a>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-lg-3 order-lg-6 col-md-6 p-0">
                     <div class="ss-pic">
                         <img src="img/services/services-3.jpg" alt="">
@@ -203,7 +203,7 @@
     <!-- Services Section End -->
 
     <!-- Banner Section Begin -->
-    <section class="banner-section set-bg" data-setbg="img/banner-bg.jpg">
+    <section class="banner-section set-bg" data-setbg=" ">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -225,12 +225,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <span>Our Plan</span>
-                        <h2>Choose your pricing plan</h2>
+                        <span>Registeration</span>
+                        <h2>Registeration Fee</h2>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
+            <!-- <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-8">
                     <div class="ps-item">
                         <h3>Class drop-in</h3>
@@ -268,13 +268,13 @@
                         <a href="#" class="primary-btn pricing-btn">Enroll now</a>
                         <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-lg-4 col-md-8">
                     <div class="ps-item">
-                        <h3>6 Month unlimited</h3>
+                        <h3>One-Off Registeraiton</h3>
                         <div class="pi-price">
-                            <h2>$ 59.0</h2>
-                            <span>SINGLE CLASS</span>
+                            <h2>$ 400.0</h2>
+                            <span></span>
                         </div>
                         <ul>
                             <li>Free riding</li>
@@ -300,22 +300,22 @@
                 <div class="col-md-4">
                     <div class="gt-text">
                         <i class="fa fa-map-marker"></i>
-                        <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
+                        <p>Location goes here <br/> postal code too</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="gt-text">
                         <i class="fa fa-mobile"></i>
                         <ul>
-                            <li>125-711-811</li>
-                            <li>125-668-886</li>
+                            <li>Phone line</li>
+                            <li>206-898-7086</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="gt-text email">
                         <i class="fa fa-envelope"></i>
-                        <p>Support.gymcenter@gmail.com</p>
+                        <p>highvoltagetrack80@yahoo.com</p>
                     </div>
                 </div>
             </div>
@@ -330,7 +330,7 @@
                 <div class="col-lg-4">
                     <div class="fs-about">
                         <div class="fa-logo">
-                            <a href="#"><img src="img/logo.png" alt=""></a>
+                            <a href="#"><img src="{% static 'img/logo.png' %}" alt=""></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua endisse ultrices gravida lorem.</p>
                         <div class="fa-social">
@@ -409,14 +409,14 @@
     <!-- Search model end -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/masonry.pkgd.min.js"></script>
-    <script src="js/jquery.barfiller.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.barfiller.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 
 
 
