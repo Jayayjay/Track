@@ -45,7 +45,8 @@ EXTERNAL_APPS = [
     'athlete_records',
     'merch',
     'rest_framework',
-    'corsheaders', # add corsheaders to prevent CORS error
+    'corsheaders',
+    'drf_yasg'# add corsheaders to prevent CORS error
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
