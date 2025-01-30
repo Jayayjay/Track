@@ -19,8 +19,8 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', views.homepage, name='index'),
     path('admin/', admin.site.urls),
-    path('index/', views.homepage, name='index'),
     path('about/', views.about, name='about'),
     path('season_schedule/', views.season_schedule, name='schedule'),
     path('coaches/', views.coaches, name='coaches'),
