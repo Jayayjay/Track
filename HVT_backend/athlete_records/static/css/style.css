@@ -740,8 +740,11 @@ ol {
 }
 
 .ps-item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 	text-align: center;
-	padding: 40px 30px 52px;
 	border: 1px solid #464646;
 	-webkit-transform: skewY(-4deg);
 	-ms-transform: skewY(-4deg);
