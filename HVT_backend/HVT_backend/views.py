@@ -18,3 +18,6 @@ def record_view(request):
 
 def registeration_view(request):
     return render(request, 'registeration.html')
+
+def not_found(request):
+    return render(request, '404.html')
