@@ -143,18 +143,18 @@
 
     <!-- Class Timetable Section Begin -->
     <!-- Athlete Records Section -->
-<section class="athlete-records-section spad">
+<section class="athlete-records-section spad" style="background-color: #111111;" >
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h3>Athlete Records</h3>
+                    <!-- <h3>Events Table</h3> -->
                 </div>
             </div>
         </div>
-        <div class="row" style="color:#000000">
+        <div class="row">
             <div class="col-lg-12">
-                <table class="table table-striped">
+                <!-- <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -185,7 +185,164 @@
                             </tr>
                         {% endfor %}
                     </tbody>
-                </table>
+                </table> -->
+                <table class="events-table" >
+                    <!-- Previous table HTML structure remains the same -->
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Events</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="category">Sprints</td>
+                        <td>
+                          <ul>
+                            <li>40 Yard Dash</li>
+                            <li>50 Meter Dash</li>
+                            <li>100 Meters</li>
+                            <li>200 Meters</li>
+                            <li>400 Meters</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="category">Middle Distance</td>
+                        <td>
+                          <ul>
+                            <li>800 Meters</li>
+                            <li>1500 Meters</li>
+                            <li>3000 Meters</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="category">Hurdles</td>
+                        <td>
+                          <ul>
+                            <li>80m Hurdles (30", 33", 39")</li>
+                            <li>100m Hurdles (30", 33", 39")</li>
+                            <li>110m Hurdles (39", 42")</li>
+                            <li>200m Hurdles (30", 36")</li>
+                            <li>400m Hurdles (36")</li>
+                            <li>2k Steeplechase (838mm)</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="category">Relays</td>
+                        <td>
+                          <ul>
+                            <li>4x100 Relay</li>
+                            <li>4x400 Relay</li>
+                            <li>4x800 Relay</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="category">Throws</td>
+                        <td>
+                          <ul>
+                            <li>Shot Put (2kg, 4kg, 6lb, 8lb, 12lb, 16lb)</li>
+                            <li>Discus (1kg, 1.6kg)</li>
+                            <li>Javelin (300g, 300g TJ, 450g AeroJav, 600g, 800g)</li>
+                            <li>Hammer</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="category">Jumps</td>
+                        <td>
+                          <ul>
+                            <li>High Jump</li>
+                            <li>Pole Vault</li>
+                            <li>Long Jump</li>
+                            <li>Triple Jump</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="category">Multi-Events</td>
+                        <td>
+                          <ul>
+                            <li>Triathlon - standard</li>
+                            <li>Pentathlon (outdoor) - Standard</li>
+                            <li>Decathlon - Standard</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <a href="https://www.athletic.net/team/70126/track-and-field-outdoor/2025/team-records/m" class="primary-btn" style="color:#000000;">Athlete Records</a>
+                  
+                  <style>
+                  .events-table {
+                      width: 100%;
+                      border-collapse: separate;
+                      border-spacing: 0;
+                      margin: 20px 0;
+                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                      background-color: #000000;  /* Updated to pure black */
+                      color: #ffffff;
+                      border: 2px solid #333;
+                      border-radius: 10px;
+                      overflow: hidden;
+                      box-shadow: 0 0 20px rgba(200, 255, 0, 0.1);
+                  }
+                  
+                  .events-table th,
+                  .events-table td {
+                      padding: 15px 20px;
+                      border-bottom: 1px solid #333;
+                  }
+                  
+                  .events-table thead {
+                      background-color: #000000;  /* Matched with table background */
+                  }
+                  
+                  .events-table th {
+                      font-weight: bold;
+                      text-align: left;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      color: #c8ff00;
+                  }
+                  
+                  .category {
+                      font-weight: bold;
+                      background-color: #111111;  /* Slightly lighter than background for contrast */
+                      width: 180px;
+                      color: #ff47b6;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                  }
+                  
+                  .events-table ul {
+                      list-style-type: none;
+                      margin: 0;
+                      padding: 0;
+                  }
+                  
+                  .events-table li {
+                      margin: 8px 0;
+                      color: #9fef00;
+                      transition: color 0.3s ease;
+                  }
+                  
+                  .events-table li:hover {
+                      color: #ffffff;
+                  }
+                  
+                  .events-table tbody tr:hover {
+                      background-color: #111111;  /* Updated hover color */
+                  }
+                  
+                  .events-table tbody tr:last-child td {
+                      border-bottom: none;
+                  }
+                  </style>
+                   
             </div>
         </div>
     </div>
