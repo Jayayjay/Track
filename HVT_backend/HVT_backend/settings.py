@@ -34,7 +34,7 @@ ALLOWED_HOSTS = [ 'www.highvoltagetrack.com','highvoltagetrack.com']
 
 INSTALLED_APPS = [
     # 'admin_soft.apps.AdminSoftDashboardConfig',
-    'jazzmin',
+    # 'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -171,31 +171,31 @@ else:
     ]
 
 
-JAZZMIN_SETTINGS = {
-    # Logo not suitable for background
-    "site_logo": 'HVT_backend/athlete_records/static/img/logo_2.jpg',
-    "site_title": "HVTF Admin",
-    "site_header": "HVTF Admin Portal",
-    "welcome_sign": "Welcome to HVTF Admin!",
-    "topmenu_links": [
-        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"app": "my_app"},  # Direct link to an app
-    ],
-    "show_sidebar": True,
-    "navigation_expanded": True,
-    "icons": {
-        "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
-        "auth.Group": "fas fa-users",
-    },
-    "order_with_respect_to": ["auth", "my_app"],
-    "custom_links": {
-        # "my_app": [
-        #     {
-        #         "name": "Custom View",
-        #         "url": "custom-view",
-        #         "icon": "fas fa-cogs",
-        #     },
-        # ]
-    },
-}
+# JAZZMIN_SETTINGS = {
+#     # Logo not suitable for background
+#     "site_logo": 'HVT_backend/athlete_records/static/img/logo_2.jpg',
+#     "site_title": "HVTF Admin",
+#     "site_header": "HVTF Admin Portal",
+#     "welcome_sign": "Welcome to HVTF Admin!",
+#     "topmenu_links": [
+#         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+#         {"app": "my_app"},  # Direct link to an app
+#     ],
+#     "show_sidebar": True,
+#     "navigation_expanded": True,
+#     "icons": {
+#         "auth": "fas fa-users-cog",
+#         "auth.user": "fas fa-user",
+#         "auth.Group": "fas fa-users",
+#     },
+#     "order_with_respect_to": ["auth", "my_app"],
+#     "custom_links": {
+#         # "my_app": [
+#         #     {
+#         #         "name": "Custom View",
+#         #         "url": "custom-view",
+#         #         "icon": "fas fa-cogs",
+#         #     },
+#         # ]
+#     },
+# }
