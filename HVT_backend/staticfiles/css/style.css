@@ -52,7 +52,7 @@ p {
 }
 
 img {
-	max-width: 90%;
+	max-width: 100%;
 }
 
 input:focus,
@@ -92,7 +92,7 @@ ol {
 }
 
 .section-title h2 {
-	color: #fff;
+	color: #ffffff;
 	font-size: 32px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -138,7 +138,7 @@ ol {
 	display: inline-block;
 	font-size: 14px;
 	padding: 17px 30px 16px;
-	color: #fff;
+	color: #000;
 	background: #d3f300;
 	line-height: normal;
 	letter-spacing: 1px;
@@ -166,7 +166,7 @@ ol {
 	top: 0;
 	left: 0;
 	z-index: 999999;
-	background: #030301;
+	background: #000;
 }
 
 .loader {
@@ -186,19 +186,19 @@ ol {
 	0% {
 		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
-		border: 4px solid #d3f300;
+		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
 	50% {
 		-webkit-transform: rotate(180deg);
 		transform: rotate(180deg);
-		border: 4px solid #fff;
+		border: 4px solid #673ab7;
 		border-left-color: transparent;
 	}
 	100% {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
-		border: 4px solid #d3f300;
+		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
 }
@@ -206,17 +206,17 @@ ol {
 @-webkit-keyframes loader {
 	0% {
 		-webkit-transform: rotate(0deg);
-		border: 4px solid #d3f300;
+		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
 	50% {
 		-webkit-transform: rotate(180deg);
-		border: 4px solid #fff;
+		border: 4px solid #673ab7;
 		border-left-color: transparent;
 	}
 	100% {
 		-webkit-transform: rotate(360deg);
-		border: 4px solid #d3f300;
+		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
 }
@@ -740,12 +740,9 @@ ol {
 }
 
 .ps-item {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
 	text-align: center;
-	border: 1px solid #a0c647;
+	padding: 40px 30px 52px;
+	border: 1px solid #464646;
 	-webkit-transform: skewY(-4deg);
 	-ms-transform: skewY(-4deg);
 	transform: skewY(-4deg);
@@ -1605,71 +1602,41 @@ ol {
 }
 
 .class-timetable table thead tr th {
-	font-size: 14px;
-	color: #000;
-	background: #d3f300;
-	border-right: 1px solid #363636;
-	padding: 15px 0;
-	font-weight: 1000;
+    font-size: 18px; /* Increase font size */
+    color: #000;
+    background: #d3f300;
+    border-right: 1px solid #363636;
+    padding: 70px 0; /* Increase padding for larger boxes */
+    font-weight: 1000;
 }
 
 .class-timetable table tbody tr td {
-	width: 506px;
-	padding: 35px 0;
+    width: 506px;
+    padding: 50px 0; /* Increase padding for larger boxes */
+    font-size: 16px; /* Increase font size for content */
 }
 
 .class-timetable table tbody tr td.class-time {
-	font-size: 12px;
-	color: #d3f300;
-	background: #000000;
-	border: 1px solid #363636;
-}
-
-.class-timetable table tbody tr td.dark-bg {
-	background: #090909;
-}
-
-.class-timetable table tbody tr td.hover-bg {
-	-webkit-transition: all 0.3s;
-	-o-transition: all 0.3s;
-	transition: all 0.3s;
-}
-
-.class-timetable table tbody tr td.hover-bg:hover {
-	background: #d3f300;
-	color: #000;
-}
-
-.class-timetable table tbody tr td.blank-td {
-	position: relative;
-	overflow: hidden;
-}
-
-.class-timetable table tbody tr td.blank-td:after {
-	position: absolute;
-	left: -47px;
-	top: 59px;
-	width: 507px;
-	height: 1px;
-	background: #363636;
-	content: "";
-	-webkit-transform: rotate(-40deg);
-	-ms-transform: rotate(-40deg);
-	transform: rotate(-40deg);
+    font-size: 14px; /* Adjust font size for time */
+    color: #d3f300;
+    background: #000000;
+    border: 1px solid #363636;
+    padding: 40px 0; /* Increase padding for class-time cells */
 }
 
 .class-timetable table tbody tr td h5 {
-	color: #ffffff;
-	font-weight: 600;
-	text-transform: uppercase;
-	margin-bottom: 10px;
+    font-size: 18px; /* Make heading text larger */
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 15px; /* Adjust spacing below headings */
 }
 
 .class-timetable table tbody tr td span {
-	display: block;
-	font-size: 12px;
-	color: #a9a9a9;
+    font-size: 14px; /* Make additional text larger */
+    color: #a9a9a9;
 }
+
 
 /*---------------------
   Class Details Section
@@ -2464,7 +2431,7 @@ ol {
 	color: #c4c4c4;
 	width: 100%;
 	height: 46px;
-	border: 1px solid #363636;
+	border: 1px solid #fffefe;
 	padding-left: 20px;
 	padding-right: 5px;
 	background: transparent;
@@ -2594,7 +2561,7 @@ ol {
 	right: -18px;
 	top: 0;
 	content: "|";
-	color: #ffffff;
+	color: #545454;
 }
 
 .contact-widget .cw-text ul li:last-child {
