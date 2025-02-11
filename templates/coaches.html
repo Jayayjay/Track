@@ -48,7 +48,7 @@
                 <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
                 <li><a href="{% url 'coaches' %}">Coaches</a></li>
                 <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
-                <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
+                <!-- <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li> -->
                 <li><a href="{% url '404' %}">Registeration</a></li>
                 <li><a href="{% url 'registeration' %}">Pages</a>
                     <ul class="dropdown">
@@ -76,7 +76,7 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <a href="{% url 'index' %}">
-                            <img class="logo-resize" srcset="https://highvoltagetrack.com/wp-content/uploads/2025/02/logo.png" alt="">
+                            <img class="logo-resize" srcset=" {% static 'img/logo.png' %}" alt="">
                         </a>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
     <!-- Header End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="https://highvoltagetrack.com/wp-content/uploads/2025/02/breadcrumb-bg.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg=" {% static 'img/view_2.jpg' %}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -314,7 +314,7 @@
                 <div class="col-lg-4">
                     <div class="fs-about">
                         <div class="fa-logo">
-                            <a href="#"><img src="https://highvoltagetrack.com/wp-content/uploads/2025/02/logo_2.jpg" alt=""></a>
+                            <a href="#"><img src="{% static 'img/framed.jpeg' %}" alt=""></a>
                         </div>
                         <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
                         <div class="fa-social">
