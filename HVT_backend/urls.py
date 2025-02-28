@@ -23,7 +23,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', views.homepage, name='index'),
-    path('admin/', admin.site.urls),
+#    path('admin/', admin.site.urls),
     path('about/', views.about, name='about'),
     path('404/', views.not_found, name='404'),
     path('season_schedule/', views.season_schedule, name='schedule'),
@@ -31,7 +31,7 @@ urlpatterns = [
     path('contact/', include('contact.urls')),
     path('api/athlete_records/', include('athlete_records.urls')),
     path('registeration/', views.registeration_view, name='registeration'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+ #   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+#    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
      
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
