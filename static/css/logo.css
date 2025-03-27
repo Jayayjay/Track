@@ -1,4 +1,6 @@
-.logo-resize{
-    max-height: 100%;
-    max-width: 100%;
+.logo-resize {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    aspect-ratio: 1/1;
 }
