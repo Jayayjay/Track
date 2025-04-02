@@ -50,7 +50,7 @@
                 <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
                 <!-- <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li> -->
                 <!-- <li><a href="./team.html">Registration</a></li> -->
-                <li><a href="{% url '404' %}">Registration</a></li>
+                <li><a href="{% url 'registeration' %}">Registration</a></li>
                     <ul class="dropdown">
                         <li><a href="{% url 'about' %}">About us</a></li>
                         <!-- <li><a href="./404.html">Merch</a></li> -->
@@ -86,7 +86,7 @@
                             <li class="active"><a href="{% url 'index' %}">Home</a></li>
                             <li><a href="{% url 'about' %}">About Us</a></li>
                             <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                            <li><a href="{% url '404' %}">Registration</a></li>
+                            <li><a href="{% url 'registeration' %}">Registration</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="{% url 'about' %}">About us</a></li>
@@ -191,8 +191,7 @@
                     
                     <div class="about-video set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/video.jpeg">
                         
-                        <a href="#" class="play-btn video-popup">
-                            <i class="fa fa-caret-right"></i></a>
+                        <iframe width="860" height="640" src="https://www.youtube.com/embed/yjaDFaWvYQ4?si=0F2qzMcdNGsmRpXx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="col-lg-6 p-0">

@@ -1,33 +1,32 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="HVTF">
-    <meta name="keywords" content="HVTF">
+    <meta name="description" content="High Voltage Track Club - Registration">
+    <meta name="keywords" content="track, field, athletics, registration, high voltage">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HighVoltageTrack</title>
+    <title>HighVoltageTrack - Registration</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="{% static './css/logo.css' %}", type="text/css">
-    <link rel="stylesheet" href="{% static './css/bootstrap.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/font-awesome.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/flaticon.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/owl.carousel.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/barfiller.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/magnific-popup.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/slicknav.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/style.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/logo.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/barfiller.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 </head>
 
-<body>
-    <!-- Page Preloder -->
+<body class="dark-theme">
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -45,10 +44,12 @@
             <ul>
                 <li><a href="{% url 'index' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About Us</a></li>
-                <li><a href="{% url 'coaches' %}">Coaches</a></li>
                 <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
-                <li><a href="{% url 'registeration' %}">Registration</a></li>
-                <li><a href="#">Pages</a>
+                <li><a href="{% url 'coaches' %}">Coaches</a></li>
+                <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
+                <!-- <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li> -->
+                <!-- <li><a href="./team.html">Registration</a></li> -->
+                <li><a href="{% url '404' %}">Registration</a></li>
                     <ul class="dropdown">
                         <li><a href="{% url 'about' %}">About us</a></li>
                         <!-- <li><a href="./404.html">Merch</a></li> -->
@@ -74,7 +75,7 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <a href="{% url 'index' %}">
-                            <img class="logo-resize" srcset="{% static 'img/logo.png' %}" alt="">
+                            <img class="logo-resize" srcset="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -84,11 +85,12 @@
                             <li class="active"><a href="{% url 'index' %}">Home</a></li>
                             <li><a href="{% url 'about' %}">About Us</a></li>
                             <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                            <li><a href="{% url 'registeration' %}">Registration</a></li>
+                            <li><a href="{% url '404' %}">Registration</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="{% url 'about' %}">About us</a></li>
                                     <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
+                                    <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
                                     <!-- <li><a href="./404.html">404</a></li> -->
                                 </ul>
                             </li>
@@ -118,12 +120,12 @@
     <!-- Header End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="{% static 'img/view_2' %}">
+    <section class="breadcrumb-section set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/view_2.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
-                        <h2>Services</h2>
+                        <h2>Registration</h2>
                         <div class="bt-option">
                             <a href="{% url 'index' %}">Home</a>
                             <span>Registration</span>
@@ -135,72 +137,95 @@
     </section>
     <!-- Breadcrumb Section End -->
 
-    <!-- Services Section Begin -->
-    <section class="services-section spad">
+    <!-- Hero Section Begin -->
+    <section class="hero-section dark-mode">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <span> 
-                        <h2>Registeraiton Details</h2>
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="hero-text text-center">
+                        <h2>Join Our Champion Community</h2>
+                        <p class="hero-subtitle">Train with Seattle's elite youth track & field program</p>
+                        <a href="https://highvoltagetrack.sportngin.com/register/form/705253471" class="primary-btn pulse-btn">Enroll Now</a>
                     </div>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col-lg-3 order-lg-1 col-md-6 p-0">
-                    <div class="ss-pic">
-                        <img src="{% static 'img/services/services-1.jpg' %}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 order-lg-2 col-md-6 p-0">
-                    <div class="ss-text">
-                        <h4>Personal training</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut dolore facilisis.
-                        </p>
-                        <a href="#">Explore</a>
-                    </div>
-                </div>
-                <div class="col-lg-3 order-lg-3 col-md-6 p-0">
-                    <div class="ss-pic">
-                        <img src="img/services/services-2.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 order-lg-4 col-md-6 p-0">
-                    <div class="ss-text">
-                        <h4>Group fitness classes</h4>
-                        <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus.</p>
-                        <a href="#">Explore</a>
-                    </div>
-                </div>
-                <div class="col-lg-3 order-lg-8 col-md-6 p-0">
-                    <div class="ss-pic">
-                        <img src="{% static 'img/logo.png %'}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 order-lg-7 col-md-6 p-0">
-                    <div class="ss-text second-row">
-                        <h4>Body building</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut dolore facilisis.
-                        </p>
-                        <a href="#">Explore</a>
-                    </div>
-                </div> -->
-                <!-- <div class="col-lg-3 order-lg-6 col-md-6 p-0">
-                    <div class="ss-pic">
-                        <img src="img/services/services-3.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 order-lg-5 col-md-6 p-0">
-                    <div class="ss-text second-row">
-                        <h4>Strength training</h4>
-                        <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus.</p>
-                        <a href="#">Explore</a>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </section>
-    <!-- Services Section End -->
+    <!-- Hero Section End -->
+
+    <!-- Registration Info Section Begin -->
+    <section id="registration-details" class="registration-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <span class="highlight-text">Join Our Team</span>
+                        <h2>Registration Process</h2>
+                    </div>
+                    <div class="registration-steps">
+                        <div class="step-item">
+                            <div class="step-icon">
+                                <i class="fa fa-file-text"></i>
+                            </div>
+                            <div class="step-content">
+                                <h4>1. Complete Registration</h4>
+                                <p>Fill out our online registration form with athlete information</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon">
+                                <i class="fa fa-credit-card"></i>
+                            </div>
+                            <div class="step-content">
+                                <h4>2. Pay Registration Fee</h4>
+                                <p>Process the $400 registration fee for full season access</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon">
+                                <i class="fa fa-id-card"></i>
+                            </div>
+                            <div class="step-content">
+                                <h4>3. Submit Documents</h4>
+                                <p>Provide required documentation including birth certificate and photo</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon">
+                                <i class="fa fa-users"></i>
+                            </div>
+                            <div class="step-content">
+                                <h4>4. Attend Orientation</h4>
+                                <p>Join our welcome session to meet coaches and fellow athletes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="registration-benefits">
+                        <div class="section-title">
+                            <span class="highlight-text">Member Benefits</span>
+                            <h2>Why Join High Voltage?</h2>
+                        </div>
+                        <ul class="benefits-list">
+                            <li><i class="fa fa-check"></i> Expert coaching from certified professionals</li>
+                            <li><i class="fa fa-check"></i> Access to premium training facilities</li>
+                            <li><i class="fa fa-check"></i> Performance assessment and tracking</li>
+                            <li><i class="fa fa-check"></i> Participation in competitive meets</li>
+                            <li><i class="fa fa-check"></i> Specialized training equipment</li>
+                            <li><i class="fa fa-check"></i> College recruitment assistance</li>
+                            <li><i class="fa fa-check"></i> Team-building activities and community</li>
+                            <li><i class="fa fa-check"></i> Strength and conditioning programs</li>
+                        </ul>
+                        <div class="contact-info">
+                            <p>For questions about registration: <a href="mailto:highvoltagetrack80@yahoo.com">highvoltagetrack80@yahoo.com</a> or call <strong>206-898-7086</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Registration Info Section End -->
 
     <!-- Banner Section Begin -->
     <section class="banner-section set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/placeholder.jpg">
@@ -210,7 +235,7 @@
                     <div class="bs-text service-banner">
                         <h2>Dedication, Pain, Victory</h2>
                         <div class="bt-tips">Where dedication meets Pride.</div>
-                        <a href="https://www.youtube.com/watch?v=EzKkl64rRbM" class="play-btn video-popup"><i
+                        <a href="https://youtu.be/yjaDFaWvYQ4?si=f-GdlQjAKpr6XftW" class="play-btn video-popup"><i
                                 class="fa fa-caret-right"></i></a>
                     </div>
                 </div>
@@ -219,81 +244,236 @@
     </section>
     <!-- Banner Section End -->
 
-    <!-- Pricing Section Begin -->
-    <section class="pricing-section service-pricing spad">
+    <!-- Pricing & Registration Section Begin -->
+    <!-- <section class="pricing-registration-section spad">
+        <div class="container">
+            <div class="">
+                <div class="col-lg-5">
+                    <div class="section-title">
+                        <span class="highlight-text">Season Fee</span>
+                        <h2>Registration Package</h2>
+                    </div>
+                    <div class="pricing-card">
+                        <div class="price-header">
+                            <h3>2025 Full Season</h3>
+                            <div class="price">
+                                <!-- <span class="currency">$</span>
+                                <span class="amount">400</span> -->
+                            <!-- </div>
+                        </div>
+                        <div class="price-features">
+                            <ul>
+                                <li><i class="fa fa-bolt"></i> Professional coaching from elite staff</li>
+                                <li><i class="fa fa-bolt"></i> Complete meet registration fees</li>
+                                <li><i class="fa fa-bolt"></i> Access to premium training equipment</li>
+                                <li><i class="fa fa-bolt"></i> Comprehensive performance assessment</li>
+                                <li><i class="fa fa-bolt"></i> Unlimited training session access</li>
+                                <li><i class="fa fa-bolt"></i> High Voltage team community</li>
+                            </ul>
+                        </div>
+                        <div class="price-action">
+                            <a href="#registration-form" class="primary-btn pricing-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7"> -->
+                    <!-- <div class="section-title">
+                        <span class="highlight-text">Join Today</span>
+                        <h2>Registration Form</h2>
+                    </div>
+                    <form id="registration-form" class="registration-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstName">Athlete First Name <span class="required">*</span></label>
+                                    <input type="text" id="firstName" placeholder="First Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lastName">Athlete Last Name <span class="required">*</span></label>
+                                    <input type="text" id="lastName" placeholder="Last Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dob">Date of Birth <span class="required">*</span></label>
+                                    <input type="date" id="dob" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="age">Age <span class="required">*</span></label>
+                                    <input type="number" id="age" placeholder="Athlete's Age" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="guardian">Parent/Guardian Name <span class="required">*</span></label>
+                                    <input type="text" id="guardian" placeholder="Parent/Guardian Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">Phone Number <span class="required">*</span></label>
+                                    <input type="tel" id="phone" placeholder="(XXX) XXX-XXXX" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="email">Email Address <span class="required">*</span></label>
+                                    <input type="email" id="email" placeholder="Email Address" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="address">Home Address <span class="required">*</span></label>
+                                    <input type="text" id="address" placeholder="Street Address" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="medical">Medical Information</label>
+                                    <textarea id="medical" placeholder="Any medical conditions or additional information we should know about?"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="agreement" required>
+                                    <label class="form-check-label" for="agreement">I agree to the <a href="#">terms and conditions</a> and <a href="#">liability waiver</a></label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="primary-btn">Complete Registration</button>
+                            </div>
+                        </div>
+                    </form> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Pricing & Registration Section End -->
+
+    <!-- Testimonials Section Begin -->
+    <section class="testimonial-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <span>Registration</span>
-                        <h2>Registration Fee</h2>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8">
-                    <div class="ps-item">
-                        <h3>One-Off Registeraiton</h3>
-                        <div class="pi-price">
-                            <h2>$ 400.0</h2>
-                            <span></span>
-                        </div>
-                        <ul>
-                            <!-- <li>Free riding</li>
-                            <li>Unlimited equipments</li>
-                            <li>Personal trainer</li>
-                            <li>Weight losing classes</li>
-                            <li>Month to mouth</li>
-                            <li>No time restriction</li> -->
-                        </ul>
-                        <a href="#" class="primary-btn pricing-btn">Enroll now</a>
-                        <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a>
+                        <span>Testimonial</span>
+                        <h2>Testimonials from Athletes and Alumni </h2>
                     </div>
                 </div>
             </div>
-            <!-- <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-8">
-                    <div class="ps-item">
-                        <h3>Class drop-in</h3>
-                        <div class="pi-price">
-                            <h2>$ 39.0</h2>
-                            <span>SINGLE CLASS</span>
+            <div class="ts_slider owl-carousel">
+                <div class="ts_item">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <div class="ti_pic">
+                                <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Testimony.jpeg" alt="">
+                            </div>
+                            <div class="ti_text">
+                                <p>Winning a medal at the national championships was an unforgettable achievement. Being part of this journey not only made me a better athlete but also introduced me to lifelong friends and invaluable life skills. The experience was truly amazing and shaped me in ways beyond the competition!</p>
+                                <h5>Hailee Foster</h5>
+                                <div class="tt-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
                         </div>
-                        <ul>
-                            <li>Free riding</li>
-                            <li>Unlimited equipments</li>
-                            <li>Personal trainer</li>
-                            <li>Weight losing classes</li>
-                            <li>Month to mouth</li>
-                            <li>No time restriction</li>
-                        </ul>
-                        <a href="#" class="primary-btn pricing-btn">Enroll now</a>
-                        <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-8">
-                    <div class="ps-item">
-                        <h3>12 Month unlimited</h3>
-                        <div class="pi-price">
-                            <h2>$ 99.0</h2>
-                            <span>SINGLE CLASS</span>
+                <div class="ts_item">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <div class="ti_pic">
+                                <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Testimony2.jpeg" alt="">
+                            </div>
+                            <div class="ti_text">
+                                <p>Being awarded a full scholarship was a life-changing moment, and being part of this journey made me a stronger, more determined individual. This opportunity not only shaped me academically but also introduced me to incredible mentors and lifelong friends. It taught me valuable life skills that extend far beyond the classroom. Truly an amazing experience!</p>
+                                <h5>Takiyah Blue</h5>
+                                <div class="tt-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
                         </div>
-                        <ul>
-                            <li>Free riding</li>
-                            <li>Unlimited equipments</li>
-                            <li>Personal trainer</li>
-                            <li>Weight losing classes</li>
-                            <li>Month to mouth</li>
-                            <li>No time restriction</li>
-                        </ul>
-                        <a href="#" class="primary-btn pricing-btn">Enroll now</a>
-                        <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a>
                     </div>
-                </div> -->
-                
-                
+                </div>
+                 
             </div>
         </div>
     </section>
-    <!-- Pricing Section End -->
+    <!-- Testimonials Section End -->
+
+    <!-- FAQ Section Begin -->
+    <!-- <section class="faq-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <span class="highlight-text">FAQ</span>
+                        <h2>Common Questions</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="faq-accordion" id="faqAccordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">
+                                        What ages do you accept?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    High Voltage Track Club welcomes athletes from ages 7-18. We organize training groups by age and ability to ensure appropriate development.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo">
+                                        When does the season begin?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    Our main season begins in March and runs through July, with championships in late summer. We also offer fall and winter conditioning programs for year-round development.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree">
+                                        Is financial assistance available?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    Yes, we offer a limited number of need-based scholarships. Please contact us directly to discuss financial assistance options. We're committed to making track accessible to all dedicated athletes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- FAQ Section End -->
 
     <!-- Get In Touch Section Begin -->
     <div class="gettouch-section">
@@ -302,7 +482,7 @@
                 <div class="col-md-4">
                     <div class="gt-text">
                         <i class="fa fa-map-marker"></i>
-                        <p>Seattle <br/> Washington.</p>
+                        <p>Seattle <br/> Washington</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -332,15 +512,15 @@
                 <div class="col-lg-4">
                     <div class="fs-about">
                         <div class="fa-logo">
-                            <a href="#"><img src="https://highvoltagetrack.com/wp-content/uploads/2025/02/logo_2.jpg" alt=""></a>
+                            <a href="#"><img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/framed.jpeg" alt="High Voltage Track Club Logo"></a>
                         </div>
-                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
+                        <p>High Voltage Track and Field has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
                         <div class="fa-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
                             <a href="#"><i class="fa fa-youtube-play"></i></a>
                             <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa  fa-envelope-o"></i></a>
+                            <a href="#"><i class="fa fa-envelope-o"></i></a>
                         </div>
                     </div>
                 </div>
@@ -348,10 +528,10 @@
                     <div class="fs-widget">
                         <h4>Useful links</h4>
                         <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Gallery</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="{% url 'coaches' %}">Coaches</a></li>
+                            <li><a href="{% url 'schedule' %}">Schedule</a></li>
+                            <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -359,10 +539,10 @@
                     <div class="fs-widget">
                         <h4>Support</h4>
                         <ul>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Resources</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                            <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -389,7 +569,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="copyright-text">
-                        <p></p>
+                        <p>Copyright &copy; 2025 High Voltage Track and Field. All rights reserved.</p>
                     </div>
                 </div>
             </div>
@@ -407,8 +587,6 @@
         </div>
     </div>
     <!-- Search model end -->
-
-    <!-- Js Plugins -->
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
@@ -417,9 +595,530 @@
     <script src="{% static 'js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <style>
+        /* Dark Theme Base Styles */
+        body.dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
 
+        .dark-theme .section-title h2 {
+            color: #e0e0e0;
+        }
+
+        .dark-theme .section-title span {
+            color: #d3f300;
+        }
+
+        .dark-theme .highlight-text {
+            color: #d3f300;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 80px 0;
+            background-color: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(166, 243, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+            z-index: 1;
+        }
+
+        .hero-section .hero-text {
+            position: relative;
+            z-index: 2;
+            padding: 40px 20px;
+        }
+
+        .hero-section h2 {
+            font-size: 42px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .hero-section .hero-subtitle {
+            color: #e0e0e0;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .pulse-btn {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(140, 255, 0, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(243, 97, 0, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(243, 97, 0, 0);
+            }
+        }
+
+        /* Registration Section */
+        /* Registration Section */
+.registration-section {
+    background-color: #181818;
+    position: relative;
+}
+
+.registration-steps {
+    margin-top: 30px;
+}
+
+.step-item {
+    display: flex;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #222222;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    border-left: 3px solid #d3f300;
+}
+
+.step-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #d3f300;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.step-icon i {
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.step-content h4 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.step-content p {
+    color: #b3b3b3;
+    margin-bottom: 0;
+}
+
+.registration-benefits {
+    background-color: #222222;
+    padding: 30px;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.benefits-list li {
+    position: relative;
+    padding: 10px 0 10px 30px;
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+.benefits-list li i {
+    position: absolute;
+    left: 0;
+    top: 12px;
+    color: #d3f300;
+}
+
+.contact-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #333333;
+}
+
+.contact-info p {
+    color: #b3b3b3;
+}
+
+.contact-info a {
+    color: #d3f300;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Pricing & Registration Section */
+.pricing-registration-section {
+    background-color: #121212;
+}
+
+.pricing-card {
+    background-color: #222222;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.price-header {
+    background-color: #d3f300;
+    padding: 30px;
+    text-align: center;
+}
+
+.price-header h3 {
+    margin: 0 0 15px;
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.price {
+    font-size: 48px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.currency {
+    font-size: 24px;
+    vertical-align: super;
+}
+
+.price-features {
+    padding: 30px;
+}
+
+.price-features ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.price-features li {
+    padding: 10px 0;
+    color: #e0e0e0;
+    border-bottom: 1px solid #333333;
+}
+
+.price-features li:last-child {
+    border-bottom: none;
+}
+
+.price-features li i {
+    color: #d3f300;
+    margin-right: 10px;
+}
+
+.price-action {
+    padding: 0 30px 30px;
+    text-align: center;
+}
+
+.pricing-btn {
+    width: 100%;
+    padding: 12px 0;
+}
+
+/* Registration Form */
+/*.registration-form {
+    background-color: #222222;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.registration-form .form-group {
+    margin-bottom: 20px;
+}
+
+.registration-form label {
+    display: block;
+    color: #e0e0e0;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.registration-form .required {
+    color: #f36100;
+}
+
+.registration-form input, 
+.registration-form textarea, 
+.registration-form select {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #333333;
+    border: 1px solid #444444;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.registration-form input:focus, 
+.registration-form textarea:focus, 
+.registration-form select:focus {
+    border-color: #f36100;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(243, 97, 0, 0.3);
+}
+
+.registration-form input::placeholder, 
+.registration-form textarea::placeholder {
+    color: #888888;
+}
+
+.registration-form textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    width: auto !important;
+    margin-right: 10px;
+}
+
+.form-check-label {
+    margin-bottom: 0;
+}
+
+.form-check-label a {
+    color: #f36100;
+    text-decoration: none;
+}
+
+.form-check-label a:hover {
+    text-decoration: underline;
+}
+
+/* Testimonial Section
+.testimonial-section {
+    background-color: #181818;
+}
+
+.testimonial-item {
+    background-color: #222222;
+    padding: 30px;
+    border-radius: 5px;
+    margin: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ti-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.ta-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.ta-pic img {
+    width: 100%;
+}
+
+.ta-text h5 {
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.ta-text span {
+    color: #f36100;
+    font-size: 14px;
+}
+
+.testimonial-item p {
+    color: #b3b3b3;
+    font-style: italic;
+    position: relative;
+    padding: 0 20px;
+}
+
+.testimonial-item p:before,
+.testimonial-item p:after {
+    content: '"';
+    font-size: 50px;
+    color: #f36100;
+    opacity: 0.3;
+    position: absolute;
+    line-height: 0.8;
+}
+
+.testimonial-item p:before {
+    top: 0;
+    left: 0;
+}
+
+.testimonial-item p:after {
+    bottom: 0;
+    right: 0;
+} -->
+
+/* FAQ Section */
+/* .faq-section {
+    background-color: #121212;
+}
+
+.faq-accordion .card {
+    background-color: transparent;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.faq-accordion .card-header {
+    padding: 0;
+    background-color: #222222;
+    border: none;
+    border-radius: 5px;
+}
+
+.faq-accordion .btn-link {
+    width: 100%;
+    text-align: left;
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-accordion .btn-link:after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    color: #f36100;
+}
+
+.faq-accordion .btn-link[aria-expanded="true"]:after {
+    content: '-';
+}
+
+.faq-accordion .card-body {
+    background-color: #222222;
+    color: #b3b3b3;
+    padding: 0 20px 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* Media Queries */
+@media (max-width: 991px) {
+    .hero-section h2 {
+        font-size: 36px;
+    }
+    
+    .pricing-card {
+        margin-bottom: 30px;
+    }
+    
+    .registration-benefits {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-section h2 {
+        font-size: 30px;
+    }
+    
+    .step-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .step-icon {
+        margin: 0 auto 20px;
+    }
+    
+    .testimonial-item {
+        padding: 20px;
+    }
+    
+    .ti-author {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ta-pic {
+        margin: 0 auto 10px;
+    }
+    
+    .faq-accordion .btn-link {
+        font-size: 14px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 575px) {
+    .section-title h2 {
+        font-size: 24px;
+    }
+    
+    .hero-section h2 {
+        font-size: 26px;
+    }
+    
+    .hero-section .hero-subtitle {
+        font-size: 16px;
+    }
+    
+    .price-header {
+        padding: 20px;
+    }
+    
+    .price {
+        font-size: 40px;
+    }
+}
+    </style>
 
 
 </body>
-
-</html>
