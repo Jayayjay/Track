@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -16,14 +15,14 @@
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{% static './css/logo.css' %}", type="text/css">
-    <link rel="stylesheet" href="{% static './css/bootstrap.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/font-awesome.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/flaticon.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/owl.carousel.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/barfiller.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/magnific-popup.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/slicknav.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/style.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/flaticon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/barfiller.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/style.css' %}" type="text/css">
 </head>
 
 <body>
@@ -47,11 +46,11 @@
                 <li><a href="{% url 'about' %}">About Us</a></li>
                 <li><a href="{% url 'coaches' %}">Coaches</a></li>
                 <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
-                <li><a href="{% url ' registeration' %}">Registration</a></li>
+                <li><a href="{% url '404' %}">Registration</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'about' %}">About us</a></li>
-                        <!-- <li><a href="./ registeration.html">Merch</a></li> -->
+                        <!-- <li><a href="./404.html">Merch</a></li> -->
                     </ul>
                 </li>
                 <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
@@ -74,7 +73,7 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <a href="{% url 'index' %}">
-                            <img class="logo-resize" srcset="{% static 'img/logo.png' %}" alt="">
+                            <img class="logo-resize" srcset=" https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -84,12 +83,15 @@
                             <li class="active"><a href="{% url 'index' %}">Home</a></li>
                             <li><a href="{% url 'about' %}">About Us</a></li>
                             <li><a href="{% url 'coaches' %}">Coaches</a></li>
+                            <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
+                            <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
                             <li><a href="{% url 'registeration' %}">Registration</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="{% url 'about' %}">About us</a></li>
                                     <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
-                                    <li><a href="{% url 'registeration' %}"> registeration</a></li>
+                                    <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
+                                    <!-- <li><a href="./404.html">404</a></li> -->
                                 </ul>
                             </li>
                             <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
@@ -125,7 +127,7 @@
                     <div class="breadcrumb-text">
                         <h2>Contact Us</h2>
                         <div class="bt-option">
-                            <a href="{% url 'index' %}">Home</a>
+                            <a href="{% url 'index.html' %}">Home</a>
                             <a href="#">Pages</a>
                             <span>Contact us</span>
                         </div>
@@ -153,7 +155,8 @@
                         <div class="cw-text">
                             <i class="fa fa-mobile"></i>
                             <ul>
-                                <li>206-898-7086</li>
+                                <li>123-123-123</li>
+                                <li>123-123-123</li>
                             </ul>
                         </div>
                         <div class="cw-text email">
@@ -162,12 +165,23 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div class="col-lg-6">
+                    <div class="leave-comment">
+                        <form action="#">
+                            <input type="text" placeholder="Name">
+                            <input type="text" placeholder="Email">
+                            <input type="text" placeholder="Website">
+                            <textarea placeholder="Comment"></textarea>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div> -->
                 <div class="col-lg-6">
                     <div class="leave-comment">
                         <form action="#", method="POST" style="color:white;">
                             {% csrf_token %}
                             {{ form.as_p}}
-                            </textarea>
+                             
                             <button type="submit">Submit</button>
                         </form>
                     </div>
@@ -203,7 +217,7 @@
                 <div class="col-md-4">
                     <div class="gt-text email">
                         <i class="fa fa-envelope"></i>
-                        <p>highvoltage80@yahoo.com</p>
+                        <p>highvoltage80@yahoo.com </p>
                     </div>
                 </div>
             </div>
@@ -217,9 +231,9 @@
                 <div class="col-lg-4">
                     <div class="fs-about">
                         <div class="fa-logo">
-                            <a href="#"><img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/framed.png" alt=""></a>
+                            <a href="#"><img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/framed.jpeg" alt=""></a>
                         </div>
-                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
+                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 t trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
                         <div class="fa-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -302,6 +316,7 @@
     <script src="{% static 'js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
 
 
 

@@ -165,13 +165,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6">
                     <div class="leave-comment">
                         <form action="#">
                             <input type="text" placeholder="Name">
                             <input type="text" placeholder="Email">
                             <input type="text" placeholder="Website">
                             <textarea placeholder="Comment"></textarea>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div> -->
+                <div class="col-lg-6">
+                    <div class="leave-comment">
+                        <form action="#", method="POST" style="color:white;">
+                            {% csrf_token %}
+                            {{ form.as_p}}
+                            </textarea>
                             <button type="submit">Submit</button>
                         </form>
                     </div>
@@ -223,7 +233,7 @@
                         <div class="fa-logo">
                             <a href="#"><img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/framed.jpeg" alt=""></a>
                         </div>
-                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
+                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 t trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
                         <div class="fa-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
