@@ -1,527 +1,194 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="zxx">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="HVTF">
-    <meta name="keywords" content="HVTF">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HighVoltageTrack</title>
+{% block title %}About Us{% endblock %}
+{% block meta_desc %}Learn about High Voltage Track Club — founded 2005 in Seattle, WA by Coach Johnnie K. Williams.{% endblock %}
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+{% block content %}
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="{% static 'css/logo.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/barfiller.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/magnifigc-popup.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
-    <style>
-        .media-section .video-container {
-            position: relative;
-            padding-bottom: 60%; /* Increased for larger 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
-            margin: 0 auto;
-
-        }
-        .media-section .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        .media-section .img-container img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            max-height: 400px;
-        }
-        @media (max-width: 768px) {
-            .media-section .video-container {
-                padding-bottom: 56.25%; /* Standard 16:9 for smaller screens */
-            }
-            .media-section .img-container img {
-                max-height: 300px;
-            }
-        }
-        @media (max-width: 576px) {
-            .media-section .video-container {
-                padding-bottom: 75%; /* Adjusted for mobile */
-            }
-            .media-section .img-container img {
-                max-height: 250px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
+<!-- ── PAGE HEADER ── -->
+<div class="page-header" style="background-image: url('https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/banner.jpg');">
+  <div class="page-header__content">
+    <h1 class="page-header__title">About Us</h1>
+    <div class="breadcrumb-bar">
+      <a href="{% url 'index' %}">Home</a>
+      <span class="sep">/</span>
+      <span>About</span>
     </div>
+  </div>
+</div>
 
-    <!-- Offcanvas Menu Section Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="canvas-close">
-            <i class="fa fa-close"></i>
-        </div>
-        <div class="canvas-search search-switch">
-            <i class="fa fa-search"></i>
-        </div>
-        <nav class="canvas-menu mobile-menu">
-            <ul>
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'about' %}">About Us</a></li>
-                <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
-                <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                <li><a href="{% url 'registeration' %}">Registration</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="dropdown">
-                        <li><a href="{% url 'about' %}">About us</a></li>
-                    </ul>
-                </li>
-                <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="canvas-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-youtube-play"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
+<!-- ── MISSION FEATURES ── -->
+<section class="features-section spad">
+  <div class="hvt-container" style="margin-bottom:32px;">
+    <span class="section-label">High Voltage Track & Field</span>
+    <h2 class="section-heading on-dark">Who We <span class="accent">Are</span></h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-card__num">01</div>
+      <div class="feature-card__title">Mission</div>
+      <p class="feature-card__text">Develop physical fitness, teamwork, and life skills for youth ages 7–18 while providing memorable competitive experiences.</p>
     </div>
-    <!-- Offcanvas Menu Section End -->
-
-    <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="logo">
-                        <a href="{% url 'index' %}">
-                            <img class="logo-resize" src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="nav-menu">
-                        <ul>
-                            <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                            <li><a href="{% url 'about' %}">About Us</a></li>
-                            <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                            <li><a href="{% url 'registeration' %}">Registration</a></li>
-                            <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
-                            <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="top-option">
-                        <div class="to-search search-switch">
-                            <i class="fa fa-search"></i>
-                        </div>
-                        <div class="to-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas-open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header End -->
-
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/banner.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb-text">
-                        <h2>About us</h2>
-                        <div class="bt-option">
-                            <a href="{% url 'about' %}">Home</a>
-                            <span>About</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-
-    <!-- ChoseUs Section Begin -->
-    <section class="choseus-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <span></span>
-                        <h2>High Voltage Track and Field</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-034-stationary-bike"></span>
-                        <h4>Mission</h4>
-                        <p>Develop physical fitness, teamwork, and life skills for youth ages 7-18 while providing memorable experiences. </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-033-juice"></span>
-                        <h4>Achievement</h4>
-                        <p> Trained over 900 athletes, with many earning Division I scholarships and 100+ national competition medals. </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-002-dumbell"></span>
-                        <h4>Community Focus</h4>
-                        <p>Accepts athletes from all backgrounds, promoting growth and inclusion.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-014-heart-beat"></span>
-                        <h4>Volunteer-Driven</h4>
-                        <p>Operated by dedicated volunteer coaches passionate about building a stronger community through sports. </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ChoseUs Section End -->
-
-    <!-- About US Section Begin -->
-    <section class="aboutus-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 p-0">
-                    <div class="about-video set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/video.jpeg">
-                        <iframe width="860" height="640" src="https://www.youtube.com/embed/yjaDFaWvYQ4?si=0F2qzMcdNGsmRpXx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="col-lg-6 p-0">
-                    <div class="about-text">
-                        <div class="section-title">
-                            <span>About Us</span>
-                            <h2>What we have done</h2>
-                        </div>
-                        <div class="at-desc">
-                            <p>The High Voltage Track Club was founded in 2005 in Seattle by Coach Johnnie K. Williams. All athletes who participate come from the suburbs and the inner-city of Seattle. We are sanctioned by the National Governing body and its local Northwest Association for Track and Field.
-
-                                We strive to promote excellence through Track and Field  while building team, life and social skills. We offer coaching to youth ages 7-18 years old who are interested in improving their physical fitness, mental and teamwork skills through organized Track and Field. We also strive to send each and every one of our athletes on their way with a memorable experience.
-                                
-                                Since 2005 we have trained over 900 athletes and many have gone on to receive Division I athletic scholarships. We have successfully sent over 100+ athletes back home to Seattle with a medal from the National Competition. The High Voltage Track Club has enabled our youth athletes to excel through Track and Field. We are strong believers that a true Track and Field Program accepts any and all athletes who wish to better themselves through the sport.
-                                
-                                The High Voltage Track Club is a nonprofit organization. The coaching staff consist of volunteers who strongly believe in creating community through Track and Field. For more information about us, please continue to browse, and thank you again for considering the High Voltage Track Club.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- About US Section End -->
-
-    <!-- Media Section Begin -->
-    <section class="media-section spad" style="background-color: #000000;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <span>Our Media</span>
-                        <h2>Highlights & Moments</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-8 col-12 mb-4">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/ehQW5GQVj_0?si=wttcKod1_bjRoWqn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-8 col-12 mb-4">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/Fccz7epvv1s?si=NyDZS0jxbNKVmpwm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <!-- <div class="col-lg-8 col-md-10 col-12 mb-4">
-                    <div class="img-container">
-                        <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/winner.png" alt="Track and Field Moment">
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </section>
-    <!-- Media Section End -->
-
-    <!-- Team Section Begin -->
-    <section class="team-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="team-title">
-                        <div class="section-title">
-                            <span>Our Team</span>
-                            <h2>COACHES</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="ts-slider owl-carousel">
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/johnnie.jpeg">
-                            <div class="ts_text">
-                                <h4>Johnnie Williams</h4>
-                                <span>Coach</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/howard.jpeg">
-                            <div class="ts_text">
-                                <h4>Howard Kellog</h4>
-                                <span>Coach</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Wurrie.jpeg">
-                            <div class="ts_text">
-                                <h4>Wurrie Njadoe</h4>
-                                <span>Coach</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/M.jpeg">
-                            <div class="ts_text">
-                                <h4>Jake B.</h4>
-                                <span>Coach</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Team Section Begin -->
-
-    <!-- Banner Section Begin -->
-    <section class="banner-section set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/runner.png">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="bs-text">
-                        <h2>High Voltage Track & Field</h2>
-                        <div class="bt-tips" style="color:white">Team, Pride, and Dedication</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Banner Section End -->
-
-    <!-- Testimonial Section Begin -->
-    <section class="testimonial-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <span>Testimonial</span>
-                        <h2>Testimonials from Athletes and Alumni </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="ts_slider owl-carousel">
-                <div class="ts_item">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <div class="ti_pic">
-                                <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Testimony.jpeg" alt="">
-                            </div>
-                            <div class="ti_text">
-                                <p>Winning a medal at the national championships was an unforgettable achievement. Being part of this journey not only made me a better athlete but also introduced me to lifelong friends and invaluable life skills. The experience was truly amazing and shaped me in ways beyond the competition!</p>
-                                <h5>Hailee Foster</h5>
-                                <div class="tt-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ts_item">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <div class="ti_pic">
-                                <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Testimony2.jpeg" alt="">
-                            </div>
-                            <div class="ti_text">
-                                <p>Being awarded a full scholarship was a life-changing moment, and being part of this journey made me a stronger, more determined individual. This opportunity not only shaped me academically but also introduced me to incredible mentors and lifelong friends. It taught me valuable life skills that extend far beyond the classroom. Truly an amazing experience!</p>
-                                <h5>Takiyah Blue</h5>
-                                <div class="tt-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Testimonial Section End -->
-
-    <!-- Get In Touch Section Begin -->
-    <div class="gettouch-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-map-marker"></i>
-                        <p>Seattle <br/> Washington.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-mobile"></i>
-                        <ul>
-                            <li>Phone line</li>
-                            <li>206-898-7086</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text email">
-                        <i class="fa fa-envelope"></i>
-                        <p>highvoltage80@yahoo.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="feature-card">
+      <div class="feature-card__num">02</div>
+      <div class="feature-card__title">Achievement</div>
+      <p class="feature-card__text">Trained over 900 athletes, with many earning Division I scholarships and 100+ national competition medals.</p>
     </div>
-    <!-- Get In Touch Section End -->
-
-    <!-- Footer Section Begin -->
-    <section class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="fs-about">
-                        <div class="fa-logo">
-                            <a href="#"><img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/framed.jpeg" alt=""></a>
-                        </div>
-                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
-                        <div class="fa-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-envelope-o"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Useful links</h4>
-                        <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="fs-widget">
-                        <h4>Tips & Guides</h4>
-                        <div class="fw-recent">
-                            <h6><a href="#">Physical fitness may help prevent depression, anxiety</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                        <div class="fw-recent">
-                            <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="copyright-text">
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer Section End -->
-
-    <!-- Search model Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
+    <div class="feature-card">
+      <div class="feature-card__num">03</div>
+      <div class="feature-card__title">Community Focus</div>
+      <p class="feature-card__text">Athletes accepted from all backgrounds, promoting growth, inclusion, and civic pride across Seattle.</p>
     </div>
-    <!-- Search model end -->
+    <div class="feature-card">
+      <div class="feature-card__num">04</div>
+      <div class="feature-card__title">Volunteer-Driven</div>
+      <p class="feature-card__text">Operated by dedicated volunteer coaches passionate about building a stronger community through sports.</p>
+    </div>
+  </div>
+</section>
 
-    <!-- Js Plugins -->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/jquery.barfiller.js' %}"></script>
-    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-</body>
+<!-- ── STORY SPLIT ── -->
+<section class="split-section">
+  <div class="split-section__media" style="position:relative;">
+    <iframe
+      src="https://www.youtube.com/embed/yjaDFaWvYQ4?si=0F2qzMcdNGsmRpXx"
+      title="High Voltage Track Club"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <div class="split-section__content">
+    <span class="section-label dark">Our Story</span>
+    <h2 class="section-heading">What We Have <span class="accent">Done</span></h2>
+    <p style="margin-bottom:14px;">
+      The High Voltage Track Club was founded in 2005 in Seattle by Coach Johnnie K. Williams.
+      Athletes come from the suburbs and inner-city of Seattle alike. We are sanctioned by the
+      National Governing body and its local Northwest Association for Track and Field.
+    </p>
+    <p style="margin-bottom:14px;">
+      We strive to promote excellence through Track and Field while building team, life and social
+      skills. We offer coaching to youth ages 7–18 who are interested in improving their physical
+      fitness, mental toughness, and teamwork through organized competition.
+    </p>
+    <p style="margin-bottom:28px;">
+      We also strive to send each and every one of our athletes on their way with a memorable
+      experience — one that shapes them beyond the finish line.
+    </p>
+    <a href="{% url 'registeration' %}" class="btn-hvt btn-primary">Join the Club</a>
+  </div>
+</section>
 
-</html>
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stats-bar__inner">
+    <div class="stats-bar__item">
+      <span class="stats-bar__num">2005</span>
+      <span class="stats-bar__label">Year Founded</span>
+    </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__num">900+</span>
+      <span class="stats-bar__label">Athletes Trained</span>
+    </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__num">100+</span>
+      <span class="stats-bar__label">National Medals</span>
+    </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__num">7–18</span>
+      <span class="stats-bar__label">Age Range</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── MEDIA ── -->
+<section class="spad bg-dark">
+  <div class="hvt-container" style="margin-bottom:32px;">
+    <span class="section-label">Our Media</span>
+    <h2 class="section-heading on-dark">Highlights & <span class="accent">Moments</span></h2>
+  </div>
+  <div class="hvt-container">
+    <div class="media-grid">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/ehQW5GQVj_0?si=wttcKod1_bjRoWqn"
+          title="HVTF Highlight 1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/Fccz7epvv1s?si=NyDZS0jxbNKVmpwm"
+          title="HVTF Highlight 2"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COACHES TEASER ── -->
+<section class="spad bg-dark-2">
+  <div class="hvt-container" style="margin-bottom:36px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+    <div>
+      <span class="section-label">The Staff</span>
+      <h2 class="section-heading on-dark">Our <span class="accent">Coaches</span></h2>
+    </div>
+    <a href="{% url 'coaches' %}" class="btn-hvt btn-dark">View All</a>
+  </div>
+  <div class="hvt-container">
+    <div class="coaches-grid">
+      <div class="coach-card">
+        <img class="coach-card__img" src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/johnnie.jpeg" alt="Johnnie Williams">
+        <div class="coach-card__overlay">
+          <div class="coach-card__name">Johnnie Williams</div>
+          <div class="coach-card__role">Head Coach · Sprints & Relays</div>
+        </div>
+      </div>
+      <div class="coach-card">
+        <img class="coach-card__img" src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/howard.jpeg" alt="Howard Kellogg">
+        <div class="coach-card__overlay">
+          <div class="coach-card__name">Howard Kellogg</div>
+          <div class="coach-card__role">Throws Coach</div>
+        </div>
+      </div>
+      <div class="coach-card">
+        <img class="coach-card__img" src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Wurrie.jpeg" alt="Wurrie Njadoe">
+        <div class="coach-card__overlay">
+          <div class="coach-card__name">Wurrie Njadoe</div>
+          <div class="coach-card__role">Jumps Coach</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="testimonials-section bg-dark">
+  <div class="hvt-container">
+    <span class="section-label" style="margin-bottom:8px;">Athlete Stories</span>
+    <h2 class="section-heading on-dark" style="margin-bottom:36px;">What Our <span class="accent">Athletes</span> Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-card__text">
+          "Winning a medal at the national championships was an unforgettable achievement. Being part of this journey not only made me a better athlete but also introduced me to lifelong friends and invaluable life skills."
+        </p>
+        <div class="testimonial-card__author">
+          <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Testimony.jpeg" alt="Athlete">
+          <span class="testimonial-card__name">HVTF Athlete</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-card__text">
+          "Being awarded a full scholarship was a life-changing moment. This opportunity shaped me academically and introduced me to incredible mentors and lifelong friends. Truly an amazing experience."
+        </p>
+        <div class="testimonial-card__author">
+          <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Testimony2.jpeg" alt="Athlete">
+          <span class="testimonial-card__name">HVTF Alumna</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

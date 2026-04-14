@@ -1,399 +1,146 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="zxx">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="HVTF">
-    <meta name="keywords" content="HVTF">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HighVoltageTrack</title>
+{% block title %}Coaches{% endblock %}
+{% block meta_desc %}Meet the High Voltage Track Club coaching staff — expert volunteer coaches specializing in sprints, hurdles, throws, jumps, and distance.{% endblock %}
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+{% block content %}
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="{% static './css/logo.css' %}", type="text/css">
-    <link rel="stylesheet" href="{% static './css/bootstrap.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/font-awesome.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/flaticon.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/owl.carousel.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/barfiller.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/magnific-popup.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/slicknav.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static './css/style.css'%}" type="text/css">
-</head>
+<!-- ── PAGE HEADER ── -->
+<div class="page-header" style="background-image: url('https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/banner_3.png');">
+  <div class="page-header__content">
+    <h1 class="page-header__title">Our Coaches</h1>
+    <div class="breadcrumb-bar">
+      <a href="{% url 'index' %}">Home</a>
+      <span class="sep">/</span>
+      <span>Coaches</span>
+    </div>
+  </div>
+</div>
 
-<body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
+<!-- ── INTRO ── -->
+<section class="spad-sm bg-dark-2" style="border-bottom:1px solid #1e1e1e;">
+  <div class="hvt-container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
+    <div>
+      <span class="section-label">The Staff</span>
+      <h2 class="section-heading on-dark">Train With <span class="accent">Experts</span></h2>
+    </div>
+    <a href="{% url 'contact:contact_page' %}" class="btn-hvt btn-dark">Contact Us</a>
+  </div>
+</section>
+
+<!-- ── COACHES LIST ── -->
+<section class="spad bg-dark">
+  <div class="hvt-container">
+
+    <!-- Johnnie Williams -->
+    <div class="coach-card-full">
+      <img class="coach-card-full__img"
+        src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/johnnie.jpeg"
+        alt="Johnnie Williams">
+      <div class="coach-card-full__info">
+        <h3 class="coach-card-full__name">Johnnie Williams</h3>
+        <span class="coach-card-full__role">Head Coach · Sprints & Relays</span>
+        <p class="coach-card-full__bio">
+          Born in Seattle, WA, Williams began his Track and Field career at age 5 in the Seattle
+          Parks and Recreation track program. He is currently the EWU record holder in the 55m,
+          60m, and 200m indoor, as well as the 100m and 200m outdoor. Coach Williams is also the
+          Athletic Director for Seattle Parks and Recreation, bringing institutional knowledge and
+          elite competitive experience to every practice.
+        </p>
+      </div>
     </div>
 
-    <!-- Offcanvas Menu Section Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="canvas-close">
-            <i class="fa fa-close"></i>
-        </div>
-        <div class="canvas-search search-switch">
-            <i class="fa fa-search"></i>
-        </div>
-        <nav class="canvas-menu mobile-menu">
-            <ul>
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'about' %}">About Us</a></li>
-                <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
-                <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                <!-- <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li> -->
-                <li><a href="{% url 'registeration' %}">Registration</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="dropdown">
-                        <li><a href="{% url 'about' %}">About us</a></li>
-                        <!-- <li><a href="./404.html">Merch</a></li> -->
-                    </ul>
-                </li>
-                <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="canvas-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-youtube-play"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
+    <!-- Kathleen Collins -->
+    <div class="coach-card-full">
+      <img class="coach-card-full__img"
+        src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/placeholder.webp"
+        alt="Kathleen Collins">
+      <div class="coach-card-full__info">
+        <h3 class="coach-card-full__name">Kathleen Collins</h3>
+        <span class="coach-card-full__role">Sprints & Hurdles</span>
+        <p class="coach-card-full__bio">
+          Started coaching at High Point Community Center when she moved to West Seattle in 2007.
+          It was there she met and coached alongside Johnnie Williams before joining High Voltage
+          in 2008. Kathleen focuses on the 400 meters — "the best race in track" — and still
+          holds her Jr. High School record for the 100 yards.
+        </p>
+      </div>
     </div>
-    <!-- Offcanvas Menu Section End -->
 
-    <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="logo">
-                        <a href="{% url 'index' %}">
-                            <img class="logo-resize" srcset="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="nav-menu">
-                        <ul>
-                            <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                            <li><a href="{% url 'about' %}">About Us</a></li>
-                            <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                            <li><a href="{% url 'registeration' %}">Registration</a></li>
-                            <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
-                             
-                            <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="top-option">
-                        <div class="to-search search-switch">
-                            <i class="fa fa-search"></i>
-                        </div>
-                        <div class="to-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas-open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header End -->
-
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/banner_3.png">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb-text">
-                        <h2>Our Team</h2>
-                        <div class="bt-option">
-                            <a href="{% url 'index' %}">Home</a>
-                            <span>Coaches</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-
-    <!-- Team Section Begin -->
-    <section class="team-section team-page spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="team-title">
-                        <div class="section-title">
-                            <span>Our Team</span>
-                            <h2>TRAIN WITH EXPERTS</h2>
-                        </div>
-                        <a href="{% url 'contact:contact_page' %}" class="primary-btn btn-normal appoinment-btn" style="color: #fff;">Contact Us </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/johnnie.jpeg">
-                        <div class="ts_text">
-                            <h4>Johnnie Williams</h4>
-                            <span>Coach (Sprints & Relays)
-                               
-                            </span>
-                            <h6 style="color: #fff;"> Born in Seattle, WA. Williams began his Track and Field career at the age of 5 in the Seattle Parks and Recreation track program. Currently, Johnnie Williams is the EWU record holder in the 55m, 60m, 200m indoor and the 100m and 200m meters outdoor. Coach Williams is the Athletic Director for Seattle Parks and Recreation.     </h6>
-                            <div class="tt_social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/placeholder.webp">
-                        <div class="ts_text">
-                            <h4>Kathleen Collins </h4>
-                            <span>Coach (Sprint & Hurdles)
-                            </span>
-                            <h6 style="color: #fff;"> Started coaching for High Point Community Center when she moved to West Seattle in 2007. It was there that she met and coached with Johnnie Williams. She joined High Voltage in 2008, focusing on the 400 meters, which she says “is the best race in track”. She was a sprinter from a young age and still holds her Jr. High School record for the 100 yards, yes “yards”.</h6>
-                            <div class="tt_social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/howard.jpeg">
-                        <div class="ts_text">
-                            <h4>Howard Kellogg</h4>
-                            <span>Coach (Throws)
-                            </span>
-                            <h6 style="color: #fff;"> </h6>
-                            <div class="tt_social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/placeholder.webp">
-                        <div class="ts_text">
-                            <h4>Jeanine Shepherd</h4>
-                            <span>Coach (Sprints)
-                            </span>
-                            <h6 style="color: #fff;"> </h6>
-                            <div class="tt_social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/M.jpeg">
-                        <div class="ts_text">
-                            <h4>Jake B.</h4>
-                            <span>Coach (Distance)
-                            </span>
-                            <h6 style="color: #fff;">  </h6>
-                            <div class="tt_social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Wurrie.jpeg">
-                        <div class="ts_text">
-                            <h4>Wurrie Njadoe</h4>
-                            <span>Coach (Jumps)
-                            </span>
-                            <h6 style="color: #fff;">  </h6>
-                            <div class="tt_social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <!-- <div class="ts-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/placeholder.webp">
-                        <div class="ts_text">
-                            <h4>Rick Noji</h4>
-                            <span>Coach (Jumps)
-                            </span>
-                            <h6 style="color: #fff;">  </h6>
-                            <div class="tt_social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
-        </div>
-    </section>
-    <!-- Team Section End -->
-
-    <!-- Get In Touch Section Begin -->
-    <div class="gettouch-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-map-marker"></i>
-                        <p>Seattle <br/> Washington.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-mobile"></i>
-                        <ul>
-                            <li>Phone line</li>
-                            <li>206-898-7086</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text email">
-                        <i class="fa fa-envelope"></i>
-                        <p>highvoltage80@yahoo.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <!-- Get In Touch Section End -->
-
-    <!-- Footer Section Begin -->
-    <section class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="fs-about">
-                        <div class="fa-logo">
-                            <a href="#"><img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/framed.jpeg" alt=""></a>
-                        </div>
-                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 t Trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
-                        <div class="fa-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Useful links</h4>
-                        <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Gallery</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="fs-widget">
-                        <h4>Tips & Guides</h4>
-                        <div class="fw-recent">
-                            <h6><a href="#">Physical fitness may help prevent depression, anxiety</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                        <div class="fw-recent">
-                            <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="copyright-text">
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer Section End -->
-
-    <!-- Search model Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
+    <!-- Howard Kellogg -->
+    <div class="coach-card-full">
+      <img class="coach-card-full__img"
+        src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/howard.jpeg"
+        alt="Howard Kellogg">
+      <div class="coach-card-full__info">
+        <h3 class="coach-card-full__name">Howard Kellogg</h3>
+        <span class="coach-card-full__role">Throws</span>
+        <p class="coach-card-full__bio">
+          Specialist in shot put, discus, javelin, and hammer. Coach Kellogg brings technical
+          precision and competitive depth to the throws program, developing athletes for both
+          regional and national championships.
+        </p>
+      </div>
     </div>
-    <!-- Search model end -->
 
-    <!-- Js Plugins -->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/jquery.barfiller.js' %}"></script>
-    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+    <!-- Jeanine Shepherd -->
+    <div class="coach-card-full">
+      <img class="coach-card-full__img"
+        src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/placeholder.webp"
+        alt="Jeanine Shepherd">
+      <div class="coach-card-full__info">
+        <h3 class="coach-card-full__name">Jeanine Shepherd</h3>
+        <span class="coach-card-full__role">Sprints</span>
+        <p class="coach-card-full__bio">
+          A dedicated sprint coach who works closely with developing athletes on start mechanics,
+          acceleration phases, and race tactics across the short sprint events.
+        </p>
+      </div>
+    </div>
 
+    <!-- Jake B. -->
+    <div class="coach-card-full">
+      <img class="coach-card-full__img"
+        src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/M.jpeg"
+        alt="Jake B.">
+      <div class="coach-card-full__info">
+        <h3 class="coach-card-full__name">Jake B.</h3>
+        <span class="coach-card-full__role">Distance</span>
+        <p class="coach-card-full__bio">
+          Leads the distance program with a focus on pacing strategy, aerobic base building,
+          and developing mental toughness across the 800m, 1500m, and 3000m events.
+        </p>
+      </div>
+    </div>
 
-</body>
+    <!-- Wurrie Njadoe -->
+    <div class="coach-card-full">
+      <img class="coach-card-full__img"
+        src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Wurrie.jpeg"
+        alt="Wurrie Njadoe">
+      <div class="coach-card-full__info">
+        <h3 class="coach-card-full__name">Wurrie Njadoe</h3>
+        <span class="coach-card-full__role">Jumps</span>
+        <p class="coach-card-full__bio">
+          Specialist in horizontal and vertical jumps — long jump, triple jump, high jump, and
+          pole vault. Coach Njadoe develops athletes' explosive power and technical approach to
+          produce consistent national-level performers.
+        </p>
+      </div>
+    </div>
 
-</html>
+  </div>
+</section>
+
+<!-- ── JOIN CTA ── -->
+<section class="cta-banner" style="background-image: url('https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/hvtf5.png');">
+  <div class="hvt-container cta-banner__content">
+    <span class="section-label" style="color:var(--yellow);">Ready to Train?</span>
+    <h2 class="cta-banner__title">Get Started <span style="color:var(--yellow);">Today</span></h2>
+    <span class="cta-banner__sub">Registration is open for the 2025–26 season</span>
+    <a href="{% url 'registeration' %}" class="btn-hvt btn-primary">Register Now</a>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,56 +1,20 @@
-<html>
-  <head>
-    <style>
-      body {
-        text-align: center;
-        padding: 40px 0;
-        background: #EBF0F5;
-      }
-        h1 {
-          color: #88B04B;
-          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
-          font-weight: 900;
-          font-size: 40px;
-          margin-bottom: 10px;
-        }
-        p {
-          color: #404F5E;
-          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
-          font-size:20px;
-          margin: 0;
-        }
-      i {
-        color: #9ABC66;
-        font-size: 100px;
-        line-height: 200px;
-        margin-left:-15px;
-      }
-      .card {
-        background: white;
-        padding: 60px;
-        border-radius: 4px;
-        box-shadow: 0 2px 3px #C8D0D8;
-        display: inline-block;
-        margin: 0 auto;
-      }
-    </style>
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
-  </head>
-   
-    <body>
-      <div class="card">
-      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
-        <i class="checkmark">✓</i>
-      </div>
-        <h1>Success</h1> 
-        <p>We received your deatils!</p>
-        <p>You'll be redirected shortly!</p>
-      </div>
+{% extends "base.html" %}
+{% load static %}
 
-      <script type="text/javascript">
-        setTimeout(() => {
-          window.location.assign('https://highvoltagetrack.com')
-        }, 1500)
-      </script>
-    </body>
-</html>
+{% block title %}Message Sent{% endblock %}
+
+{% block content %}
+<section class="success-section">
+  <div>
+    <div class="success-icon"><i class="fa fa-check"></i></div>
+    <h2 style="margin-bottom:12px;">Message Sent!</h2>
+    <p style="color:var(--gray);max-width:380px;margin:0 auto 32px;">
+      Thanks for reaching out. We'll get back to you as soon as possible.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="{% url 'index' %}" class="btn-hvt btn-primary">Back to Home</a>
+      <a href="{% url 'registeration' %}" class="btn-hvt btn-dark">Register an Athlete</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

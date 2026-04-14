@@ -1,440 +1,183 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="zxx">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="HVTF">
-    <meta name="keywords" content="HVTF">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HighVoltageTrack</title>
+{% block title %}High Voltage Track Club{% endblock %}
+{% block nav_spacer %}{% endblock %}
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+{% block content %}
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="{% static 'css/logo.css' %}", type="text/css">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/flaticon.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/barfiller.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/magnific-popup.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/slicknav.min.css'%}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css">
-</head>
-
-<body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
+<!-- ── HERO ── -->
+<section class="hero" style="background-image: url('https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/outdoors.png');">
+  <div class="hero__content">
+    <span class="hero__label">Seattle, Washington · Est. 2005</span>
+    <h1 class="hero__title">
+      Building
+      <span class="line-accent">Futures</span>
+      Through Track
+    </h1>
+    <p class="hero__sub">Elite youth track & field coaching for ages 7–18. Train hard, compete nationally, build character.</p>
+    <div class="hero__actions">
+      <a href="{% url 'registeration' %}" class="btn-hvt btn-primary">Register Now</a>
+      <a href="{% url 'about' %}" class="btn-hvt btn-outline-white">Our Story</a>
     </div>
+  </div>
+  <div class="hero__scroll">
+    <span>Scroll</span>
+    <span class="hero__scroll-line"></span>
+  </div>
+</section>
 
-    <!-- Offcanvas Menu Section Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="canvas-close">
-            <i class="fa fa-close"></i>
-        </div>
-        <div class="canvas-search search-switch">
-            <i class="fa fa-search"></i>
-        </div>
-        <nav class="canvas-menu mobile-menu">
-            <ul>
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'about' %}">About Us</a></li>
-                <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
-                <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
-                <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                <!-- <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li> -->
-                <li><a href="{% url 'registeration' %}">Registration</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="dropdown">
-                        <li><a href="{% url 'about' %}">About us</a></li>
-                        <!-- <li><a href="./404.html">Merch</a></li> -->
-                    </ul>
-                </li>
-                <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="canvas-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-youtube-play"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stats-bar__inner">
+    <div class="stats-bar__item">
+      <span class="stats-bar__num">900+</span>
+      <span class="stats-bar__label">Athletes Trained</span>
     </div>
-    <!-- Offcanvas Menu Section End -->
-
-    <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="logo">
-                        <a href="{% url 'index' %}">
-                            <img class="logo-resize" srcset="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="nav-menu">
-                        <ul>
-                            <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                            <li><a href="{% url 'about' %}">About Us</a></li>
-                            <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                            <li><a href="{% url 'registeration' %}">Registration</a></li>
-                            <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
-                             
-                            <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="top-option">
-                        <div class="to-search search-switch">
-                            <i class="fa fa-search"></i>
-                        </div>
-                        <div class="to-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas-open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header End -->
-
-    <!-- Hero Section Begin -->
-    <section class="hero-section">
-        <div class="hs-slider owl-carousel">
-            <div class="hs-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/outdoors.png ">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 offset-lg-6">
-                            <div class="hi-text">
-                                <span>EMPOWER THROUGH EXCELLENCE</span>
-                                <h1>Building <strong>FUTURES</strong> THROUGH TRACK AND FIELD</h1>
-                                <a href="https://www.paypal.com/donate/?hosted_button_id=SVM4GAS68DHU8" class="primary-btn">Donate</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hs-item set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/dark.png">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 offset-lg-6">
-                            <div class="hi-text">
-                                <span>TRAIN. COMPETE. SUCCEED</span>
-                                <h1>building <strong>futures</strong> Through Track and Field</h1>
-                                <a href="https://www.paypal.com/donate/?hosted_button_id=SVM4GAS68DHU8" class="primary-btn">Donate</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-
-    <!-- ChoseUs Section Begin -->
-    <section class="choseus-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <span></span>
-                        <h2>High Voltage Track and Field</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-034-stationary-bike"></span>
-                        <h4>Mission</h4>
-                        <p>Develop physical fitness, teamwork, and life skills for youth ages 7-18 while providing memorable experiences. </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-033-juice"></span>
-                        <h4>Achievement</h4>
-                        <p> Trained over 900 athletes, with many earning Division I scholarships and 100+ national competition medals. </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-002-dumbell"></span>
-                        <h4>Community Focus</h4>
-                        <p>Accepts athletes from all backgrounds, promoting growth and inclusion.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-item">
-                        <span class="flaticon-014-heart-beat"></span>
-                        <h4>Volunteer-Driven</h4>
-                        <p>Operated by dedicated volunteer coaches passionate about building a stronger community through sports. </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ChoseUs Section End -->
-
-    <!-- Classes Section Begin -->
-    
-
-    <!-- Banner Section Begin -->
-<section class="banner-section set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/hvtf5.png">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="bs-text">
-                        <h2>Registration Open</h2>
-                        <div class="bt-tips">Unleash Your Potential</div>
-                        <a href="{% url 'registeration' %}" class="primary-btn  btn-normal" style="color:white;">Register</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Banner Section End -->
-
-     
-        </div>
-    </section> 
-    <!-- Pricing Section End -->
-
-    <!-- Gallery Section Begin
-    <div class="gallery-section">
-        <div class="gallery">
-            <div class="grid-sizer"></div>
-            <div class="gs-item grid-wide set-bg" data-setbg="./img/placeholder.jpg">
-                <a href="./img/placeholder.jpg" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
-            </div>
-            <div class="gs-item set-bg" data-setbg="./img/placeholder.jpg">
-                <a href="./img/placeholder.jpg" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
-            </div>
-            <div class="gs-item set-bg" data-setbg="./img/placeholder.jpg">
-                <a href="./img/placeholder.jpg" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
-            </div>
-            <div class="gs-item set-bg" data-setbg="./img/placeholder.jpg">
-                <a href="./img/placeholder.jpg" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
-            </div>
-            <div class="gs-item set-bg" data-setbg="./img/placeholder.jpg">
-                <a href="./img/placeholder.jpg" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
-            </div>
-            <div class="gs-item grid-wide set-bg" data-setbg="./img/placeholder.jpg">
-                <a href="./img/placeholder.jpg" class="thumb-icon image-popup"><i class="fa fa-picture-o"></i></a>
-            </div>
-        </div>
-    </div> -->
-    <!-- Gallery Section End -->
-
-    <!-- Team Section Begin -->
-    <!-- <section class="team-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="team-title">
-                        <div class="section-title">
-                            <span>Our Team</span>
-                            <h2>TRAIN WITH EXPERTS</h2>
-                        </div>
-                        <a href="#" class="primary-btn btn-normal appoinment-btn">appointment</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="ts-slider owl-carousel">
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="./img/team/team-1.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="./img/team/team-2.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="./img/team/team-3.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="./img/team/team-4.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="./img/team/team-5.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="ts-item set-bg" data-setbg="./img/team/team-6.jpg">
-                            <div class="ts_text">
-                                <h4>Athart Rachel</h4>
-                                <span>Gym Trainer</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!-- Team Section End -->
-
-    <!-- Get In Touch Section Begin -->
-    <div class="gettouch-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-map-marker"></i>
-                        <p>Seattle <br/> Washington.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-mobile"></i>
-                        <ul>
-                            <li>Phone line</li>
-                            <li>206-898-7086</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text email">
-                        <i class="fa fa-envelope"></i>
-                        <p>highvoltage80@yahoo.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__num">100+</span>
+      <span class="stats-bar__label">National Medals</span>
     </div>
-    <!-- Get In Touch Section End -->
-
-    <!-- Footer Section Begin -->
-    <section class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="fs-about">
-                        <div class="fa-logo">
-                            <a href="#"><img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/framed.jpeg" alt=""></a>
-                        </div>
-                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 t Trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
-                        <div class="fa-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Useful links</h4>
-                        <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Gallery</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="fs-widget">
-                        <h4>Tips & Guides</h4>
-                        <div class="fw-recent">
-                            <h6><a href="#">Physical fitness may help prevent depression, anxiety</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                        <div class="fw-recent">
-                            <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="copyright-text">
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer Section End -->
-
-    <!-- Search model Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
+    <div class="stats-bar__item">
+      <span class="stats-bar__num">20+</span>
+      <span class="stats-bar__label">Years Running</span>
     </div>
-    <!-- Search model end -->
+    <div class="stats-bar__item">
+      <span class="stats-bar__num">D1</span>
+      <span class="stats-bar__label">Scholarship Alumni</span>
+    </div>
+  </div>
+</div>
 
-    <!-- Js Plugins -->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/jquery.barfiller.js' %}"></script>
-    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+<!-- ── ABOUT SPLIT ── -->
+<section class="split-section">
+  <div class="split-section__media">
+    <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/dark.png" alt="High Voltage athletes training">
+  </div>
+  <div class="split-section__content">
+    <span class="section-label">About The Club</span>
+    <h2 class="section-heading">Train. <span class="accent">Compete.</span> Succeed.</h2>
+    <p style="margin-bottom:16px;">
+      Founded in 2005 by Coach Johnnie K. Williams, High Voltage Track Club gives Seattle youth
+      a world-class training environment. We develop athletes from the ground up — physically,
+      mentally, and as community members.
+    </p>
+    <p style="margin-bottom:28px;">
+      Sanctioned by USATF and the Northwest Association, our athletes compete locally and
+      nationally, earning medals, scholarships, and lifelong skills.
+    </p>
+    <a href="{% url 'about' %}" class="btn-hvt btn-dark">Learn More</a>
+  </div>
+</section>
 
-</body>
+<!-- ── FEATURES ── -->
+<section class="features-section spad">
+  <div class="hvt-container" style="margin-bottom:32px;">
+    <span class="section-label">What We Stand For</span>
+    <h2 class="section-heading on-dark">The High Voltage <span class="accent">Difference</span></h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-card__num">01</div>
+      <div class="feature-card__title">Mission</div>
+      <p class="feature-card__text">Develop physical fitness, teamwork, and life skills for youth ages 7–18 while providing memorable competitive experiences.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card__num">02</div>
+      <div class="feature-card__title">Achievement</div>
+      <p class="feature-card__text">Over 900 athletes trained, with many earning Division I scholarships and 100+ national competition medals.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card__num">03</div>
+      <div class="feature-card__title">Community Focus</div>
+      <p class="feature-card__text">Athletes accepted from all backgrounds. We promote growth, inclusion, and pride in the Seattle community.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card__num">04</div>
+      <div class="feature-card__title">Volunteer-Driven</div>
+      <p class="feature-card__text">Operated entirely by dedicated volunteer coaches who are passionate about building the next generation through sport.</p>
+    </div>
+  </div>
+</section>
 
-</html>
+<!-- ── REGISTRATION CTA ── -->
+<section class="cta-banner" style="background-image: url('https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/hvtf5.png');">
+  <div class="hvt-container cta-banner__content">
+    <span class="section-label" style="color:var(--yellow);">2025–26 Season</span>
+    <h2 class="cta-banner__title">Registration <span style="color:var(--yellow);">Now Open</span></h2>
+    <span class="cta-banner__sub">Unleash Your Potential</span>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="{% url 'registeration' %}" class="btn-hvt btn-primary">Register an Athlete</a>
+      <a href="https://www.paypal.com/donate/?hosted_button_id=SVM4GAS68DHU8" target="_blank" rel="noopener" class="btn-hvt btn-outline-white">Support Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── COACHES TEASER ── -->
+<section class="spad bg-dark">
+  <div class="hvt-container" style="margin-bottom:36px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+    <div>
+      <span class="section-label">The Staff</span>
+      <h2 class="section-heading on-dark">Meet the <span class="accent">Coaches</span></h2>
+    </div>
+    <a href="{% url 'coaches' %}" class="btn-hvt btn-dark">Full Roster</a>
+  </div>
+  <div class="hvt-container">
+    <div class="coaches-grid">
+      <div class="coach-card">
+        <img class="coach-card__img" src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/johnnie.jpeg" alt="Johnnie Williams">
+        <div class="coach-card__overlay">
+          <div class="coach-card__name">Johnnie Williams</div>
+          <div class="coach-card__role">Sprints & Relays</div>
+          <p class="coach-card__bio">EWU record holder in 55m, 60m, 200m indoor and 100m/200m outdoor. Athletic Director for Seattle Parks & Recreation.</p>
+        </div>
+      </div>
+      <div class="coach-card">
+        <img class="coach-card__img" src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/howard.jpeg" alt="Howard Kellogg">
+        <div class="coach-card__overlay">
+          <div class="coach-card__name">Howard Kellogg</div>
+          <div class="coach-card__role">Throws</div>
+          <p class="coach-card__bio">Specialist in shot put, discus, javelin, and hammer events.</p>
+        </div>
+      </div>
+      <div class="coach-card">
+        <img class="coach-card__img" src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Wurrie.jpeg" alt="Wurrie Njadoe">
+        <div class="coach-card__overlay">
+          <div class="coach-card__name">Wurrie Njadoe</div>
+          <div class="coach-card__role">Jumps</div>
+          <p class="coach-card__bio">Long jump, triple jump, high jump, and pole vault specialist.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="testimonials-section bg-dark-2">
+  <div class="hvt-container">
+    <span class="section-label" style="margin-bottom:8px;">Athlete Stories</span>
+    <h2 class="section-heading on-dark" style="margin-bottom:36px;">What Our <span class="accent">Athletes</span> Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-card__text">
+          "Winning a medal at the national championships was an unforgettable achievement. Being part of this journey not only made me a better athlete but also introduced me to lifelong friends and invaluable life skills."
+        </p>
+        <div class="testimonial-card__author">
+          <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Testimony.jpeg" alt="Athlete">
+          <span class="testimonial-card__name">HVTF Athlete</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-card__text">
+          "Being awarded a full scholarship was a life-changing moment. This opportunity shaped me academically, introduced me to incredible mentors, and taught me valuable life skills that extend far beyond the track."
+        </p>
+        <div class="testimonial-card__author">
+          <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/Testimony2.jpeg" alt="Athlete">
+          <span class="testimonial-card__name">HVTF Alumna</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
