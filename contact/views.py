@@ -10,7 +10,7 @@ def contact_view(request):
             form.save()
             return redirect('contact:success')
     else:
-        form = ContactForm
+        form = ContactForm()
     return render(request, 'contact/contact.html', {'form':form})
 
 def success(request):

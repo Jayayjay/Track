@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{% block meta_desc %}High Voltage Track Club — Seattle's elite youth track & field program{% endblock %}">
+  <title>{% block title %}High Voltage Track Club{% endblock %} — HVTF</title>
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+  <!-- HVT Design System -->
+  <link rel="stylesheet" href="{% static 'css/hvt.css' %}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- ── DONATE STRIP ── -->
+<div class="donate-strip">
+  <p>
+    Support our athletes —
+    <a href="https://www.paypal.com/donate/?hosted_button_id=SVM4GAS68DHU8" target="_blank" rel="noopener">
+      Donate via PayPal
+    </a>
+  </p>
+</div>
+
+<!-- ── NAV ── -->
+<nav class="hvt-nav" id="hvt-nav">
+  <div class="hvt-nav__inner">
+
+    <!-- Logo -->
+    <a href="{% url 'index' %}" class="hvt-nav__logo">
+      <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="High Voltage Track Club">
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hvt-nav__links">
+      <a href="{% url 'index' %}"                        {% if request.resolver_match.url_name == 'index'       %}class="active"{% endif %}>Home</a>
+      <a href="{% url 'about' %}"                        {% if request.resolver_match.url_name == 'about'       %}class="active"{% endif %}>About</a>
+      <a href="{% url 'coaches' %}"                      {% if request.resolver_match.url_name == 'coaches'     %}class="active"{% endif %}>Coaches</a>
+      <a href="{% url 'schedule' %}"                     {% if request.resolver_match.url_name == 'schedule'    %}class="active"{% endif %}>Schedule</a>
+      <a href="{% url 'registeration' %}"                {% if request.resolver_match.url_name == 'registeration' %}class="active"{% endif %}>Registration</a>
+      <a href="{% url 'contact:contact_page' %}"         {% if request.resolver_match.app_name == 'contact'    %}class="active"{% endif %}>Contact</a>
+    </div>
+
+    <!-- Desktop CTA -->
+    <div class="hvt-nav__cta">
+      <a href="{% url 'registeration' %}" class="btn-hvt btn-primary">Join the Club</a>
+    </div>
+
+    <!-- Hamburger -->
+    <button class="hvt-nav__burger" id="hvt-burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="hvt-nav__drawer" id="hvt-drawer">
+    <a href="{% url 'index' %}"                       {% if request.resolver_match.url_name == 'index'         %}class="active"{% endif %}>Home</a>
+    <a href="{% url 'about' %}"                       {% if request.resolver_match.url_name == 'about'         %}class="active"{% endif %}>About</a>
+    <a href="{% url 'coaches' %}"                     {% if request.resolver_match.url_name == 'coaches'       %}class="active"{% endif %}>Coaches</a>
+    <a href="{% url 'schedule' %}"                    {% if request.resolver_match.url_name == 'schedule'      %}class="active"{% endif %}>Schedule</a>
+    <a href="{% url 'registeration' %}"               {% if request.resolver_match.url_name == 'registeration' %}class="active"{% endif %}>Registration</a>
+    <a href="{% url 'contact:contact_page' %}"        {% if request.resolver_match.app_name == 'contact'       %}class="active"{% endif %}>Contact</a>
+    <div class="drawer-cta">
+      <a href="{% url 'registeration' %}" class="btn-hvt btn-primary" style="display:block;text-align:center;">Join the Club</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Nav spacer only on non-hero pages -->
+{% block nav_spacer %}<div class="nav-spacer"></div>{% endblock %}
+
+<!-- ── PAGE CONTENT ── -->
+{% block content %}{% endblock %}
+
+<!-- ── INFO BAR ── -->
+<div class="info-bar">
+  <div class="info-bar__inner">
+    <div class="info-bar__item">
+      <span class="info-bar__icon"><i class="fa fa-map-marker"></i></span>
+      <div>
+        <span class="info-bar__label">Location</span>
+        <span class="info-bar__value">Seattle, Washington</span>
+      </div>
+    </div>
+    <div class="info-bar__item">
+      <span class="info-bar__icon"><i class="fa fa-phone"></i></span>
+      <div>
+        <span class="info-bar__label">Phone</span>
+        <span class="info-bar__value">206-898-7086</span>
+      </div>
+    </div>
+    <div class="info-bar__item">
+      <span class="info-bar__icon"><i class="fa fa-envelope"></i></span>
+      <div>
+        <span class="info-bar__label">Email</span>
+        <span class="info-bar__value">highvoltage80@yahoo.com</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="hvt-footer">
+  <div class="hvt-footer__inner">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      <div class="footer-brand__logo">
+        <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="HVTF">
+      </div>
+      <p class="footer-brand__text">
+        High Voltage Track Club has been building champions since 2005.
+        Over 900 athletes trained, 100+ national medals, and countless
+        Division I scholarships — all powered by volunteer coaches who
+        believe in youth through sport.
+      </p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa fa-youtube-play"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="footer-col">
+      <div class="footer-col__title">Quick Links</div>
+      <ul>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About Us</a></li>
+        <li><a href="{% url 'coaches' %}">Coaches</a></li>
+        <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
+        <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Get involved -->
+    <div class="footer-col">
+      <div class="footer-col__title">Get Involved</div>
+      <ul>
+        <li><a href="{% url 'registeration' %}">Register an Athlete</a></li>
+        <li><a href="https://www.paypal.com/donate/?hosted_button_id=SVM4GAS68DHU8" target="_blank" rel="noopener">Donate</a></li>
+        <li><a href="{% url 'contact:contact_page' %}">Volunteer</a></li>
+        <li><a href="{% url 'contact:contact_page' %}">Sponsorship</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom hvt-container">
+    <span class="footer-bottom__text">
+      &copy; {% now "Y" %} High Voltage Track Club. Seattle, WA.
+    </span>
+    <span class="footer-bottom__text">
+      Sanctioned by <a href="#">USATF Northwest Association</a>
+    </span>
+  </div>
+</footer>
+
+<!-- ── JS ── -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script>
+  // Mobile menu
+  const burger  = document.getElementById('hvt-burger');
+  const drawer  = document.getElementById('hvt-drawer');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+
+  // Scroll class on nav
+  const nav = document.getElementById('hvt-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,479 +1,97 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="zxx">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="HVTF">
-    <meta name="keywords" content="HVTF">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HighVoltageTrack</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+{% block title %}Athlete Records{% endblock %}
+{% block meta_desc %}High Voltage Track Club athlete performance records across all 44 track & field events.{% endblock %}
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="{% static 'css/logo.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/barfiller.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/magnifigc-popup.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
-</head>
+{% block content %}
 
-<body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
+<!-- ── PAGE HEADER ── -->
+<div class="page-header" style="background-image: url('https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/winner.png');">
+  <div class="page-header__content">
+    <h1 class="page-header__title">Athlete Records</h1>
+    <div class="breadcrumb-bar">
+      <a href="{% url 'index' %}">Home</a>
+      <span class="sep">/</span>
+      <span>Records</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── RECORDS ── -->
+<section class="records-section">
+  <div class="hvt-container">
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:28px;">
+      <div>
+        <span class="section-label dark">Club Performance</span>
+        <h2 class="section-heading">All <span class="accent">Records</span></h2>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input
+          type="text"
+          id="records-search"
+          placeholder="Search by name or event…"
+          style="padding:10px 14px;border:1px solid #ddd;border-radius:2px;font-size:0.88rem;min-width:220px;outline:none;">
+      </div>
     </div>
 
-    <!-- Offcanvas Menu Section Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="canvas-close">
-            <i class="fa fa-close"></i>
-        </div>
-        <div class="canvas-search search-switch">
-            <i class="fa fa-search"></i>
-        </div>
-        <nav class="canvas-menu mobile-menu">
-            <ul>
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'about' %}">About Us</a></li>
-                <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                <li><a href="{% url 'athlete_records:record_list' %}">Athlete Records</a></li>
-                <li><a href="{% url ' registeration' %}">Registration</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="dropdown">
-                        <li><a href="{% url 'about' %}">About us</a></li>
-                        <!-- <li><a href="./ registeration.html">Merch</a></li> -->
-                    </ul>
-                </li>
-                <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="canvas-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-youtube-play"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
+    {% if athlete_records %}
+    <div style="overflow-x:auto;">
+      <table class="records-table" id="records-table">
+        <thead>
+          <tr>
+            <th>Athlete</th>
+            <th>Event</th>
+            <th>Mark</th>
+            <th>Age</th>
+            <th>Group</th>
+            <th>Year</th>
+            <th>Meet</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in athlete_records %}
+          <tr>
+            <td style="font-weight:600;color:var(--dark);">{{ record.athlete_name }}</td>
+            <td class="event-cell">{{ record.athlete_class }}</td>
+            <td class="mark-cell">{{ record.athlete_mark }}</td>
+            <td>{{ record.athlete_age }}</td>
+            <td>{{ record.athlete_group }}</td>
+            <td>{{ record.athlete_date }}</td>
+            <td style="font-size:0.85rem;color:var(--gray);">{{ record.athlete_meet }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <!-- Offcanvas Menu Section End -->
+    <p style="margin-top:12px;font-size:0.8rem;color:var(--gray);">
+      Showing {{ athlete_records|length }} record{{ athlete_records|length|pluralize }}.
+    </p>
 
-    <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="logo">
-                        <a href="{% url 'index' %}">
-                            <img class="logo-resize" srcset="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="nav-menu">
-                        <ul>
-                            <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                            <li><a href="{% url 'about' %}">About Us</a></li>
-                            <li><a href="{% url 'coaches' %}">Coaches</a></li>
-                            <li><a href="{% url ' registeration' %}">Registration</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="{% url 'about' %}">About us</a></li>
-                                    <li><a href="{% url 'schedule' %}">Season Schedule</a></li>
-                                    <!-- <li><a href="./ registeration.html"> registeration</a></li> -->
-                                </ul>
-                            </li>
-                            <li><a href="{% url 'contact:contact_page' %}">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="top-option">
-                        <div class="to-search search-switch">
-                            <i class="fa fa-search"></i>
-                        </div>
-                        <div class="to-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas-open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header End -->
-
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/view_2.jpg">
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb-text">
-                        <h2>Athlete Records</h2>
-                        <div class="bt-option">
-                             
-                            <a href="#">Records</a>
-                             
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-
-    <!-- Class Details Section Begin -->
-    
-    <!-- Class Details Section End -->
-
-    <!-- Class Timetable Section Begin -->
-    <!-- Athlete Records Section -->
-<section class="athlete-records-section spad" style="background-color: #111111;" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <!-- <h3>Events Table</h3> -->
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Class</th>
-                            <th>Mark</th>
-                            <th>Age</th>
-                            <th>Group</th>
-                            <th>Date</th>
-                            <th>Meet</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for record in athlete_records %}
-                            <tr>
-                                <td class="class-time">{{ record.id }}</td>
-                                <td>{{ record.athlete_name }}</td>
-                                <td>{{ record.athlete_class }}</td>
-                                <td>{{ record.athlete_mark }}</td>
-                                <td>{{ record.athlete_age }}</td>
-                                <td>{{ record.athlete_group }}</td>
-                                <td>{{ record.athlete_date }}</td>
-                                <td>{{ record.athlete_meet }}</td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td colspan="8" class="text-center">No records available.</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table> -->
-                <table class="events-table" >
-                    <!-- Previous table HTML structure remains the same -->
-                    <thead>
-                      <tr>
-                        <th>Category</th>
-                        <th>Events</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="category">Sprints</td>
-                        <td>
-                          <ul>
-                            <li>40 Yard Dash</li>
-                            <li>50 Meter Dash</li>
-                            <li>100 Meters</li>
-                            <li>200 Meters</li>
-                            <li>400 Meters</li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="category">Middle Distance</td>
-                        <td>
-                          <ul>
-                            <li>800 Meters</li>
-                            <li>1500 Meters</li>
-                            <li>3000 Meters</li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="category">Hurdles</td>
-                        <td>
-                          <ul>
-                            <li>80m Hurdles (30", 33", 39")</li>
-                            <li>100m Hurdles (30", 33", 39")</li>
-                            <li>110m Hurdles (39", 42")</li>
-                            <li>200m Hurdles (30", 36")</li>
-                            <li>400m Hurdles (36")</li>
-                            <li>2k Steeplechase (838mm)</li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="category">Relays</td>
-                        <td>
-                          <ul>
-                            <li>4x100 Relay</li>
-                            <li>4x400 Relay</li>
-                            <li>4x800 Relay</li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="category">Throws</td>
-                        <td>
-                          <ul>
-                            <li>Shot Put (2kg, 4kg, 6lb, 8lb, 12lb, 16lb)</li>
-                            <li>Discus (1kg, 1.6kg)</li>
-                            <li>Javelin (300g, 300g TJ, 450g AeroJav, 600g, 800g)</li>
-                            <li>Hammer</li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="category">Jumps</td>
-                        <td>
-                          <ul>
-                            <li>High Jump</li>
-                            <li>Pole Vault</li>
-                            <li>Long Jump</li>
-                            <li>Triple Jump</li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="category">Multi-Events</td>
-                        <td>
-                          <ul>
-                            <li>Triathlon - standard</li>
-                            <li>Pentathlon (outdoor) - Standard</li>
-                            <li>Decathlon - Standard</li>
-                          </ul>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <a href="https://www.athletic.net/team/70126/track-and-field-outdoor/2025/team-records/m" class="primary-btn" style="color:#000000;">Athlete Records</a>
-                  
-                  <style>
-                  .events-table {
-                      width: 100%;
-                      border-collapse: separate;
-                      border-spacing: 0;
-                      margin: 20px 0;
-                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                      background-color: #000000;  /* Updated to pure black */
-                      color: #ffffff;
-                      border: 2px solid #333;
-                      border-radius: 10px;
-                      overflow: hidden;
-                      box-shadow: 0 0 20px rgba(200, 255, 0, 0.1);
-                  }
-                  
-                  .events-table th,
-                  .events-table td {
-                      padding: 15px 20px;
-                      border-bottom: 1px solid #333;
-                  }
-                  
-                  .events-table thead {
-                      background-color: #000000;  /* Matched with table background */
-                  }
-                  
-                  .events-table th {
-                      font-weight: bold;
-                      text-align: left;
-                      text-transform: uppercase;
-                      letter-spacing: 1px;
-                      color: #c8ff00;
-                  }
-                  
-                  .category {
-                      font-weight: bold;
-                      background-color: #111111;  /* Slightly lighter than background for contrast */
-                      width: 180px;
-                      color: #ffffff;
-                      text-transform: uppercase;
-                      letter-spacing: 1px;
-                  }
-                  
-                  .events-table ul {
-                      list-style-type: none;
-                      margin: 0;
-                      padding: 0;
-                  }
-                  
-                  .events-table li {
-                      margin: 8px 0;
-                      color: #9fef00;
-                      transition: color 0.3s ease;
-                  }
-                  
-                  .events-table li:hover {
-                      color: #ffffff;
-                  }
-                  
-                  .events-table tbody tr:hover {
-                      background-color: #111111;  /* Updated hover color */
-                  }
-                  
-                  .events-table tbody tr:last-child td {
-                      border-bottom: none;
-                  }
-                  </style>
-                   
-            </div>
-        </div>
+    {% else %}
+    <div style="text-align:center;padding:80px 20px;">
+      <span style="font-family:var(--font-head);font-size:4rem;color:var(--yellow);font-weight:900;display:block;margin-bottom:16px;">—</span>
+      <h3 style="color:var(--dark);margin-bottom:8px;">No Records Yet</h3>
+      <p style="color:var(--gray);">Athlete records will appear here once added.</p>
     </div>
+    {% endif %}
+
+  </div>
 </section>
 
+{% endblock %}
 
-    <!-- Get In Touch Section Begin -->
-    <div class="gettouch-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-map-marker"></i>
-                        <p>Locatio<br/> Washingon.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-mobile"></i>
-                        <ul>
-                            <li>206-898-7086</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text email">
-                        <i class="fa fa-envelope"></i>
-                        <p>Highvoltagetrack80@yahoo.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Get In Touch Section End -->
+{% block extra_js %}
+<script>
+  const searchInput = document.getElementById('records-search');
+  const tableRows   = document.querySelectorAll('#records-table tbody tr');
 
-    <!-- Footer Section Begin -->
-    <section class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="fs-about">
-                        <div class="fa-logo">
-                            <a href="#"><img src="https://highvoltagetrack.com/wp-content/uploads/2025/02/logo_2.jpg" alt=""></a>
-                        </div>
-                        <p>High Voltage Track Club has been fostering excellence in Track and Field since 2005, providing youth athletes with top-tier coaching, life skills, and opportunities for success. With over 900 t Trained athletes and 100+ national medals, we are committed to building a strong, supportive community.</p>
-                        <div class="fa-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Useful links</h4>
-                        <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Gallery</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="fs-widget">
-                        <h4>Tips & Guides</h4>
-                        <div class="fw-recent">
-                            <h6><a href="#">Physical fitness may help prevent depression, anxiety</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                        <div class="fw-recent">
-                            <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="copyright-text">
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer Section End -->
-
-    <!-- Search model Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
-    </div>
-    <!-- Search model end -->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/jquery.barfiller.js' %}"></script>
-    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    <!-- Js Plugins -->
-     
-
-
-
-</body>
-
-</html>
+  searchInput && searchInput.addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    tableRows.forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  });
+</script>
+{% endblock %}
