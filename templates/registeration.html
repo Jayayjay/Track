@@ -36,6 +36,33 @@
   </div>
 </div>
 
+<!-- ── PRACTICE INFO ── -->
+<section class="spad-sm bg-dark">
+  <div class="hvt-container">
+    <span class="section-label">2025–26 Season</span>
+    <h2 class="section-heading on-dark" style="margin-bottom:28px;">Practice <span class="accent">Schedule &amp; Location</span></h2>
+    <div class="practice-info-grid">
+      <div class="practice-info-card">
+        <span class="practice-info-card__icon"><i class="fa fa-calendar"></i></span>
+        <div class="practice-info-card__label">Practice Days</div>
+        <div class="practice-info-card__value">Monday, Tuesday &amp; Thursday</div>
+        <div class="practice-info-card__note">Beginning Tuesday, May 26</div>
+      </div>
+      <div class="practice-info-card">
+        <span class="practice-info-card__icon"><i class="fa fa-clock-o"></i></span>
+        <div class="practice-info-card__label">Practice Time</div>
+        <div class="practice-info-card__value">6:15 PM – 7:30 PM</div>
+      </div>
+      <div class="practice-info-card">
+        <span class="practice-info-card__icon"><i class="fa fa-map-marker"></i></span>
+        <div class="practice-info-card__label">Location</div>
+        <div class="practice-info-card__value">West Seattle Stadium</div>
+        <div class="practice-info-card__note">West Seattle, WA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── PROCESS ── -->
 <section class="spad bg-dark-2">
   <div class="hvt-container">
@@ -138,6 +165,56 @@
 
 {% block extra_css %}
 <style>
+/* Practice info cards */
+.practice-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: #2a2a2a;
+}
+
+.practice-info-card {
+  background: var(--dark-3);
+  padding: 32px 28px;
+  text-align: center;
+}
+
+.practice-info-card__icon {
+  font-size: 1.8rem;
+  color: var(--yellow);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.practice-info-card__label {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 8px;
+}
+
+.practice-info-card__value {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.practice-info-card__note {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 6px;
+}
+
+@media (max-width: 700px) {
+  .practice-info-grid { grid-template-columns: 1fr; }
+}
+
 /* Registration steps — horizontal row layout */
 .reg-steps-list {
   display: flex;
