@@ -1,0 +1,2776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HQ Portal — High Voltage Track &amp; Field</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --nav-bg:     #1a2332;
+      --nav-h:      44px;
+      --sidebar-w:  220px;
+      --white:      #fff;
+      --bg:         #f8f9fa;
+      --border:     #dee2e6;
+      --border-sm:  #e9ecef;
+      --text:       #212529;
+      --text-md:    #495057;
+      --text-sm:    #6c757d;
+      --blue:       #e5ff2a;
+      --blue-dk:    #c8e600;
+      --blue-bg:    #f5ffe0;
+      --green:      #198754;
+      --green-bg:   #d1e7dd;
+      --red:        #dc3545;
+      --red-bg:     #f8d7da;
+      --yellow-bg:  #fff3cd;
+      --yellow-text:#664d03;
+      --row-hover:  #f0f4ff;
+      --row-alt:    #f8f9fa;
+    }
+
+    html, body { height:100%; font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:var(--text); background:var(--bg); }
+
+    /* ═══════════════════════════════════════════════════════════
+       TOP NAV
+    ═══════════════════════════════════════════════════════════ */
+    #topnav {
+      height: var(--nav-h);
+      background: var(--nav-bg);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      flex-shrink: 0;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav-brand img { width: 26px; height: 26px; border-radius: 50%; object-fit: contain; }
+
+    .nav-sep  { color: rgba(255,255,255,.3); font-size: 16px; }
+    .nav-sub  { color: rgba(255,255,255,.5); font-size: 12px; }
+    .nav-right{ margin-left: auto; display: flex; align-items: center; gap: 12px; }
+    .nav-user { font-size: 12px; color: rgba(255,255,255,.6); }
+
+    .btn-nav {
+      font: 600 11px/1 inherit;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.8);
+      padding: 5px 11px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-nav:hover { background: rgba(255,255,255,.15); }
+
+    /* ═══════════════════════════════════════════════════════════
+       ADMIN LOGIN PANEL
+    ═══════════════════════════════════════════════════════════ */
+    #admin-panel {
+      display: none;
+      background: #111b27;
+      border-top: 3px solid var(--blue);
+    }
+
+    .admin-panel-inner {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 26px 20px;
+    }
+
+    .admin-panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,.85);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .admin-panel-title .badge-admin {
+      font-size: 10px;
+      background: var(--blue);
+      color: #fff;
+      padding: 2px 7px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 700;
+    }
+
+    .admin-inp {
+      width: 100%;
+      padding: 8px 10px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 3px;
+      font: 13px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color: rgba(255,255,255,.9);
+      margin-bottom: 10px;
+      transition: border-color .15s, background .15s;
+    }
+
+    .admin-inp::placeholder { color: rgba(255,255,255,.3); }
+    .admin-inp:focus { outline: none; border-color: var(--blue); background: rgba(255,255,255,.11); }
+
+    /* ═══════════════════════════════════════════════════════════
+       AUTH SCREEN — tabbed single-column
+    ═══════════════════════════════════════════════════════════ */
+    #auth-screen {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: var(--bg);
+    }
+
+    .auth-wrap {
+      width: 100%;
+      max-width: 440px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      background: var(--white);
+    }
+
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      background: var(--row-alt);
+      color: var(--text-sm);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all .15s;
+      user-select: none;
+    }
+
+    .auth-tab:hover { color: var(--text); background: var(--white); }
+    .auth-tab.active { background: var(--white); color: #3d5a00; border-bottom-color: var(--blue); }
+
+    .auth-panel {
+      padding: 28px 28px 32px;
+      display: none;
+    }
+
+    .auth-panel.active { display: block; }
+
+    .auth-panel-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .auth-panel-sub {
+      font-size: 12px;
+      color: var(--text-sm);
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-sm);
+    }
+
+    .acct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+    .acct-card {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 11px 12px;
+      cursor: pointer;
+      background: var(--white);
+      transition: all .15s;
+    }
+    .acct-card:hover   { border-color: var(--blue); }
+    .acct-card.selected{ border-color: var(--blue); background: var(--blue-bg); }
+    .acct-card-title   { font-weight: 600; font-size: 12px; }
+    .acct-card-sub     { font-size: 11px; color: var(--text-sm); margin-top: 2px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SHARED FORM ELEMENTS
+    ═══════════════════════════════════════════════════════════ */
+    .form-group { margin-bottom: 13px; }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-md);
+      margin-bottom: 4px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 7px 9px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font: 400 13px/1.4 inherit;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(229,255,42,.2);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      font: 600 12px/1 inherit;
+      cursor: pointer;
+      transition: all .15s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-primary   { background: var(--blue);    color: #111;          border-color: var(--blue); }
+    .btn-primary:hover { background: var(--blue-dk); border-color: var(--blue-dk); }
+    .btn-success   { background: var(--green);   color: #fff;          border-color: var(--green); }
+    .btn-success:hover { background: #157347; }
+    .btn-danger    { background: var(--red);     color: #fff;          border-color: var(--red); }
+    .btn-danger:hover  { background: #b02a37; }
+    .btn-secondary { background: var(--white);   color: var(--text-md); border-color: var(--border); }
+    .btn-secondary:hover { background: var(--row-alt); }
+    .btn-sm   { padding: 4px 10px; font-size: 11px; }
+    .btn-full { width: 100%; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+
+    .alert {
+      display: none;
+      padding: 9px 12px;
+      border-radius: 3px;
+      font-size: 12px;
+      margin-bottom: 12px;
+      border: 1px solid transparent;
+    }
+    .alert.show     { display: block; }
+    .alert-danger   { background: var(--red-bg);    border-color: #f1aeb5; color: #58151c; }
+    .alert-success  { background: var(--green-bg);  border-color: #a3cfbb; color: #0a3622; }
+    .alert-info     { background: var(--blue-bg);   border-color: #b6d4fe; color: #084298; }
+
+    /* ═══════════════════════════════════════════════════════════
+       APP SHELL (admin + member share this)
+    ═══════════════════════════════════════════════════════════ */
+    #app-shell {
+      display: none;
+      min-height: calc(100vh - var(--nav-h));
+    }
+
+    .shell-body {
+      display: flex;
+      min-height: calc(100vh - var(--nav-h));
+    }
+
+    /* ── Sidebar ── */
+    .app-sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+    }
+
+    .sidebar-app-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--text-sm);
+      padding: 0 16px 8px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--text-md);
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all .12s;
+      user-select: none;
+    }
+
+    .sidebar-link:hover  { background: var(--row-alt); color: var(--text); }
+    .sidebar-link.active { background: var(--blue-bg); border-left-color: var(--blue); color: #3d5a00; font-weight: 600; }
+
+    .sidebar-divider {
+      border: none;
+      border-top: 1px solid var(--border-sm);
+      margin: 12px 0;
+    }
+
+    .sidebar-count {
+      margin-left: auto;
+      background: var(--border);
+      color: var(--text-sm);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+
+    .sidebar-count.red { background: var(--red-bg); color: var(--red); }
+
+    /* ── Main content ── */
+    .app-main {
+      flex: 1;
+      padding: 28px 32px;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 780px) {
+      .app-sidebar { display: none; }
+      .app-main { padding: 20px 16px; }
+    }
+
+    /* Page header */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .page-header h1 { font-size: 18px; font-weight: 700; }
+    .page-header p  { font-size: 12px; color: var(--text-sm); margin-top: 2px; }
+
+    /* Section panel */
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--row-alt);
+      gap: 10px;
+    }
+
+    .panel-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-md); }
+    .panel-body  { padding: 16px; }
+
+    /* Stat cards */
+    /* ── Dashboard KPI cards ──────────────────────────────────── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .kpi-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .kpi-card.c-yellow::before { background: var(--blue); }
+    .kpi-card.c-green::before  { background: var(--green); }
+    .kpi-card.c-red::before    { background: var(--red); }
+    .kpi-card.c-navy::before   { background: var(--nav-bg); }
+    .kpi-icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+      display: block;
+      opacity: .75;
+    }
+    .kpi-val {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.5px;
+    }
+    .kpi-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-sm);
+      margin-top: 5px;
+    }
+    .kpi-sub {
+      font-size: 11px;
+      color: var(--text-sm);
+      margin-top: 8px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .kpi-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 7px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .kpi-badge.warn  { background: var(--red-bg);    color: var(--red); }
+    .kpi-badge.ok    { background: var(--green-bg);  color: #0a3622; }
+    .kpi-badge.info  { background: var(--blue-bg);   color: #3d5a00; }
+    .kpi-badge.muted { background: var(--border);    color: var(--text-sm); }
+
+    /* Dashboard 2-col layout */
+    .dash-row {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .dash-row.wide { grid-template-columns: 1fr 1fr; }
+    .dash-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .dash-card-head {
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dash-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-md);
+    }
+    .dash-card-body { padding: 18px; }
+    .dash-card-body.no-pad { padding: 0; }
+
+    /* Alert list */
+    .alert-list { list-style: none; }
+    .alert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--border-sm);
+      font-size: 13px;
+    }
+    .alert-item:last-child { border-bottom: none; }
+    .alert-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .alert-dot.red    { background: var(--red); }
+    .alert-dot.yellow { background: #ffc107; }
+    .alert-dot.green  { background: var(--green); }
+    .alert-dot.gray   { background: var(--border); }
+    .alert-text { flex: 1; }
+    .alert-count {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    /* Activity table (no-border compact) */
+    .dash-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .dash-table th { padding: 8px 14px; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em; color: var(--text-sm);
+      text-align: left; border-bottom: 1px solid var(--border); }
+    .dash-table td { padding: 9px 14px; border-bottom: 1px solid var(--border-sm); }
+    .dash-table tr:last-child td { border-bottom: none; }
+    .dash-table tr:hover td { background: var(--row-alt); }
+
+    /* Old stat cards (keep for fallback) */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 16px;
+    }
+    .stat-val  { font-size: 28px; font-weight: 700; line-height: 1; }
+    .stat-lbl  { font-size: 11px; color: var(--text-sm); margin-top: 4px; text-transform: uppercase; letter-spacing: .05em; }
+    .stat-sub  { font-size: 11px; color: var(--text-sm); margin-top: 6px; }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table thead tr {
+      background: var(--row-alt);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .data-table th {
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-sm);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-sm);
+      vertical-align: middle;
+    }
+
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .data-table tbody tr:hover { background: var(--row-hover); }
+
+    .data-table .col-actions { width: 1%; white-space: nowrap; }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      flex-wrap: wrap;
+    }
+
+    .filter-bar label { font-size: 11px; font-weight: 700; color: var(--text-sm); text-transform: uppercase; letter-spacing: .05em; }
+
+    .filter-bar select {
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font: 12px inherit;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+
+    .badge-pending  { background: var(--yellow-bg); color: var(--yellow-text); }
+    .badge-approved { background: var(--green-bg);  color: #0a3622; }
+    .badge-rejected { background: var(--red-bg);    color: #58151c; }
+    .badge-staff    { background: var(--blue-bg);   color: #3d5a00; }
+    .badge-open     { background: var(--green-bg);  color: #0a3622; }
+    .badge-closed   { background: var(--border);    color: var(--text-sm); }
+    .badge-early    { background: var(--yellow-bg); color: var(--yellow-text); }
+
+    /* Empty / loading state */
+    .state-msg {
+      padding: 36px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-sm);
+    }
+
+    /* Fieldset */
+    .fieldset {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      margin-bottom: 18px;
+    }
+
+    .fieldset-legend {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-sm);
+      background: var(--row-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 7px 14px;
+    }
+
+    .fieldset-body { padding: 14px 16px; }
+
+    /* Waiver */
+    .waiver-box {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 12px 14px;
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--text-md);
+      max-height: 150px;
+      overflow-y: auto;
+      background: var(--row-alt);
+      margin-bottom: 12px;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .check-row input[type=checkbox] { width: 14px; height: 14px; margin-top: 2px; flex-shrink: 0; accent-color: var(--blue); }
+
+    /* Step summary table */
+    .summary-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .summary-tbl td { padding: 8px 12px; border-bottom: 1px solid var(--border-sm); }
+    .summary-tbl tr:last-child td { border-bottom: none; }
+    .summary-tbl td:first-child { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-sm); width: 40%; }
+    .summary-tbl .total-row td { font-weight: 700; font-size: 14px; background: var(--row-alt); }
+
+    /* Step nav */
+    .step-nav { display: flex; align-items: center; gap: 8px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .step-nav .spacer { flex: 1; }
+
+    /* Registration sidebar overlay */
+    #reg-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: var(--nav-h);
+      background: var(--bg);
+      z-index: 150;
+      overflow-y: auto;
+    }
+
+    .reg-sidebar-nav {
+      width: 200px;
+      flex-shrink: 0;
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+    }
+
+    .reg-step-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 16px;
+      border-left: 3px solid transparent;
+      transition: all .12s;
+    }
+
+    .reg-step-item.active { background: var(--blue-bg); border-left-color: var(--blue); color: #3d5a00; }
+    .reg-step-item.done   { opacity: .5; }
+
+    .step-num {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700;
+      flex-shrink: 0;
+      color: var(--text-sm);
+      background: var(--white);
+    }
+
+    .reg-step-item.active .step-num { background: var(--blue); border-color: var(--blue); color: #111; }
+    .reg-step-item.done   .step-num { background: var(--green); border-color: var(--green); color: #fff; }
+
+    .step-lbl { font-size: 12px; font-weight: 500; color: var(--text-md); }
+    .reg-step-item.active .step-lbl { color: #3d5a00; font-weight: 600; }
+
+    .reg-content-wrap { flex: 1; padding: 30px 36px; max-width: 800px; }
+    @media (max-width: 780px) { .reg-content-wrap { padding: 20px 16px; } }
+
+    /* Success panel */
+    .success-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 36px 32px;
+      text-align: center;
+      max-width: 520px;
+    }
+
+    .success-check {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--green-bg); border: 2px solid #a3cfbb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 700; color: var(--green);
+      margin: 0 auto 18px;
+    }
+
+    .success-box h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .success-box p  { font-size: 13px; color: var(--text-sm); margin-bottom: 4px; }
+
+    /* Toast */
+    #toast-wrap {
+      position: fixed; bottom: 18px; right: 18px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+
+    .toast {
+      background: var(--nav-bg); color: #fff;
+      padding: 9px 14px; border-radius: 3px; font-size: 12px; font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      animation: tin .2s ease;
+    }
+    .toast.ok  { background: var(--green); }
+    .toast.err { background: var(--red);   }
+    @keyframes tin { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+
+    /* ── Inline Record Form (Django-style) ──────────────────── */
+    .form-breadcrumb { font-size: 12px; color: var(--text-sm); margin-bottom: 6px; }
+    .form-breadcrumb a { color: var(--text-sm); cursor: pointer; text-decoration: underline; }
+    .form-breadcrumb a:hover { color: var(--text); }
+    .form-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    /* Fieldset block */
+    .dj-fieldset { margin-bottom: 20px; border: 1px solid var(--border); }
+    .dj-fieldset-title {
+      background: var(--nav-bg); color: #fff;
+      font-size: 13px; font-weight: 600; padding: 8px 14px;
+      letter-spacing: .02em;
+    }
+
+    /* Each field row: label left, input right */
+    .dj-row {
+      display: flex; align-items: flex-start;
+      border-bottom: 1px solid var(--border-sm);
+      padding: 10px 14px;
+    }
+    .dj-row:last-child { border-bottom: none; }
+    .dj-row:nth-child(even) { background: #fafafa; }
+    .dj-lbl {
+      width: 200px; min-width: 200px; padding-top: 6px;
+      font-size: 13px; font-weight: 600; color: var(--text-md);
+      text-align: right; padding-right: 20px;
+    }
+    .dj-lbl .req { color: var(--red); margin-left: 2px; }
+    .dj-val { flex: 1; }
+    .dj-inp, .dj-sel {
+      width: 100%; max-width: 480px; padding: 6px 9px;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 13px;
+      background: var(--white);
+    }
+    .dj-inp:focus, .dj-sel:focus {
+      outline: none; border-color: #999;
+      box-shadow: 0 0 0 2px rgba(229,255,42,.35);
+    }
+    .dj-ta {
+      width: 100%; max-width: 600px; padding: 6px 9px;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 13px;
+      min-height: 90px; resize: vertical; font-family: inherit;
+      background: var(--white);
+    }
+    .dj-ta:focus { outline: none; border-color: #999; box-shadow: 0 0 0 2px rgba(229,255,42,.35); }
+    .dj-chk { display: flex; align-items: center; gap: 7px; padding-top: 5px; font-size: 13px; }
+    .dj-chk input { width: 15px; height: 15px; accent-color: var(--nav-bg); }
+
+    /* Submit bar */
+    .dj-submit {
+      display: flex; gap: 8px; align-items: center;
+      padding: 16px 0; margin-top: 4px;
+    }
+    .dj-submit .del-right { margin-left: auto; }
+    .form-err { margin-bottom: 14px; }
+
+    /* Pay redirect button spinner */
+    .pay-spinner-sm {
+      display: inline-block; width: 13px; height: 13px;
+      border: 2px solid rgba(255,255,255,.35); border-top-color: #fff;
+      border-radius: 50%; animation: spin .6s linear infinite; vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Registration card for member */
+    .reg-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 6px;
+      padding: 20px 24px; margin-bottom: 14px;
+    }
+    .reg-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .reg-card-name { font-size: 17px; font-weight: 700; }
+    .reg-card-prog { font-size: 13px; color: var(--text-sm); margin-top: 2px; }
+    .reg-card-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .pay-status { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+    .pay-status.unpaid  { background: var(--red-bg); color: var(--red); }
+    .pay-status.pending { background: var(--yellow-bg); color: var(--yellow-text); }
+    .pay-status.paid    { background: var(--green-bg); color: var(--green); }
+    .btn-pay { background: var(--nav-bg); color: #fff; border: none; border-radius: 4px; padding: 7px 16px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-pay:hover { background: #253650; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════ TOP NAV ══════════════════════════════════════ -->
+<nav id="topnav">
+  <a href="https://highvoltagetrack.com" class="nav-brand">
+    <img src="https://raw.githubusercontent.com/jayayjay/StaticImages/main/img/logo.png" alt="">
+    High Voltage T&amp;F
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-sub" id="nav-context">HQ Portal</span>
+  <div class="nav-right" id="nav-auth-btns">
+    <button class="btn-nav" onclick="toggleAdminPanel()" id="admin-panel-btn">Administration</button>
+  </div>
+  <div class="nav-right" id="nav-user-area" style="display:none">
+    <span class="nav-user" id="nav-user-name"></span>
+    <button class="btn-nav" onclick="logout()">Sign Out</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════ ADMIN LOGIN PANEL ══════════════════════════════════════ -->
+<div id="admin-panel">
+  <div class="admin-panel-inner">
+    <div class="admin-panel-title">
+      Staff &amp; Administration Login <span class="badge-admin">Restricted</span>
+    </div>
+    <div id="adm-login-err" class="alert alert-danger"></div>
+    <form onsubmit="doAdminLogin(event)">
+      <input class="admin-inp" type="email"    id="adm-email" placeholder="Staff email address" autocomplete="email" required>
+      <input class="admin-inp" type="password" id="adm-pw"    placeholder="Password"            autocomplete="current-password" required>
+      <button class="btn btn-primary btn-full" id="adm-btn" type="submit">Sign In to Administration</button>
+    </form>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ AUTH SCREEN ══════════════════════════════════════ -->
+<div id="auth-screen">
+  <div class="auth-wrap">
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login"  onclick="switchAuthTab('login')">Sign In</div>
+      <div class="auth-tab"        id="tab-signup" onclick="switchAuthTab('signup')">Create Account</div>
+    </div>
+
+    <!-- Sign In panel -->
+    <div class="auth-panel active" id="panel-login">
+      <div class="auth-panel-title">Sign In</div>
+      <div class="auth-panel-sub">Access your account to manage registrations.</div>
+      <div id="login-err" class="alert alert-danger"></div>
+      <form onsubmit="doLogin(event)">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-pw" placeholder="Password" autocomplete="current-password" required>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:14px">
+          <input type="checkbox" id="login-remember" checked style="width:15px;height:15px;accent-color:var(--nav-bg)">
+          <label for="login-remember" style="font-size:13px;color:var(--text-md);cursor:pointer">Remember me</label>
+        </div>
+        <button class="btn btn-primary btn-full" id="login-btn" type="submit">Sign In</button>
+      </form>
+      <p style="margin-top:16px;font-size:12px;color:var(--text-sm);text-align:center">
+        Don't have an account? <a href="#" onclick="switchAuthTab('signup');return false;" style="color:#3d5a00">Create one</a>
+      </p>
+    </div>
+
+    <!-- Create Account panel -->
+    <div class="auth-panel" id="panel-signup">
+      <div class="auth-panel-title">Create Account</div>
+      <div class="auth-panel-sub">New to HVTF? Register here to enroll your athlete.</div>
+
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-sm);margin-bottom:9px">Registering as</div>
+      <div class="acct-grid">
+        <div class="acct-card selected" data-type="parent" onclick="selectAcctType('parent')">
+          <div class="acct-card-title">Parent / Guardian</div>
+          <div class="acct-card-sub">For athlete registration</div>
+        </div>
+        <div class="acct-card" data-type="athlete" onclick="selectAcctType('athlete')">
+          <div class="acct-card-title">Individual Athlete</div>
+          <div class="acct-card-sub">Self-registration (18+)</div>
+        </div>
+      </div>
+
+      <div id="signup-err" class="alert alert-danger"></div>
+      <form onsubmit="doSignup(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="su-first" placeholder="Jane" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="su-last" placeholder="Smith" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="su-email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Password <span style="font-weight:400;text-transform:none">(8+ chars)</span></label>
+            <input type="password" id="su-pw" placeholder="Password" autocomplete="new-password">
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="su-pw2" placeholder="Confirm" autocomplete="new-password">
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full" id="signup-btn" type="submit">Create Account</button>
+      </form>
+      <p style="margin-top:16px;font-size:12px;color:var(--text-sm);text-align:center">
+        Already have an account? <a href="#" onclick="switchAuthTab('login');return false;" style="color:#3d5a00">Sign in</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ APP SHELL ══════════════════════════════════════ -->
+<div id="app-shell">
+  <div class="shell-body">
+
+    <!-- Sidebar — populated by JS based on role -->
+    <nav class="app-sidebar" id="app-sidebar"></nav>
+
+    <!-- Main content -->
+    <main class="app-main" id="app-main"></main>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ REG OVERLAY ══════════════════════════════════════ -->
+<div id="reg-overlay">
+  <div style="display:flex;min-height:calc(100vh - var(--nav-h))">
+
+    <div class="reg-sidebar-nav">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-sm);padding:0 16px 10px">Steps</div>
+      <div class="reg-step-item active" id="rs-1"><div class="step-num">1</div><div class="step-lbl">Program</div></div>
+      <div class="reg-step-item"        id="rs-2"><div class="step-num">2</div><div class="step-lbl">Athlete Info</div></div>
+      <div class="reg-step-item"        id="rs-3"><div class="step-num">3</div><div class="step-lbl">Emergency &amp; Medical</div></div>
+      <div class="reg-step-item"        id="rs-4"><div class="step-num">4</div><div class="step-lbl">Review &amp; Submit</div></div>
+      <div class="reg-step-item"        id="rs-5"><div class="step-num">5</div><div class="step-lbl">Confirmation</div></div>
+    </div>
+
+    <div class="reg-content-wrap">
+
+      <div id="wiz-err" class="alert alert-danger"></div>
+
+      <!-- Step 1 -->
+      <div id="rp-1">
+        <div class="page-header">
+          <div><h1>Program Selection</h1><p>Select the season you want to register your athlete for.</p></div>
+          <button class="btn btn-secondary" onclick="closeReg()">Cancel</button>
+        </div>
+        <div class="panel">
+          <div id="prog-wrap"><div class="state-msg">Loading programs...</div></div>
+        </div>
+        <div class="step-nav">
+          <span class="spacer"></span>
+          <button class="btn btn-primary" onclick="wizNext()">Continue to Athlete Info</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="rp-2" style="display:none">
+        <div class="page-header">
+          <div><h1>Athlete Information</h1><p>Enter the athlete's personal details.</p></div>
+        </div>
+        <div class="fieldset">
+          <div class="fieldset-legend">Athlete Details</div>
+          <div class="fieldset-body">
+            <div class="form-row">
+              <div class="form-group"><label>First Name *</label><input type="text" id="ath-first" placeholder="Alex"></div>
+              <div class="form-group"><label>Last Name *</label><input type="text" id="ath-last" placeholder="Johnson"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Date of Birth *</label><input type="date" id="ath-dob"></div>
+              <div class="form-group">
+                <label>Gender *</label>
+                <select id="ath-gender">
+                  <option value="">Select...</option>
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="NB">Non-binary</option>
+                  <option value="P">Prefer not to say</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn btn-secondary" onclick="wizBack()">Back</button>
+          <span class="spacer"></span>
+          <button class="btn btn-primary" onclick="wizNext()">Continue to Emergency &amp; Medical</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="rp-3" style="display:none">
+        <div class="page-header"><div><h1>Emergency &amp; Medical</h1><p>Kept on file and shared only with coaching staff.</p></div></div>
+        <div class="fieldset">
+          <div class="fieldset-legend">Home Address</div>
+          <div class="fieldset-body">
+            <div class="form-group"><label>Street Address</label><input type="text" id="det-address" placeholder="123 Main Street"></div>
+            <div class="form-row">
+              <div class="form-group"><label>City</label><input type="text" id="det-city" placeholder="Seattle"></div>
+              <div class="form-row" style="gap:8px">
+                <div class="form-group"><label>State</label><input type="text" id="det-state" placeholder="WA" style="max-width:70px"></div>
+                <div class="form-group"><label>ZIP</label><input type="text" id="det-zip" placeholder="98101"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fieldset">
+          <div class="fieldset-legend">Emergency Contact</div>
+          <div class="fieldset-body">
+            <div class="form-row">
+              <div class="form-group"><label>Full Name</label><input type="text" id="det-gname" placeholder="Jane Smith"></div>
+              <div class="form-group"><label>Relationship</label><input type="text" id="det-grel" placeholder="Mother"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Phone</label><input type="tel" id="det-gphone" placeholder="(206) 555-0000"></div>
+              <div class="form-group"><label>Email</label><input type="email" id="det-gemail" placeholder="guardian@example.com"></div>
+            </div>
+          </div>
+        </div>
+        <div class="fieldset">
+          <div class="fieldset-legend">Medical Information</div>
+          <div class="fieldset-body">
+            <div class="form-group">
+              <label>Medical Notes <span style="font-weight:400;text-transform:none;color:var(--text-sm)">(optional)</span></label>
+              <textarea id="det-medical" placeholder="Conditions, medications, or anything coaches should know." style="min-height:66px"></textarea>
+            </div>
+            <label class="check-row" style="font-size:12px">
+              <input type="checkbox" id="det-allergies" onchange="document.getElementById('allergy-wrap').style.display=this.checked?'block':'none'">
+              Athlete has known allergies
+            </label>
+            <div id="allergy-wrap" style="display:none" class="form-group">
+              <label>Allergy Details</label>
+              <input type="text" id="det-allergy" placeholder="e.g. peanuts, bee stings">
+            </div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn btn-secondary" onclick="wizBack()">Back</button>
+          <span class="spacer"></span>
+          <button class="btn btn-primary" onclick="wizNext()">Continue to Review</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div id="rp-4" style="display:none">
+        <div class="page-header"><div><h1>Review &amp; Submit</h1><p>Confirm your information and accept the waiver.</p></div></div>
+        <div class="fieldset">
+          <div class="fieldset-legend">Registration Summary</div>
+          <div class="fieldset-body" style="padding:0">
+            <table class="summary-tbl">
+              <tr><td>Program</td><td id="rv-program"></td></tr>
+              <tr><td>Season</td><td id="rv-season"></td></tr>
+              <tr><td>Athlete</td><td id="rv-athlete"></td></tr>
+              <tr><td>Fee Type</td><td id="rv-fee-lbl"></td></tr>
+              <tr class="total-row"><td>Registration Fee</td><td id="rv-fee"></td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="fieldset">
+          <div class="fieldset-legend">Liability Waiver &amp; Medical Release</div>
+          <div class="fieldset-body">
+            <div class="waiver-box">
+              I, the undersigned parent/guardian, acknowledge that participation in track &amp; field activities carries inherent risks of physical injury including sprains, fractures, heat-related illness, and cardiovascular events. I voluntarily assume these risks and release High Voltage Track &amp; Field Club, its officers, coaches, officials, agents, and volunteers from all liability arising out of the athlete's participation in club activities.<br><br>
+              I authorize club staff to secure emergency medical treatment if I cannot be reached, and accept responsibility for all medical expenses incurred.<br><br>
+              I confirm all submitted information is accurate. I understand that false information may result in immediate removal without refund. Fees are non-refundable once the season begins. I agree to abide by the club's Code of Conduct.
+            </div>
+            <label class="check-row">
+              <input type="checkbox" id="wiz-waiver">
+              I have read and accept the Liability Waiver &amp; Medical Release Agreement
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="wiz-photo">
+              I consent to photographs and video of my athlete being used for club promotional purposes
+            </label>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn btn-secondary" onclick="wizBack()">Back</button>
+          <span class="spacer"></span>
+          <button class="btn btn-primary" id="submit-btn" onclick="submitReg()">Submit Registration</button>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div id="rp-5" style="display:none">
+        <div class="success-box">
+          <div class="success-check">&#10003;</div>
+          <h3>Registration Submitted</h3>
+          <p id="conf-line" style="margin-top:6px;font-weight:600;color:var(--text)"></p>
+          <p style="margin-top:10px">Your registration is pending review. You will be contacted with next steps and payment instructions.</p>
+          <div class="alert alert-info" style="display:block;margin-top:18px;text-align:left">
+            Questions? Contact us at <a href="mailto:hvtfcoach@gmail.com" style="color:#3d5a00">hvtfcoach@gmail.com</a>
+          </div>
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:18px">
+            <button class="btn btn-secondary" onclick="resetReg()">Register Another Athlete</button>
+            <button class="btn btn-primary" onclick="closeReg()">Back to Dashboard</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /reg-content-wrap -->
+  </div>
+</div>
+
+<div id="toast-wrap"></div>
+
+
+<script>
+/* ── HVTF HQ Portal ─────────────────────────────────────────── */
+
+const API   = '/hq/api';
+
+// Auth helpers — support both localStorage (remember) and sessionStorage (session only)
+function _authStore() {
+  return localStorage.getItem('hvtf_hq_remember') === 'false' ? sessionStorage : localStorage;
+}
+function _saveAuth(token, user, remember) {
+  localStorage.setItem('hvtf_hq_remember', remember ? 'true' : 'false');
+  const store = remember ? localStorage : sessionStorage;
+  store.setItem('hvtf_hq_token', token);
+  store.setItem('hvtf_hq_user',  JSON.stringify(user));
+  // Clear the other store
+  const other = remember ? sessionStorage : localStorage;
+  other.removeItem('hvtf_hq_token');
+  other.removeItem('hvtf_hq_user');
+}
+function _clearAuth() {
+  ['hvtf_hq_token','hvtf_hq_user'].forEach(k => {
+    localStorage.removeItem(k); sessionStorage.removeItem(k);
+  });
+}
+
+let _token = localStorage.getItem('hvtf_hq_token') || sessionStorage.getItem('hvtf_hq_token') || null;
+let _user  = null;
+try {
+  const raw = localStorage.getItem('hvtf_hq_user') || sessionStorage.getItem('hvtf_hq_user');
+  if (raw) _user = JSON.parse(raw);
+} catch {}
+let _view  = null;   // current admin section
+
+// ── Utilities ─────────────────────────────────────────────────
+async function req(path, opts = {}) {
+  const h = { 'Content-Type': 'application/json', ...opts.headers };
+  if (_token) h['Authorization'] = `Token ${_token}`;
+  return fetch(`${API}${path}`, { ...opts, headers: h });
+}
+
+function toast(msg, type = '') {
+  const el = Object.assign(document.createElement('div'), { className: `toast ${type}`, textContent: msg });
+  document.getElementById('toast-wrap').appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+function showAlert(id, msg, type = 'danger') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = `alert alert-${type} show`;
+  el.textContent = msg;
+}
+
+function clearAlert(id) {
+  const el = document.getElementById(id);
+  if (el) { el.className = 'alert'; el.textContent = ''; }
+}
+
+function fmtDate(s) {
+  if (!s) return '—';
+  return new Date(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function fmtMoney(v) { return '$' + parseFloat(v || 0).toFixed(0); }
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.appendChild(document.createTextNode(s || ''));
+  return d.innerHTML;
+}
+
+// ── Boot ──────────────────────────────────────────────────────
+function init() {
+  _handlePaymentReturn();   // show toast if returning from Stripe Checkout
+  if (_token) bootApp();
+  else        showAuth();
+}
+
+function showAuth() {
+  document.getElementById('auth-screen').style.display  = 'flex';
+  document.getElementById('app-shell').style.display    = 'none';
+  document.getElementById('nav-user-area').style.display = 'none';
+  document.getElementById('nav-auth-btns').style.display = 'flex';
+  document.getElementById('admin-panel').style.display  = 'none';
+}
+
+async function bootApp() {
+  // Validate token and refresh user info
+  if (_token) {
+    try {
+      const res = await req('/me/');
+      if (res.ok) {
+        _user = await res.json();
+        // Persist refreshed user data in whichever store is active
+        const remember = localStorage.getItem('hvtf_hq_remember') !== 'false';
+        const store = remember ? localStorage : sessionStorage;
+        store.setItem('hvtf_hq_user', JSON.stringify(_user));
+      } else {
+        // Token invalid — force back to auth
+        _clearAuth(); _token = null; _user = null;
+        showAuth(); return;
+      }
+    } catch {
+      // Network error — proceed with cached _user if available
+    }
+  }
+
+  document.getElementById('auth-screen').style.display   = 'none';
+  document.getElementById('admin-panel').style.display   = 'none';
+  document.getElementById('app-shell').style.display     = 'block';
+  document.getElementById('nav-auth-btns').style.display = 'none';
+  document.getElementById('nav-user-area').style.display = 'flex';
+  document.getElementById('nav-user-name').textContent   = _user ? _user.name : '';
+
+  if (_user && _user.is_staff) {
+    document.getElementById('nav-context').textContent = 'Admin Dashboard';
+    buildAdminSidebar();
+    loadAdminSection('dashboard');
+  } else {
+    document.getElementById('nav-context').textContent = 'Member Portal';
+    buildMemberSidebar();
+    loadMemberSection('registrations');
+  }
+}
+
+// ── Auth ──────────────────────────────────────────────────────
+function switchAuthTab(tab) {
+  ['login','signup'].forEach(t => {
+    document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+    document.getElementById(`panel-${t}`).classList.toggle('active', t === tab);
+  });
+}
+
+let _acctType = 'parent';
+
+function selectAcctType(t) {
+  _acctType = t;
+  document.querySelectorAll('.acct-card').forEach(c => c.classList.toggle('selected', c.dataset.type === t));
+}
+
+async function doLogin(e) {
+  e.preventDefault();
+  clearAlert('login-err');
+  const email    = document.getElementById('login-email').value.trim();
+  const pw       = document.getElementById('login-pw').value;
+  const remember = document.getElementById('login-remember').checked;
+  if (!email || !pw) { showAlert('login-err', 'Please enter your email and password.'); return; }
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true; btn.textContent = 'Signing in...';
+  try {
+    const res  = await req('/login/', { method: 'POST', body: JSON.stringify({ email, password: pw }) });
+    const data = await res.json();
+    if (!res.ok) { showAlert('login-err', data.error || 'Login failed.'); return; }
+    _token = data.token; _user = data.user;
+    _saveAuth(_token, _user, remember);
+    bootApp();
+  } catch { showAlert('login-err', 'Network error. Please try again.'); }
+  finally  { btn.disabled = false; btn.textContent = 'Sign In'; }
+}
+
+async function doSignup(e) {
+  e.preventDefault();
+  clearAlert('signup-err');
+  const fn = document.getElementById('su-first').value.trim();
+  const ln = document.getElementById('su-last').value.trim();
+  const em = document.getElementById('su-email').value.trim();
+  const pw = document.getElementById('su-pw').value;
+  const p2 = document.getElementById('su-pw2').value;
+  if (!fn || !ln || !em || !pw) { showAlert('signup-err', 'All fields are required.'); return; }
+  if (pw.length < 8)            { showAlert('signup-err', 'Password must be at least 8 characters.'); return; }
+  if (pw !== p2)                { showAlert('signup-err', 'Passwords do not match.'); return; }
+  const btn = document.getElementById('signup-btn');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+  try {
+    const res  = await req('/signup/', { method: 'POST', body: JSON.stringify({ first_name: fn, last_name: ln, email: em, password: pw }) });
+    const data = await res.json();
+    if (!res.ok) { showAlert('signup-err', data.error || 'Could not create account.'); return; }
+    _token = data.token; _user = data.user;
+    _saveAuth(_token, _user, true);
+    toast('Account created successfully.', 'ok');
+    bootApp();
+  } catch { showAlert('signup-err', 'Network error. Please try again.'); }
+  finally  { btn.disabled = false; btn.textContent = 'Create Account'; }
+}
+
+function logout() {
+  _token = null; _user = null;
+  _clearAuth();
+  // Reset app shell state so re-login works cleanly
+  document.getElementById('app-shell').style.display     = 'none';
+  document.getElementById('nav-user-area').style.display = 'none';
+  document.getElementById('nav-auth-btns').style.display = 'flex';
+  document.getElementById('nav-context').textContent     = 'HQ Portal';
+  showAuth();
+}
+
+function toggleAdminPanel() {
+  const p   = document.getElementById('admin-panel');
+  const btn = document.getElementById('admin-panel-btn');
+  const open = p.style.display === 'block';
+  p.style.display = open ? 'none' : 'block';
+  btn.style.background = open ? '' : 'rgba(229,255,42,.35)';
+  btn.style.borderColor = open ? '' : 'rgba(229,255,42,.6)';
+  if (!open) document.getElementById('adm-email').focus();
+}
+
+async function doAdminLogin(e) {
+  e.preventDefault();
+  clearAlert('adm-login-err');
+  const email = document.getElementById('adm-email').value.trim();
+  const pw    = document.getElementById('adm-pw').value;
+  if (!email || !pw) { showAlert('adm-login-err', 'Email and password are required.'); return; }
+  const btn = document.getElementById('adm-btn');
+  btn.disabled = true; btn.textContent = 'Signing in...';
+  try {
+    const res  = await req('/login/', { method: 'POST', body: JSON.stringify({ email, password: pw }) });
+    const data = await res.json();
+    if (!res.ok) { showAlert('adm-login-err', data.error || 'Login failed.'); return; }
+    if (!data.user.is_staff) {
+      showAlert('adm-login-err', 'This account does not have staff access.');
+      return;
+    }
+    _token = data.token; _user = data.user;
+    _saveAuth(_token, _user, true);
+    bootApp();
+  } catch { showAlert('adm-login-err', 'Network error. Please try again.'); }
+  finally  { btn.disabled = false; btn.textContent = 'Sign In to Administration'; }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN DASHBOARD
+// ═══════════════════════════════════════════════════════════════
+
+function buildAdminSidebar() {
+  document.getElementById('app-sidebar').innerHTML = `
+    <div class="sidebar-app-label">Administration</div>
+    <div class="sidebar-link active" data-section="dashboard" onclick="loadAdminSection('dashboard')">Dashboard</div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-app-label">Registration</div>
+    <div class="sidebar-link" data-section="registrations" onclick="loadAdminSection('registrations')">
+      HQ Registrations <span class="sidebar-count red" id="sb-pending-count"></span>
+    </div>
+    <div class="sidebar-link" data-section="programs"      onclick="loadAdminSection('programs')">Season Programs</div>
+    <div class="sidebar-link" data-section="reg-orders"    onclick="loadAdminSection('reg-orders')">Registration Orders</div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-app-label">People</div>
+    <div class="sidebar-link" data-section="athletes"      onclick="loadAdminSection('athletes')">Athletes</div>
+    <div class="sidebar-link" data-section="teams"         onclick="loadAdminSection('teams')">Teams</div>
+    <div class="sidebar-link" data-section="users"         onclick="loadAdminSection('users')">Users</div>
+    <div class="sidebar-link" data-section="transfers"     onclick="loadAdminSection('transfers')">
+      Transfers <span class="sidebar-count red" id="sb-transfer-count"></span>
+    </div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-app-label">Operations</div>
+    <div class="sidebar-link" data-section="events"        onclick="loadAdminSection('events')">Events</div>
+    <div class="sidebar-link" data-section="leagues"       onclick="loadAdminSection('leagues')">Leagues</div>
+    <div class="sidebar-link" data-section="fixtures"      onclick="loadAdminSection('fixtures')">Fixtures</div>
+    <div class="sidebar-link" data-section="organizations" onclick="loadAdminSection('organizations')">Organizations</div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-app-label">Finance & Comms</div>
+    <div class="sidebar-link" data-section="payments"      onclick="loadAdminSection('payments')">Payments</div>
+    <div class="sidebar-link" data-section="announcements" onclick="loadAdminSection('announcements')">Announcements</div>
+    <div class="sidebar-link" data-section="contact"       onclick="loadAdminSection('contact')">Contact Messages</div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-app-label">Compliance & Safety</div>
+    <div class="sidebar-link" data-section="compliance"    onclick="loadAdminSection('compliance')">Compliance Records</div>
+    <div class="sidebar-link" data-section="incidents"     onclick="loadAdminSection('incidents')">
+      Incidents <span class="sidebar-count red" id="sb-incident-count"></span>
+    </div>
+    <div class="sidebar-link" data-section="audit"         onclick="loadAdminSection('audit')">Audit Log</div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-app-label">Data</div>
+    <div class="sidebar-link" data-section="records"       onclick="loadAdminSection('records')">Athlete Records</div>
+    <div class="sidebar-link" data-section="analytics"     onclick="loadAdminSection('analytics')">Analytics</div>`;
+}
+
+function setAdminNav(section) {
+  document.querySelectorAll('#app-sidebar .sidebar-link').forEach(l =>
+    l.classList.toggle('active', l.dataset.section === section));
+}
+
+async function loadAdminSection(section) {
+  _view = section;
+  setAdminNav(section);
+  const main = document.getElementById('app-main');
+  main.innerHTML = '<div class="state-msg">Loading...</div>';
+
+  if (section === 'dashboard')     return renderAdminDashboard(main);
+  if (section === 'registrations') return renderAdminRegistrations(main);
+  if (section === 'programs')      return renderAdminPrograms(main);
+  if (section === 'records')       return renderAdminRecords(main);
+  if (section === 'users')         return renderAdminUsers(main);
+  if (section === 'contact')       return renderAdminContact(main);
+  if (section === 'athletes')      return renderSection(main, 'Athletes',           '/admin/athletes/',            athleteRow,       ['Name','DOB','Gender','Team','Status','Waiver','Registered'],  'athletes');
+  if (section === 'teams')         return renderSection(main, 'Teams',              '/admin/teams/',               teamRow,          ['Name','Age Group','Season','Head Coach','Status','Athletes','Max'], 'teams');
+  if (section === 'events')        return renderSection(main, 'Events',             '/admin/events/',              eventRow,         ['Name','Type','Venue','Start','Published','Cancelled','Registrations'], 'events');
+  if (section === 'payments')      return renderSection(main, 'Payments',           '/admin/payments/',            paymentRow,       ['Athlete','Season','Amount','Fee Tier','Status','Method','Due Date','Invoice'], 'payments');
+  if (section === 'announcements') return renderSection(main, 'Announcements',      '/admin/announcements/',       announcementRow,  ['Title','Audience','Team','By','Email','SMS','Published','Date'], 'announcements');
+  if (section === 'compliance')    return renderSection(main, 'Compliance Records', '/admin/compliance/',          complianceRow,    ['Subject','Type','Status','Expiry','Days Left','Issuer'], 'compliance');
+  if (section === 'incidents')     return renderSection(main, 'Incident Reports',   '/admin/incidents/',           incidentRow,      ['Title','Type','Severity','Status','Date','Athlete','Location'], 'incidents');
+  if (section === 'transfers')     return renderSection(main, 'Transfer Requests',  '/admin/transfers/',           transferRow,      ['Athlete','From Team','To Team','Status','Date'], 'transfers');
+  if (section === 'leagues')       return renderSection(main, 'Leagues',            '/admin/leagues/',             leagueRow,        ['Name','Sport','Organization','Active','Divisions'], 'leagues');
+  if (section === 'fixtures')      return renderSection(main, 'Fixtures',           '/admin/fixtures/',            fixtureRow,       ['Home','Away','Division','Season','Venue','Date','Round','Status']);
+  if (section === 'organizations') return renderSection(main, 'Organizations',      '/admin/organizations/',       organizationRow,  ['Name','Email','Phone','Website','Active','Members'], 'organizations');
+  if (section === 'reg-orders')    return renderSection(main, 'Registration Orders','/admin/registration-orders/', regOrderRow,      ['Athlete','Season','Order #','Status','Fee','Gross','Date']);
+  if (section === 'audit')         return renderSection(main, 'Audit Log',          '/admin/audit-log/',           auditRow,         ['User','Action','Model','Object','IP','Timestamp']);
+  if (section === 'analytics')     return renderSection(main, 'Analytics Snapshots','/admin/analytics/',           analyticsRow,     ['Date','Metric','Dimension','Value']);
+}
+
+let _dashChart = null;
+
+async function renderAdminDashboard(main) {
+  const res = await req('/admin/stats/');
+  const s   = await res.json();
+
+  // Update sidebar badge counts
+  ['sb-pending-count','sb-transfer-count','sb-incident-count'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = id.includes('pending') ? (s.registrations_pending||'')
+                           : id.includes('transfer') ? (s.transfer_pending||'')
+                           : (s.incidents_open||'');
+  });
+
+  const fmt$ = n => '$' + Number(n).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
+  const today = new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+
+  main.innerHTML = `
+    <div class="page-header" style="margin-bottom:20px">
+      <div>
+        <h1 style="font-size:22px;font-weight:700">Dashboard</h1>
+        <p style="color:var(--text-sm);font-size:13px;margin-top:2px">${today}</p>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-sm btn-secondary" onclick="loadAdminSection('analytics')">View Analytics</button>
+        <button class="btn btn-sm btn-primary"   onclick="loadAdminSection('registrations')">Registrations</button>
+      </div>
+    </div>
+
+    <!-- KPI Row 1: People & Money -->
+    <div class="kpi-row">
+      <div class="kpi-card c-yellow" style="cursor:pointer" onclick="loadAdminSection('athletes')">
+        <span class="kpi-icon"></span>
+        <div class="kpi-val">${s.athletes}</div>
+        <div class="kpi-lbl">Athletes</div>
+        <div class="kpi-sub">
+          <span class="kpi-badge ok">${s.athletes_active} active</span>
+          <span class="kpi-badge info">+${s.athletes_new_30d} this month</span>
+        </div>
+      </div>
+      <div class="kpi-card c-green" style="cursor:pointer" onclick="loadAdminSection('registrations')">
+        <span class="kpi-icon"></span>
+        <div class="kpi-val">${fmt$(s.revenue_paid)}</div>
+        <div class="kpi-lbl">Revenue Collected</div>
+        <div class="kpi-sub">
+          <span class="kpi-badge ok">${s.hq_paid_count} paid</span>
+          ${s.revenue_pending > 0 ? `<span class="kpi-badge warn">${fmt$(s.revenue_pending)} outstanding</span>` : ''}
+        </div>
+      </div>
+      <div class="kpi-card c-navy" style="cursor:pointer" onclick="loadAdminSection('registrations')">
+        <span class="kpi-icon"></span>
+        <div class="kpi-val">${s.registrations}</div>
+        <div class="kpi-lbl">HQ Registrations</div>
+        <div class="kpi-sub">
+          ${s.registrations_pending > 0 ? `<span class="kpi-badge warn">${s.registrations_pending} pending</span>` : ''}
+          <span class="kpi-badge ok">${s.registrations_approved} approved</span>
+        </div>
+      </div>
+      <div class="kpi-card c-yellow" style="cursor:pointer" onclick="loadAdminSection('events')">
+        <span class="kpi-icon"></span>
+        <div class="kpi-val">${s.events_upcoming}</div>
+        <div class="kpi-lbl">Upcoming Events</div>
+        <div class="kpi-sub">
+          <span class="kpi-badge muted">${s.events} total events</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI Row 2: Operations -->
+    <div class="kpi-row" style="margin-bottom:22px">
+      <div class="kpi-card c-navy" style="cursor:pointer" onclick="loadAdminSection('teams')">
+        <span class="kpi-icon"></span>
+        <div class="kpi-val">${s.teams}</div>
+        <div class="kpi-lbl">Teams</div>
+        <div class="kpi-sub"><span class="kpi-badge muted">${s.users} portal users</span></div>
+      </div>
+      <div class="kpi-card ${s.incidents_open > 0 ? 'c-red' : 'c-green'}" style="cursor:pointer" onclick="loadAdminSection('incidents')">
+        <span class="kpi-icon"></span>
+        <div class="kpi-val">${s.incidents_open}</div>
+        <div class="kpi-lbl">Open Incidents</div>
+        <div class="kpi-sub">
+          ${s.incidents_critical > 0 ? `<span class="kpi-badge warn">${s.incidents_critical} critical</span>` : '<span class="kpi-badge ok">None critical</span>'}
+        </div>
+      </div>
+      <div class="kpi-card ${s.compliance_expired > 0 ? 'c-red' : 'c-green'}" style="cursor:pointer" onclick="loadAdminSection('compliance')">
+        <span class="kpi-icon"></span>
+        <div class="kpi-val">${s.compliance_records}</div>
+        <div class="kpi-lbl">Compliance Records</div>
+        <div class="kpi-sub">
+          ${s.compliance_expired   > 0 ? `<span class="kpi-badge warn">${s.compliance_expired} expired</span>` : ''}
+          ${s.compliance_expiring  > 0 ? `<span class="kpi-badge warn">${s.compliance_expiring} expiring</span>` : ''}
+          ${s.compliance_expired === 0 && s.compliance_expiring === 0 ? '<span class="kpi-badge ok">All current</span>' : ''}
+        </div>
+      </div>
+      <div class="kpi-card ${s.transfer_pending > 0 ? 'c-yellow' : 'c-navy'}" style="cursor:pointer" onclick="loadAdminSection('transfers')">
+        <span class="kpi-icon"></span>
+        <div class="kpi-val">${s.transfer_requests}</div>
+        <div class="kpi-lbl">Transfers</div>
+        <div class="kpi-sub">
+          ${s.transfer_pending > 0 ? `<span class="kpi-badge warn">${s.transfer_pending} pending</span>` : '<span class="kpi-badge ok">None pending</span>'}
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts + Alerts row -->
+    <div class="dash-row" style="margin-bottom:18px">
+      <div class="dash-card">
+        <div class="dash-card-head">
+          <span class="dash-card-title">Athlete Registrations — Last 6 Months</span>
+        </div>
+        <div class="dash-card-body">
+          <canvas id="dash-reg-chart" height="160"></canvas>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-head">
+          <span class="dash-card-title">Alerts &amp; Actions</span>
+        </div>
+        <ul class="alert-list">
+          ${s.registrations_pending > 0
+            ? `<li class="alert-item"><span class="alert-dot yellow"></span><span class="alert-text"><strong>${s.registrations_pending}</strong> registration${s.registrations_pending!==1?'s':''} awaiting review</span><button class="btn btn-sm btn-secondary" onclick="loadAdminSection('registrations')">Review</button></li>`
+            : `<li class="alert-item"><span class="alert-dot green"></span><span class="alert-text">No pending registrations</span></li>`}
+          ${s.payments_overdue > 0
+            ? `<li class="alert-item"><span class="alert-dot red"></span><span class="alert-text"><strong>${s.payments_overdue}</strong> overdue payment${s.payments_overdue!==1?'s':''}</span><button class="btn btn-sm btn-secondary" onclick="loadAdminSection('payments')">View</button></li>`
+            : `<li class="alert-item"><span class="alert-dot green"></span><span class="alert-text">No overdue payments</span></li>`}
+          ${s.incidents_open > 0
+            ? `<li class="alert-item"><span class="alert-dot ${s.incidents_critical > 0 ? 'red' : 'yellow'}"></span><span class="alert-text"><strong>${s.incidents_open}</strong> open incident${s.incidents_open!==1?'s':''}</span><button class="btn btn-sm btn-secondary" onclick="loadAdminSection('incidents')">View</button></li>`
+            : `<li class="alert-item"><span class="alert-dot green"></span><span class="alert-text">No open incidents</span></li>`}
+          ${s.compliance_expiring > 0
+            ? `<li class="alert-item"><span class="alert-dot yellow"></span><span class="alert-text"><strong>${s.compliance_expiring}</strong> compliance record${s.compliance_expiring!==1?'s':''} expiring within 30 days</span><button class="btn btn-sm btn-secondary" onclick="loadAdminSection('compliance')">View</button></li>`
+            : `<li class="alert-item"><span class="alert-dot green"></span><span class="alert-text">No records expiring soon</span></li>`}
+          ${s.transfer_pending > 0
+            ? `<li class="alert-item"><span class="alert-dot yellow"></span><span class="alert-text"><strong>${s.transfer_pending}</strong> transfer request${s.transfer_pending!==1?'s':''} pending</span><button class="btn btn-sm btn-secondary" onclick="loadAdminSection('transfers')">Review</button></li>`
+            : `<li class="alert-item"><span class="alert-dot green"></span><span class="alert-text">No pending transfers</span></li>`}
+          ${s.contact_messages > 0
+            ? `<li class="alert-item"><span class="alert-dot gray"></span><span class="alert-text"><strong>${s.contact_messages}</strong> contact message${s.contact_messages!==1?'s':''}</span><button class="btn btn-sm btn-secondary" onclick="loadAdminSection('contact')">View</button></li>`
+            : ''}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Pending registrations + League snapshot -->
+    <div class="dash-row wide" style="margin-bottom:0">
+      <div class="dash-card">
+        <div class="dash-card-head">
+          <span class="dash-card-title">Pending Registrations</span>
+          <button class="btn btn-sm btn-secondary" onclick="loadAdminSection('registrations')">View All</button>
+        </div>
+        <div class="dash-card-body no-pad" id="dash-pending-wrap">
+          <div class="state-msg" style="padding:24px">Loading…</div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-head">
+          <span class="dash-card-title">System Overview</span>
+        </div>
+        <div class="dash-card-body no-pad">
+          <table class="dash-table">
+            <tbody>
+              <tr><td style="color:var(--text-sm)">Leagues</td><td style="font-weight:700">${s.leagues}</td><td><button class="btn btn-sm btn-secondary" style="float:right" onclick="loadAdminSection('leagues')">View</button></td></tr>
+              <tr><td style="color:var(--text-sm)">Fixtures</td><td style="font-weight:700">${s.fixtures}</td><td><button class="btn btn-sm btn-secondary" style="float:right" onclick="loadAdminSection('fixtures')">View</button></td></tr>
+              <tr><td style="color:var(--text-sm)">Organizations</td><td style="font-weight:700">${s.organizations}</td><td><button class="btn btn-sm btn-secondary" style="float:right" onclick="loadAdminSection('organizations')">View</button></td></tr>
+              <tr><td style="color:var(--text-sm)">Announcements</td><td style="font-weight:700">${s.announcements}</td><td><button class="btn btn-sm btn-secondary" style="float:right" onclick="loadAdminSection('announcements')">View</button></td></tr>
+              <tr><td style="color:var(--text-sm)">Season Programs</td><td style="font-weight:700">${s.programs}</td><td><button class="btn btn-sm btn-secondary" style="float:right" onclick="loadAdminSection('programs')">View</button></td></tr>
+              <tr><td style="color:var(--text-sm)">Reg. Orders</td><td style="font-weight:700">${s.registrations}</td><td><button class="btn btn-sm btn-secondary" style="float:right" onclick="loadAdminSection('reg-orders')">View</button></td></tr>
+              <tr><td style="color:var(--text-sm)">Audit Log</td><td style="font-weight:700">—</td><td><button class="btn btn-sm btn-secondary" style="float:right" onclick="loadAdminSection('audit')">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
+
+  // Draw registration chart
+  if (_dashChart) { _dashChart.destroy(); _dashChart = null; }
+  const ctx = document.getElementById('dash-reg-chart');
+  if (ctx && s.reg_monthly) {
+    _dashChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: s.reg_monthly.map(m => m.label),
+        datasets: [{
+          label: 'New Athletes',
+          data:  s.reg_monthly.map(m => m.value),
+          backgroundColor: 'rgba(229,255,42,.7)',
+          borderColor:     '#c8e600',
+          borderWidth: 1,
+          borderRadius: 4,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, ticks: { stepSize: 1, font: {size:11} }, grid: { color: '#f0f0f0' } },
+          x: { ticks: { font: {size:11} }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  loadDashPending();
+}
+
+async function loadDashPending() {
+  const res  = await req('/admin/registrations/?status=pending');
+  const rows = await res.json();
+  const wrap = document.getElementById('dash-pending-wrap');
+  if (!wrap) return;
+  if (!rows.length) {
+    wrap.innerHTML = '<div class="state-msg" style="padding:24px">No pending registrations.</div>';
+    return;
+  }
+  wrap.innerHTML = `
+    <table class="dash-table">
+      <thead><tr><th>Athlete</th><th>Program</th><th>Date</th><th></th></tr></thead>
+      <tbody>
+        ${rows.slice(0, 8).map(r => `
+          <tr>
+            <td><strong>${esc(r.athlete_name)}</strong><br><span style="font-size:11px;color:var(--text-sm)">${esc(r.user_email)}</span></td>
+            <td>${esc(r.program)} — ${esc(r.season)}</td>
+            <td style="font-size:11px;color:var(--text-sm)">${r.created_at}</td>
+            <td style="white-space:nowrap">
+              <button class="btn btn-sm btn-success" onclick="updateRegStatus(${r.id},'approved')">Approve</button>
+              <button class="btn btn-sm btn-danger"  onclick="updateRegStatus(${r.id},'rejected')" style="margin-left:4px">Reject</button>
+            </td>
+          </tr>`).join('')}
+      </tbody>
+    </table>
+    ${rows.length > 8 ? `<div style="padding:10px 14px;font-size:12px;color:var(--text-sm);border-top:1px solid var(--border)">${rows.length - 8} more — <a style="cursor:pointer;color:inherit;text-decoration:underline" onclick="loadAdminSection('registrations')">View all</a></div>` : ''}`;
+}
+
+async function renderAdminRegistrations(main) {
+  const res  = await req('/admin/registrations/');
+  const rows = await res.json();
+  const seasons = [...new Set(rows.map(r => r.season).filter(Boolean))].sort().reverse();
+  main.innerHTML = `
+    <div class="page-header">
+      <div><h1>Registrations</h1><p>${rows.length} total registration${rows.length !== 1 ? 's' : ''}.</p></div>
+    </div>
+    <div class="panel">
+      <div class="filter-bar">
+        <label>Season:</label>
+        <select onchange="filterRegTable()" id="season-filter">
+          <option value="all">All Seasons</option>
+          ${seasons.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('')}
+        </select>
+        <label style="margin-left:8px">Status:</label>
+        <select onchange="filterRegTable()" id="reg-filter">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+      ${rows.length === 0 ? '<div class="state-msg">No registrations found.</div>' : `
+      <table class="data-table" id="reg-table">
+        <thead><tr><th>Athlete</th><th>DOB</th><th>Program</th><th>Season</th><th>Submitted By</th><th>Fee</th><th>Date</th><th>Status</th><th>Payment</th><th class="col-actions">Action</th></tr></thead>
+        <tbody>
+          ${rows.map(r => {
+            const payBadge = r.payment_status === 'paid'
+              ? `<span class="badge" style="background:#d1e7dd;color:#0f5132">Paid${r.paid_at ? '<br><span style="font-size:10px;font-weight:400">'+r.paid_at+'</span>' : ''}</span>`
+              : r.payment_status === 'pending'
+              ? `<span class="badge" style="background:#fff3cd;color:#664d03">Pending</span>`
+              : r.status === 'approved'
+              ? `<span class="badge" style="background:#f8d7da;color:#842029">Unpaid</span>`
+              : `<span style="color:var(--text-sm);font-size:12px">—</span>`;
+            return `
+            <tr data-status="${esc(r.status)}" data-season="${esc(r.season)}">
+              <td><strong>${esc(r.athlete_name)}</strong>${r.guardian_name ? `<br><span style="font-size:11px;color:var(--text-sm)">Guardian: ${esc(r.guardian_name)}</span>` : ''}</td>
+              <td style="font-size:12px">${r.athlete_dob}</td>
+              <td>${esc(r.program)}</td>
+              <td style="font-size:12px;white-space:nowrap">${esc(r.season)}</td>
+              <td>${esc(r.user_name)}<br><span style="font-size:11px;color:var(--text-sm)">${esc(r.user_email)}</span></td>
+              <td>${fmtMoney(r.fee)}</td>
+              <td style="font-size:12px">${r.created_at}</td>
+              <td><span class="badge badge-${r.status}">${r.status}</span></td>
+              <td>${payBadge}</td>
+              <td class="col-actions" id="reg-actions-${r.id}">
+                ${r.status === 'pending' ? `
+                  <button class="btn btn-sm btn-success" onclick="updateRegStatus(${r.id},'approved')">Approve</button>
+                  <button class="btn btn-sm btn-danger"  onclick="updateRegStatus(${r.id},'rejected')" style="margin-left:4px">Reject</button>
+                ` : r.status === 'approved' ? `
+                  <button class="btn btn-sm btn-secondary" onclick="updateRegStatus(${r.id},'rejected')">Revoke</button>
+                ` : `
+                  <button class="btn btn-sm btn-secondary" onclick="updateRegStatus(${r.id},'pending')">Reset</button>
+                `}
+              </td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>`}
+    </div>`;
+}
+
+function filterRegTable() {
+  const status = document.getElementById('reg-filter').value;
+  const season = document.getElementById('season-filter').value;
+  document.querySelectorAll('#reg-table tbody tr').forEach(tr => {
+    const statusOk = status === 'all' || tr.dataset.status === status;
+    const seasonOk = season === 'all' || tr.dataset.season === season;
+    tr.style.display = (statusOk && seasonOk) ? '' : 'none';
+  });
+}
+
+async function updateRegStatus(id, status) {
+  const res  = await req(`/admin/registrations/${id}/`, { method: 'PATCH', body: JSON.stringify({ status }) });
+  const data = await res.json();
+  if (!res.ok) { toast('Update failed.', 'err'); return; }
+  toast(`Registration marked ${data.status}.`, 'ok');
+  loadAdminSection('registrations');
+}
+
+async function renderAdminPrograms(main) {
+  const res  = await req('/admin/programs/');
+  const rows = await res.json();
+  const seasons = [...new Set(rows.map(p => p.season).filter(Boolean))].sort().reverse();
+  main.innerHTML = `
+    <div class="page-header">
+      <div><h1>Season Programs</h1><p>Manage registration programs and fees.</p></div>
+      <button class="btn btn-primary" onclick="showAddProgram()">Add Program</button>
+    </div>
+    <div id="prog-form-wrap"></div>
+    <div class="panel">
+      ${rows.length === 0 ? '<div class="state-msg">No programs found. Add one above.</div>' : `
+      <div class="filter-bar">
+        <label>Season:</label>
+        <select onchange="filterProgTable()" id="prog-season-filter">
+          <option value="all">All Seasons</option>
+          ${seasons.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('')}
+        </select>
+        <label style="margin-left:8px">Status:</label>
+        <select onchange="filterProgTable()" id="prog-status-filter">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+      <table class="data-table" id="prog-table">
+        <thead><tr><th>Name</th><th>Season</th><th>Standard Fee</th><th>Early Bird</th><th>Open</th><th>Close</th><th>Status</th><th class="col-actions">Action</th></tr></thead>
+        <tbody>
+          ${rows.map(p => `
+            <tr data-season="${esc(p.season)}" data-active="${p.is_active ? 'active' : 'inactive'}">
+              <td><strong>${esc(p.name)}</strong></td>
+              <td>${esc(p.season)}</td>
+              <td>${fmtMoney(p.standard_fee)}</td>
+              <td>${p.early_bird_fee ? `${fmtMoney(p.early_bird_fee)} until ${fmtDate(p.early_bird_deadline)}` : '—'}</td>
+              <td style="font-size:12px">${fmtDate(p.registration_open)}</td>
+              <td style="font-size:12px">${fmtDate(p.registration_close)}</td>
+              <td><span class="badge ${p.is_active ? 'badge-open' : 'badge-closed'}">${p.is_active ? 'Active' : 'Inactive'}</span></td>
+              <td class="col-actions">
+                <button class="btn btn-sm btn-secondary" onclick="toggleProgram(${p.id},${!p.is_active})">${p.is_active ? 'Deactivate' : 'Activate'}</button>
+              </td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`}
+    </div>`;
+}
+
+function filterProgTable() {
+  const season = document.getElementById('prog-season-filter').value;
+  const status = document.getElementById('prog-status-filter').value;
+  document.querySelectorAll('#prog-table tbody tr').forEach(tr => {
+    const seasonOk = season === 'all' || tr.dataset.season === season;
+    const statusOk = status === 'all' || tr.dataset.active === status;
+    tr.style.display = (seasonOk && statusOk) ? '' : 'none';
+  });
+}
+
+function showAddProgram() {
+  const wrap = document.getElementById('prog-form-wrap');
+  if (wrap.innerHTML) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = `
+    <div class="panel" style="margin-bottom:20px">
+      <div class="panel-header"><span class="panel-title">Add New Program</span></div>
+      <div class="panel-body">
+        <div id="prog-add-err" class="alert alert-danger"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Name</label><input type="text" id="p-name" placeholder="Summer Season" value="Summer Season"></div>
+          <div class="form-group"><label>Season</label><input type="text" id="p-season" placeholder="2025-26"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Standard Fee ($)</label><input type="number" id="p-fee" placeholder="450" step="0.01"></div>
+          <div class="form-group"><label>Early Bird Fee ($) <span style="font-weight:400;text-transform:none">(optional)</span></label><input type="number" id="p-eb-fee" step="0.01"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Early Bird Deadline</label><input type="date" id="p-eb-date"></div>
+          <div class="form-group" style="display:flex;align-items:flex-end">
+            <label class="check-row" style="text-transform:none;font-size:13px;font-weight:400;letter-spacing:0;margin-bottom:0">
+              <input type="checkbox" id="p-active" checked> Active (open for registration)
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Registration Opens</label><input type="date" id="p-open"></div>
+          <div class="form-group"><label>Registration Closes</label><input type="date" id="p-close"></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button class="btn btn-primary" onclick="saveProgram()">Save Program</button>
+          <button class="btn btn-secondary" onclick="document.getElementById('prog-form-wrap').innerHTML=''">Cancel</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+async function saveProgram() {
+  clearAlert('prog-add-err');
+  const payload = {
+    name:               document.getElementById('p-name').value.trim(),
+    season:             document.getElementById('p-season').value.trim(),
+    fee:                document.getElementById('p-fee').value,
+    early_bird_fee:     document.getElementById('p-eb-fee').value || null,
+    early_bird_deadline:document.getElementById('p-eb-date').value || null,
+    registration_open:  document.getElementById('p-open').value,
+    registration_close: document.getElementById('p-close').value,
+    is_active:          document.getElementById('p-active').checked,
+  };
+  if (!payload.season || !payload.fee || !payload.registration_open || !payload.registration_close) {
+    showAlert('prog-add-err', 'Season, fee, open and close dates are required.'); return;
+  }
+  const res  = await req('/admin/programs/', { method: 'POST', body: JSON.stringify(payload) });
+  const data = await res.json();
+  if (!res.ok) { showAlert('prog-add-err', data.error || 'Could not save program.'); return; }
+  toast('Program created.', 'ok');
+  loadAdminSection('programs');
+}
+
+async function toggleProgram(id, active) {
+  const res = await req(`/admin/programs/${id}/`, { method: 'PATCH', body: JSON.stringify({ is_active: active }) });
+  if (!res.ok) { toast('Update failed.', 'err'); return; }
+  toast(`Program ${active ? 'activated' : 'deactivated'}.`, 'ok');
+  loadAdminSection('programs');
+}
+
+async function renderAdminRecords(main) {
+  const res  = await req('/admin/athlete-records/');
+  const rows = await res.json();
+  main.innerHTML = `
+    <div class="page-header">
+      <div><h1>Athlete Records</h1><p>${rows.length} performance record${rows.length !== 1 ? 's' : ''} in the database.</p></div>
+    </div>
+    <div class="panel">
+      ${rows.length === 0 ? '<div class="state-msg">No records found.</div>' : `
+      <table class="data-table">
+        <thead><tr><th>Athlete</th><th>Event</th><th>Mark</th><th>Age</th><th>Group</th><th>Year</th><th>Meet</th></tr></thead>
+        <tbody>
+          ${rows.map(r => `
+            <tr>
+              <td><strong>${esc(r.name)}</strong></td>
+              <td style="font-size:12px">${esc(r.event)}</td>
+              <td style="font-weight:700">${r.mark}</td>
+              <td>${r.age}</td>
+              <td>${esc(r.age_group)}</td>
+              <td>${r.year}</td>
+              <td style="font-size:12px">${esc(r.meet)}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`}
+    </div>`;
+}
+
+async function renderAdminUsers(main) {
+  const res  = await req('/admin/users/');
+  const rows = await res.json();
+  main.innerHTML = `
+    <div class="page-header">
+      <div><h1>Users</h1><p>${rows.length} registered account${rows.length !== 1 ? 's' : ''}.</p></div>
+    </div>
+    <div class="panel">
+      ${rows.length === 0 ? '<div class="state-msg">No users found.</div>' : `
+      <table class="data-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Registrations</th><th>Joined</th><th>Status</th></tr></thead>
+        <tbody>
+          ${rows.map(u => `
+            <tr>
+              <td><strong>${esc(u.name)}</strong></td>
+              <td>${esc(u.email)}</td>
+              <td>${u.is_staff ? '<span class="badge badge-staff">Staff</span>' : 'Member'}</td>
+              <td>${u.registrations}</td>
+              <td style="font-size:12px">${u.date_joined}</td>
+              <td><span class="badge ${u.is_active ? 'badge-approved' : 'badge-rejected'}">${u.is_active ? 'Active' : 'Inactive'}</span></td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`}
+    </div>`;
+}
+
+async function renderAdminContact(main) {
+  const res  = await req('/admin/contact/');
+  const rows = await res.json();
+  main.innerHTML = `
+    <div class="page-header">
+      <div><h1>Contact Messages</h1><p>${rows.length} message${rows.length !== 1 ? 's' : ''} received.</p></div>
+    </div>
+    <div class="panel">
+      ${rows.length === 0 ? '<div class="state-msg">No contact messages.</div>' : `
+      <table class="data-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Date</th></tr></thead>
+        <tbody>
+          ${rows.map(m => `
+            <tr>
+              <td><strong>${esc(m.name)}</strong></td>
+              <td>${esc(m.email)}</td>
+              <td>${esc(m.subject)}</td>
+              <td style="max-width:300px;white-space:normal;font-size:12px;color:var(--text-md)">${esc(m.message)}</td>
+              <td style="font-size:12px">${m.created_at}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MEMBER DASHBOARD
+// ═══════════════════════════════════════════════════════════════
+
+function buildMemberSidebar() {
+  document.getElementById('app-sidebar').innerHTML = `
+    <div class="sidebar-app-label">My Account</div>
+    <div class="sidebar-link active" data-section="registrations" onclick="loadMemberSection('registrations')">My Registrations</div>
+    <div class="sidebar-link"        data-section="register"      onclick="openReg()">Register an Athlete</div>
+    <hr class="sidebar-divider">
+    <div class="sidebar-app-label">Settings</div>
+    <div class="sidebar-link"        data-section="account"       onclick="loadMemberSection('account')">Account Info</div>`;
+}
+
+function setMemberNav(section) {
+  document.querySelectorAll('#app-sidebar .sidebar-link').forEach(l =>
+    l.classList.toggle('active', l.dataset.section === section));
+}
+
+async function loadMemberSection(section) {
+  setMemberNav(section);
+  const main = document.getElementById('app-main');
+  main.innerHTML = '<div class="state-msg">Loading...</div>';
+  if (section === 'registrations') return renderMemberRegistrations(main);
+  if (section === 'account')       return renderMemberAccount(main);
+}
+
+async function renderMemberRegistrations(main) {
+  const res  = await req('/member/dashboard/');
+  const data = await res.json();
+  const rows = data.registrations || [];
+  const firstName = _user ? _user.name.split(' ')[0] : 'there';
+
+  function payBadge(r) {
+    if (r.payment_status === 'paid')    return `<span class="pay-status paid">Paid${r.paid_at ? ' ' + r.paid_at : ''}</span>`;
+    if (r.payment_status === 'pending') return `<span class="pay-status pending">Payment Processing</span>`;
+    return `<span class="pay-status unpaid">Unpaid</span>`;
+  }
+
+  function payBtn(r) {
+    if (r.status !== 'approved')        return '';
+    if (r.payment_status === 'paid')    return '';
+    return `<button class="btn-pay" onclick="openPay(${r.id}, this)">Pay ${fmtMoney(r.fee)}</button>`;
+  }
+
+  main.innerHTML = `
+    <div class="page-header">
+      <div>
+        <h1>My Registrations</h1>
+        <p>Welcome back, ${esc(firstName)}. Your athlete registrations are listed below.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openReg()">Register an Athlete</button>
+    </div>
+    ${rows.length === 0 ? `
+      <div class="panel">
+        <div class="state-msg" style="padding:40px 0">
+          No registrations yet.<br>
+          <button class="btn btn-primary" style="margin-top:14px" onclick="openReg()">Register an Athlete</button>
+        </div>
+      </div>` :
+      rows.map(r => `
+        <div class="reg-card">
+          <div class="reg-card-top">
+            <div>
+              <div class="reg-card-name">${esc(r.athlete_name)}</div>
+              <div class="reg-card-prog">${esc(r.program)} &mdash; ${esc(r.season)}</div>
+            </div>
+            ${payBtn(r)}
+          </div>
+          <div class="reg-card-meta">
+            <span class="badge badge-${r.status}">${r.status}</span>
+            ${payBadge(r)}
+            <span style="font-size:12px;color:var(--text-sm)">Fee: ${fmtMoney(r.fee)} (${esc(r.fee_label || 'Standard')})</span>
+            <span style="font-size:12px;color:var(--text-sm)">Submitted: ${r.created_at}</span>
+          </div>
+          ${r.status === 'pending' ? `<p style="margin-top:10px;font-size:12px;color:var(--text-sm)">Your registration is under review. You will be contacted with next steps once approved.</p>` : ''}
+          ${r.status === 'approved' && r.payment_status !== 'paid' ? `<p style="margin-top:10px;font-size:12px;color:var(--text-sm)">Your registration has been approved — please complete your payment to secure your spot.</p>` : ''}
+        </div>`).join('')}`;
+}
+
+async function renderMemberAccount(main) {
+  main.innerHTML = `
+    <div class="page-header"><div><h1>Account Information</h1></div></div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Your Details</span></div>
+      <div class="panel-body">
+        <table class="summary-tbl">
+          <tr><td>Name</td><td>${esc(_user ? _user.name : '')}</td></tr>
+          <tr><td>Email</td><td>${esc(_user ? _user.email : '')}</td></tr>
+          <tr><td>Account Type</td><td>Member</td></tr>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// REGISTRATION WIZARD
+// ═══════════════════════════════════════════════════════════════
+
+let _wizStep = 1;
+let _progs   = [];
+let _selProg = null;
+const WIZ_STEPS = 5;
+
+function openReg() {
+  document.getElementById('reg-overlay').style.display = 'block';
+  resetReg();
+}
+
+function closeReg() {
+  document.getElementById('reg-overlay').style.display = 'none';
+  if (_user && _user.is_staff) loadAdminSection(_view || 'dashboard');
+  else loadMemberSection('registrations');
+}
+
+function resetReg() {
+  _wizStep = 1; _selProg = null;
+  clearAlert('wiz-err');
+  for (let i = 1; i <= WIZ_STEPS; i++) {
+    document.getElementById(`rp-${i}`).style.display = i === 1 ? 'block' : 'none';
+    const s = document.getElementById(`rs-${i}`);
+    s.classList.toggle('active', i === 1);
+    s.classList.remove('done');
+  }
+  loadProgs();
+}
+
+function goWizStep(n) {
+  for (let i = 1; i <= WIZ_STEPS; i++) {
+    document.getElementById(`rp-${i}`).style.display = i === n ? 'block' : 'none';
+    const s = document.getElementById(`rs-${i}`);
+    s.classList.toggle('active', i === n);
+    s.classList.toggle('done', i < n);
+  }
+  _wizStep = n;
+  document.getElementById('reg-overlay').scrollTop = 0;
+}
+
+async function loadProgs() {
+  const wrap = document.getElementById('prog-wrap');
+  wrap.innerHTML = '<div class="state-msg">Loading programs...</div>';
+  try {
+    const res = await req('/programs/');
+    _progs    = await res.json();
+    if (!_progs.length) {
+      wrap.innerHTML = '<div class="state-msg">No open registrations at this time. Contact <a href="mailto:hvtfcoach@gmail.com" style="color:#3d5a00">hvtfcoach@gmail.com</a> for assistance.</div>';
+      return;
+    }
+    wrap.innerHTML = `
+      <table class="data-table">
+        <thead><tr><th>Program</th><th>Registration Period</th><th>Status</th><th style="text-align:right">Fee</th></tr></thead>
+        <tbody>
+          ${_progs.map(p => {
+            const early = p.current_fee_label === 'Early Bird';
+            return `
+              <tr data-id="${p.id}" onclick="selProg(${p.id})" style="cursor:pointer">
+                <td><strong>${esc(p.name)}</strong><br><span style="font-size:11px;color:var(--text-sm)">Season ${esc(p.season)}</span></td>
+                <td style="font-size:12px">${fmtDate(p.registration_open)} &ndash; ${fmtDate(p.registration_close)}</td>
+                <td>${early ? `<span class="badge badge-early">Early Bird</span> <span style="font-size:11px;color:var(--text-sm)">until ${fmtDate(p.early_bird_deadline)}</span>` : '<span class="badge badge-open">Open</span>'}</td>
+                <td style="text-align:right">
+                  <div style="font-size:18px;font-weight:700">${fmtMoney(p.current_fee)}</div>
+                  <div style="font-size:11px;color:var(--text-sm)">${p.current_fee_label} rate</div>
+                  ${early ? `<div style="font-size:11px;color:var(--text-sm);text-decoration:line-through">${fmtMoney(p.standard_fee)}</div>` : ''}
+                </td>
+              </tr>`;
+          }).join('')}
+        </tbody>
+      </table>`;
+  } catch {
+    wrap.innerHTML = '<div class="state-msg">Could not load programs. Please refresh.</div>';
+  }
+}
+
+function selProg(id) {
+  _selProg = _progs.find(p => p.id === id);
+  document.querySelectorAll('#prog-wrap tbody tr').forEach(r =>
+    r.style.background = parseInt(r.dataset.id) === id ? 'var(--blue-bg)' : '');
+}
+
+async function wizNext() {
+  clearAlert('wiz-err');
+
+  if (_wizStep === 1) {
+    if (!_selProg) { showAlert('wiz-err', 'Please select a program to continue.'); return; }
+    goWizStep(2);
+
+  } else if (_wizStep === 2) {
+    const fn  = document.getElementById('ath-first').value.trim();
+    const ln  = document.getElementById('ath-last').value.trim();
+    const dob = document.getElementById('ath-dob').value;
+    const gen = document.getElementById('ath-gender').value;
+    if (!fn || !ln || !dob || !gen) { showAlert('wiz-err', 'Please complete all required athlete fields.'); return; }
+    goWizStep(3);
+
+  } else if (_wizStep === 3) {
+    document.getElementById('rv-program').textContent = _selProg.name;
+    document.getElementById('rv-season').textContent  = _selProg.season;
+    document.getElementById('rv-athlete').textContent =
+      document.getElementById('ath-first').value.trim() + ' ' + document.getElementById('ath-last').value.trim();
+    document.getElementById('rv-fee-lbl').textContent = _selProg.current_fee_label + ' Rate';
+    document.getElementById('rv-fee').textContent     = fmtMoney(_selProg.current_fee);
+    goWizStep(4);
+  }
+}
+
+function wizBack() {
+  clearAlert('wiz-err');
+  if (_wizStep > 1) goWizStep(_wizStep - 1);
+}
+
+async function submitReg() {
+  if (!document.getElementById('wiz-waiver').checked) {
+    showAlert('wiz-err', 'You must accept the Liability Waiver to submit.'); return;
+  }
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = 'Submitting...';
+  clearAlert('wiz-err');
+
+  const payload = {
+    program_id:            _selProg.id,
+    athlete_first_name:    document.getElementById('ath-first').value.trim(),
+    athlete_last_name:     document.getElementById('ath-last').value.trim(),
+    athlete_dob:           document.getElementById('ath-dob').value,
+    athlete_gender:        document.getElementById('ath-gender').value,
+    address:               document.getElementById('det-address').value.trim(),
+    city:                  document.getElementById('det-city').value.trim(),
+    state:                 document.getElementById('det-state').value.trim(),
+    zip_code:              document.getElementById('det-zip').value.trim(),
+    guardian_name:         document.getElementById('det-gname').value.trim(),
+    guardian_relationship: document.getElementById('det-grel').value.trim(),
+    guardian_phone:        document.getElementById('det-gphone').value.trim(),
+    guardian_email:        document.getElementById('det-gemail').value.trim(),
+    medical_notes:         document.getElementById('det-medical').value.trim(),
+    has_allergies:         document.getElementById('det-allergies').checked,
+    allergies:             document.getElementById('det-allergy')?.value.trim() || '',
+    waiver_accepted:       true,
+    photo_consent:         document.getElementById('wiz-photo').checked,
+  };
+
+  try {
+    const res  = await req('/register/', { method: 'POST', body: JSON.stringify(payload) });
+    const data = await res.json();
+    if (!res.ok) {
+      showAlert('wiz-err', data.error || 'Submission failed. Please check your information.');
+      btn.disabled = false; btn.textContent = 'Submit Registration'; return;
+    }
+    document.getElementById('conf-line').textContent =
+      `${data.athlete_name} — ${data.program}, Season ${data.season}`;
+    goWizStep(5);
+    toast('Registration submitted successfully.', 'ok');
+  } catch {
+    showAlert('wiz-err', 'A network error occurred. Please try again.');
+    btn.disabled = false; btn.textContent = 'Submit Registration';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GENERIC TABLE RENDERER + ROW FORMATTERS
+// ═══════════════════════════════════════════════════════════════
+
+async function renderSection(main, title, apiPath, rowFn, headers, modelKey) {
+  const res  = await req(apiPath);
+  const rows = await res.json();
+  if (!res.ok) { main.innerHTML = `<div class="state-msg">${esc(rows.error || 'Error loading data.')}</div>`; return; }
+  const canEdit = modelKey && SCHEMAS[modelKey];
+  const addBtn  = canEdit
+    ? `<button class="btn btn-primary btn-sm" onclick="openForm('${modelKey}', null, '${modelKey}')">+ Add ${esc(SCHEMAS[modelKey].label)}</button>`
+    : '';
+  const actHdr  = canEdit ? '<th class="col-actions"></th>' : '';
+  const actCell = r => canEdit
+    ? `<td class="col-actions"><button class="btn btn-sm btn-secondary" onclick="openForm('${modelKey}',${r.id},'${modelKey}')">Edit</button></td>`
+    : '';
+  main.innerHTML = `
+    <div class="page-header">
+      <div><h1>${esc(title)}</h1><p>${rows.length} record${rows.length !== 1 ? 's' : ''}.</p></div>
+      <div>${addBtn}</div>
+    </div>
+    <div class="panel">
+      ${rows.length === 0 ? '<div class="state-msg">No records found.</div>' : `
+      <table class="data-table">
+        <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}${actHdr}</tr></thead>
+        <tbody>${rows.map(r => `<tr>${rowFn(r)}${actCell(r)}</tr>`).join('')}</tbody>
+      </table>`}
+    </div>`;
+}
+
+function td(v, opts = {}) {
+  const style = opts.small ? ' style="font-size:12px"' : opts.bold ? ' style="font-weight:700"' : '';
+  return `<td${style}>${esc(String(v ?? '—'))}</td>`;
+}
+
+function boolTd(v) {
+  return `<td><span class="badge ${v ? 'badge-approved' : 'badge-rejected'}">${v ? 'Yes' : 'No'}</span></td>`;
+}
+
+function statusTd(v) {
+  const cls = v === 'active' || v === 'approved' || v === 'clear' || v === 'valid' ? 'badge-approved'
+            : v === 'pending' || v === 'under_review' ? 'badge-pending'
+            : v === 'inactive' || v === 'rejected' || v === 'expired' || v === 'flagged' ? 'badge-rejected'
+            : 'badge-closed';
+  return `<td><span class="badge ${cls}">${esc(String(v ?? '—'))}</span></td>`;
+}
+
+function athleteRow(r) {
+  return td(r.name, {bold:true}) + td(r.dob, {small:true}) + td(r.gender, {small:true}) + td(r.team) + statusTd(r.status) + boolTd(r.waiver) + td(r.registered, {small:true});
+}
+function teamRow(r) {
+  return td(r.name, {bold:true}) + td(r.age_group) + td(r.season) + td(r.head_coach) + statusTd(r.status) + `<td>${r.athletes} / ${r.max}</td>` + '';
+}
+function eventRow(r) {
+  return td(r.name, {bold:true}) + td(r.type) + td(r.venue) + td(r.start, {small:true}) + boolTd(r.published) + boolTd(r.cancelled) + td(r.registrations);
+}
+function paymentRow(r) {
+  return td(r.athlete, {bold:true}) + td(r.season) + td('$' + r.amount, {bold:true}) + td(r.fee_tier) + statusTd(r.status) + td(r.method) + td(r.due_date, {small:true}) + td(r.invoice, {small:true});
+}
+function announcementRow(r) {
+  return td(r.title, {bold:true}) + td(r.audience) + td(r.team) + td(r.by) + boolTd(r.send_email) + boolTd(r.send_sms) + boolTd(r.published) + td(r.date, {small:true});
+}
+function complianceRow(r) {
+  const daysStyle = r.days_left !== null && r.days_left < 30 ? ' style="color:var(--red);font-weight:700"' : '';
+  return td(r.subject, {bold:true}) + td(r.type) + statusTd(r.status) + td(r.expiry, {small:true}) + `<td${daysStyle}>${r.days_left !== null ? r.days_left + 'd' : '—'}</td>` + td(r.issuer);
+}
+function incidentRow(r) {
+  const sevCls = r.severity === 'critical' ? 'badge-rejected' : r.severity === 'high' ? 'badge-rejected' : r.severity === 'medium' ? 'badge-pending' : 'badge-closed';
+  return td(r.title, {bold:true}) + td(r.type) + `<td><span class="badge ${sevCls}">${esc(r.severity)}</span></td>` + statusTd(r.status) + td(r.date, {small:true}) + td(r.athlete) + td(r.location, {small:true});
+}
+function transferRow(r) {
+  return td(r.athlete, {bold:true}) + td(r.from_team) + td(r.to_team) + statusTd(r.status) + td(r.date, {small:true});
+}
+function leagueRow(r) {
+  return td(r.name, {bold:true}) + td(r.sport) + td(r.org) + boolTd(r.active) + td(r.divisions);
+}
+function fixtureRow(r) {
+  return td(r.home, {bold:true}) + td(r.away, {bold:true}) + td(r.division) + td(r.season) + td(r.venue) + td(r.date, {small:true}) + td('R' + r.round) + statusTd(r.status);
+}
+function organizationRow(r) {
+  return td(r.name, {bold:true}) + td(r.email) + td(r.phone) + td(r.website, {small:true}) + boolTd(r.active) + td(r.members);
+}
+function regOrderRow(r) {
+  return td(r.athlete, {bold:true}) + td(r.season) + td(r.order_num, {small:true}) + statusTd(r.status) + td(r.fee ? '$'+r.fee : '—') + td(r.gross ? '$'+r.gross : '—') + td(r.date, {small:true});
+}
+function auditRow(r) {
+  return td(r.user) + `<td><span class="badge badge-closed" style="text-transform:uppercase">${esc(r.action)}</span></td>` + td(r.model) + td(r.object, {small:true}) + td(r.ip, {small:true}) + td(r.timestamp, {small:true});
+}
+function analyticsRow(r) {
+  return td(r.date, {small:true}) + td(r.metric, {small:true}) + td(r.dimension) + td(r.value, {bold:true});
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+// ════════════════════════════════════════════════════════════
+// EDIT PANEL
+// ════════════════════════════════════════════════════════════
+
+const SCHEMAS = {
+  athletes: {
+    label: 'Athlete',
+    api: '/admin/athletes/',
+    fields: [
+      {section: 'Personal Info'},
+      {name:'first_name',   label:'First name',   type:'text',   required:true},
+      {name:'middle_name',  label:'Middle name',  type:'text'},
+      {name:'last_name',    label:'Last name',    type:'text',   required:true},
+      {name:'date_of_birth',label:'Date of birth',type:'date',   required:true},
+      {name:'gender',       label:'Gender',       type:'select', opts:[{v:'M',l:'Male'},{v:'F',l:'Female'}]},
+      {name:'secondary_email',   label:'Secondary email',   type:'email'},
+      {name:'volunteer_willing', label:'Volunteer willing', type:'bool'},
+      {name:'status',       label:'Status',       type:'select', opts:[{v:'active',l:'Active'},{v:'inactive',l:'Inactive'},{v:'suspended',l:'Suspended'},{v:'graduated',l:'Graduated'}]},
+      {name:'team_id',      label:'Team',         type:'fk',     fkApi:'/admin/opts/teams/'},
+      {name:'sportsengine_id', label:'SportsEngine ID', type:'text'},
+
+      {section: 'Uniform Sizes'},
+      {name:'jersey_size',  label:'Jersey size',  type:'select', opts:[{v:'',l:'—'},{v:'YXS',l:'Youth XS'},{v:'YS',l:'Youth S'},{v:'YM',l:'Youth M'},{v:'YL',l:'Youth L'},{v:'YXL',l:'Youth XL'},{v:'S',l:'Adult S'},{v:'M',l:'Adult M'},{v:'L',l:'Adult L'},{v:'XL',l:'Adult XL'},{v:'XXL',l:'Adult XXL'}]},
+      {name:'jersey_number',label:'Jersey number', type:'number'},
+      {name:'tank_size',    label:'Tank size',    type:'text'},
+      {name:'shorts_size',  label:'Shorts size',  type:'text'},
+
+      {section: 'Address'},
+      {name:'street_address_1', label:'Street address', type:'text'},
+      {name:'street_address_2', label:'Street address 2', type:'text'},
+      {name:'city',             label:'City',           type:'text'},
+      {name:'state_province',   label:'State / Province', type:'text'},
+      {name:'postal_code',      label:'Postal code',    type:'text'},
+      {name:'country',          label:'Country',        type:'text'},
+
+      {section: 'Medical Info'},
+      {name:'has_allergies',         label:'Has allergies',          type:'bool'},
+      {name:'allergies',             label:'Allergies',              type:'textarea'},
+      {name:'has_medical_conditions',label:'Has medical conditions', type:'bool'},
+      {name:'medical_notes',         label:'Medical notes',          type:'textarea'},
+      {name:'medications',           label:'Medications',            type:'textarea'},
+      {name:'physician_name',        label:'Physician name',         type:'text'},
+      {name:'physician_phone',       label:'Physician phone',        type:'text'},
+      {name:'hospital_of_choice',    label:'Hospital of choice',     type:'text'},
+
+      {section: 'Insurance'},
+      {name:'insurance_provider',      label:'Insurance provider',      type:'text'},
+      {name:'insurance_policy_holder', label:'Policy holder',           type:'text'},
+      {name:'insurance_policy_number', label:'Policy number',           type:'text'},
+      {name:'insurance_group_number',  label:'Group number',            type:'text'},
+      {name:'insurance_phone',         label:'Insurance phone',         type:'text'},
+
+      {section: 'Emergency Contact'},
+      {name:'emergency_contact_name',         label:'Name',         type:'text'},
+      {name:'emergency_contact_relationship', label:'Relationship', type:'text'},
+      {name:'emergency_contact_phone',        label:'Phone',        type:'text'},
+      {name:'secondary_contact_phone',        label:'Secondary phone', type:'text'},
+
+      {section: 'Waiver'},
+      {name:'waiver_signed',      label:'Waiver signed',      type:'bool'},
+      {name:'waiver_signed_date', label:'Waiver signed date', type:'date'},
+    ]
+  },
+  teams: {
+    label: 'Team',
+    api: '/admin/teams/',
+    fields: [
+      {section:'Team Details'},
+      {name:'name',            label:'Team name',     type:'text',   required:true},
+      {name:'age_group',       label:'Age group',     type:'text',   required:true},
+      {name:'season',          label:'Season',        type:'text'},
+      {name:'status',          label:'Status',        type:'select', opts:[{v:'active',l:'Active'},{v:'competition',l:'Competition'},{v:'inactive',l:'Inactive'}]},
+      {name:'team_color',      label:'Team color',    type:'text'},
+      {name:'max_athletes',    label:'Max athletes',  type:'number'},
+      {name:'current_athletes',label:'Current athletes',type:'number'},
+      {section:'Staff'},
+      {name:'head_coach_id',   label:'Head coach',    type:'fk',     fkApi:'/admin/opts/users/'},
+    ]
+  },
+  events: {
+    label: 'Event',
+    api: '/admin/events/',
+    fields: [
+      {section:'Event Details'},
+      {name:'name',                  label:'Name',                   type:'text',          required:true},
+      {name:'event_type',            label:'Event type',             type:'select',        opts:[{v:'practice',l:'Practice'},{v:'meet',l:'Meet / Competition'},{v:'meeting',l:'Meeting'},{v:'social',l:'Social Event'},{v:'other',l:'Other'}]},
+      {name:'description',           label:'Description',            type:'textarea'},
+      {name:'all_teams',             label:'All teams',              type:'bool'},
+      {name:'is_published',          label:'Published',              type:'bool'},
+      {name:'is_cancelled',          label:'Cancelled',              type:'bool'},
+      {name:'cancellation_reason',   label:'Cancellation reason',    type:'textarea'},
+      {section:'Schedule'},
+      {name:'start_datetime',        label:'Start',                  type:'datetime-local',required:true},
+      {name:'end_datetime',          label:'End',                    type:'datetime-local',required:true},
+      {name:'registration_deadline', label:'Registration deadline',  type:'datetime-local'},
+      {section:'Location'},
+      {name:'venue_name',            label:'Venue name',             type:'text'},
+      {name:'address',               label:'Address',                type:'textarea'},
+      {name:'location_url',          label:'Location URL',           type:'text'},
+      {section:'Registration'},
+      {name:'requires_registration', label:'Requires registration',  type:'bool'},
+      {name:'max_participants',      label:'Max participants',       type:'number'},
+      {name:'registration_fee',      label:'Registration fee ($)',   type:'number'},
+    ]
+  },
+  payments: {
+    label: 'Payment',
+    api: '/admin/payments/',
+    fields: [
+      {section:'Payment Details'},
+      {name:'athlete_id',              label:'Athlete',              type:'fk',     fkApi:'/admin/opts/athletes/',       required:true},
+      {name:'season_id',               label:'Season',               type:'fk',     fkApi:'/admin/opts/season-configs/', required:true},
+      {name:'amount',                  label:'Amount ($)',           type:'number', required:true},
+      {name:'fee_tier',                label:'Fee tier',             type:'select', opts:[{v:'standard',l:'Standard'},{v:'sibling',l:'Sibling Discount'},{v:'scholarship',l:'Scholarship'},{v:'early_bird',l:'Early Bird'}]},
+      {name:'status',                  label:'Status',               type:'select', opts:[{v:'pending',l:'Pending'},{v:'paid',l:'Paid'},{v:'overdue',l:'Overdue'},{v:'refunded',l:'Refunded'},{v:'failed',l:'Failed'}]},
+      {name:'due_date',                label:'Due date',             type:'date',   required:true},
+      {name:'paid_at',                 label:'Paid at',              type:'datetime-local'},
+      {name:'invoice_number',          label:'Invoice number',       type:'text',   required:true},
+      {section:'Payment Method'},
+      {name:'payment_method',          label:'Method',               type:'select', opts:[{v:'',l:'—'},{v:'stripe',l:'Stripe'},{v:'cash',l:'Cash'},{v:'check',l:'Check'},{v:'bank_transfer',l:'Bank Transfer'}]},
+      {name:'stripe_payment_intent_id',label:'Stripe intent ID',     type:'text'},
+      {section:'Notes'},
+      {name:'notes',                   label:'Notes',                type:'textarea'},
+    ]
+  },
+  announcements: {
+    label: 'Announcement',
+    api: '/admin/announcements/',
+    fields: [
+      {section:'Announcement'},
+      {name:'title',         label:'Title',        type:'text',    required:true},
+      {name:'content',       label:'Content',      type:'textarea'},
+      {name:'audience',      label:'Audience',     type:'select',  opts:[{v:'all',l:'All Members'},{v:'athletes',l:'All Athletes'},{v:'parents',l:'All Parents'},{v:'coaches',l:'All Coaches'},{v:'team',l:'Specific Team'}]},
+      {name:'target_team_id',label:'Target team',  type:'fk',      fkApi:'/admin/opts/teams/'},
+      {section:'Publishing'},
+      {name:'is_published',  label:'Published',    type:'bool'},
+      {name:'send_email',    label:'Send email',   type:'bool'},
+      {name:'send_sms',      label:'Send SMS',     type:'bool'},
+    ]
+  },
+  compliance: {
+    label: 'Compliance Record',
+    api: '/admin/compliance/',
+    fields: [
+      {section:'Subject'},
+      {name:'user_id',        label:'Staff member',  type:'fk',    fkApi:'/admin/opts/users/'},
+      {name:'athlete_id',     label:'Athlete',       type:'fk',    fkApi:'/admin/opts/athletes/'},
+      {section:'Document'},
+      {name:'record_type',    label:'Record type',   type:'select', opts:[{v:'wwcc',l:'Working With Children Check'},{v:'first_aid',l:'First Aid Certificate'},{v:'coaching_license',l:'Coaching License'},{v:'police_check',l:'Police Background Check'},{v:'medical_clearance',l:'Medical Clearance'},{v:'insurance',l:'Insurance'},{v:'safeguarding',l:'Safeguarding Training'},{v:'other',l:'Other'}]},
+      {name:'status',         label:'Status',        type:'select', opts:[{v:'pending',l:'Pending'},{v:'valid',l:'Valid'},{v:'expiring',l:'Expiring Soon'},{v:'expired',l:'Expired'},{v:'rejected',l:'Rejected'}]},
+      {name:'issuing_body',   label:'Issuing body',  type:'text'},
+      {name:'document_number',label:'Document #',    type:'text'},
+      {name:'issue_date',     label:'Issue date',    type:'date'},
+      {name:'expiry_date',    label:'Expiry date',   type:'date'},
+      {section:'Notes'},
+      {name:'notes',          label:'Notes',         type:'textarea'},
+    ]
+  },
+  incidents: {
+    label: 'Incident Report',
+    api: '/admin/incidents/',
+    fields: [
+      {section:'Incident Details'},
+      {name:'title',              label:'Title',              type:'text',          required:true},
+      {name:'incident_type',      label:'Type',               type:'select',        opts:[{v:'injury',l:'Injury'},{v:'near_miss',l:'Near Miss'},{v:'safeguarding',l:'Safeguarding Concern'},{v:'property',l:'Property Damage'},{v:'behavioural',l:'Behavioural'},{v:'other',l:'Other'}]},
+      {name:'severity',           label:'Severity',           type:'select',        opts:[{v:'low',l:'Low — Minor'},{v:'medium',l:'Medium — First aid'},{v:'high',l:'High — Hospital required'},{v:'critical',l:'Critical — Emergency'}]},
+      {name:'status',             label:'Status',             type:'select',        opts:[{v:'open',l:'Open'},{v:'under_review',l:'Under Review'},{v:'resolved',l:'Resolved'},{v:'escalated',l:'Escalated'}]},
+      {name:'incident_date',      label:'Incident date/time', type:'datetime-local',required:true},
+      {name:'location',           label:'Location',           type:'text'},
+      {section:'People Involved'},
+      {name:'involved_athlete_id',label:'Athlete',            type:'fk',            fkApi:'/admin/opts/athletes/'},
+      {name:'involved_user_id',   label:'Staff member',       type:'fk',            fkApi:'/admin/opts/users/'},
+      {name:'assigned_to_id',     label:'Assigned to',        type:'fk',            fkApi:'/admin/opts/users/'},
+      {name:'witnesses',          label:'Witnesses',          type:'textarea'},
+      {section:'Description'},
+      {name:'description',        label:'Description',        type:'textarea',      required:true},
+      {name:'action_taken',       label:'Action taken',       type:'textarea'},
+      {section:'Follow-up'},
+      {name:'follow_up_required', label:'Follow-up required', type:'bool'},
+      {name:'follow_up_notes',    label:'Follow-up notes',    type:'textarea'},
+      {name:'escalation_notes',   label:'Escalation notes',   type:'textarea'},
+    ]
+  },
+  transfers: {
+    label: 'Transfer Request',
+    api: '/admin/transfers/',
+    fields: [
+      {section:'Transfer'},
+      {name:'athlete_id',   label:'Athlete',     type:'fk',     fkApi:'/admin/opts/athletes/', required:true},
+      {name:'from_team_id', label:'From team',   type:'fk',     fkApi:'/admin/opts/teams/'},
+      {name:'to_team_id',   label:'To team',     type:'fk',     fkApi:'/admin/opts/teams/',   required:true},
+      {name:'status',       label:'Status',      type:'select', opts:[{v:'pending',l:'Pending'},{v:'approved',l:'Approved'},{v:'rejected',l:'Rejected'},{v:'cancelled',l:'Cancelled'}]},
+      {section:'Notes'},
+      {name:'reason',       label:'Reason',      type:'textarea'},
+      {name:'admin_notes',  label:'Admin notes', type:'textarea'},
+    ]
+  },
+  leagues: {
+    label: 'League',
+    api: '/admin/leagues/',
+    fields: [
+      {section:'League Details'},
+      {name:'name',           label:'Name',         type:'text',     required:true},
+      {name:'sport',          label:'Sport',        type:'text'},
+      {name:'organization_id',label:'Organization', type:'fk',       fkApi:'/admin/opts/organizations/'},
+      {name:'is_active',      label:'Active',       type:'bool'},
+      {section:'Description'},
+      {name:'description',    label:'Description',  type:'textarea'},
+    ]
+  },
+  organizations: {
+    label: 'Organization',
+    api: '/admin/organizations/',
+    fields: [
+      {section:'Organization Details'},
+      {name:'name',        label:'Name',        type:'text',     required:true},
+      {name:'slug',        label:'Slug',        type:'text',     required:true},
+      {name:'email',       label:'Email',       type:'email'},
+      {name:'phone',       label:'Phone',       type:'text'},
+      {name:'website',     label:'Website',     type:'text'},
+      {name:'is_active',   label:'Active',      type:'bool'},
+      {section:'Address & Description'},
+      {name:'address',     label:'Address',     type:'textarea'},
+      {name:'description', label:'Description', type:'textarea'},
+    ]
+  },
+};
+
+let _fModel  = null;
+let _fId     = null;
+let _fSec    = null;
+
+async function openForm(model, id, section) {
+  _fModel = model;
+  _fId    = id;
+  _fSec   = section;
+  const schema = SCHEMAS[model];
+  if (!schema) return;
+  const main  = document.getElementById('app-main');
+  const title = id ? `Change ${schema.label}` : `Add ${schema.label}`;
+
+  main.innerHTML = `
+    <div class="page-header" style="margin-bottom:16px">
+      <div>
+        <div class="form-breadcrumb">
+          <a onclick="loadAdminSection('${section}')">${esc(schema.label)}s</a> &rsaquo; ${esc(title)}
+        </div>
+        <h1 style="font-size:22px;font-weight:300;margin-top:4px">${esc(title)}</h1>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-secondary btn-sm" onclick="loadAdminSection('${section}')">← Back to list</button>
+      </div>
+    </div>
+    <div id="form-err" class="form-err"></div>
+    <div id="form-body"><div class="state-msg" style="padding:40px 0">Loading…</div></div>
+    <div class="dj-submit">
+      <button class="btn btn-primary" id="form-save" onclick="saveForm()">Save</button>
+      <button class="btn btn-secondary" onclick="loadAdminSection('${section}')">Cancel</button>
+      ${id ? `<button class="btn btn-danger del-right" onclick="deleteForm()">Delete</button>` : ''}
+    </div>`;
+
+  let data = {};
+  if (id) {
+    const res = await req(schema.api + id + '/');
+    if (!res.ok) {
+      document.getElementById('form-body').innerHTML =
+        `<div class="alert alert-danger">Failed to load record.</div>`;
+      return;
+    }
+    data = await res.json();
+  }
+  document.getElementById('form-body').innerHTML = buildForm(schema.fields, data);
+  document.querySelectorAll('#form-body select[data-fk]').forEach(sel => {
+    loadFKOptions(sel, sel.dataset.fk, sel.dataset.selected);
+  });
+}
+
+function buildForm(fields, data) {
+  // Group consecutive non-section fields under the last seen section header
+  const groups = [];
+  let cur = { title: null, rows: [] };
+  fields.forEach(f => {
+    if (f.section) {
+      if (cur.rows.length || cur.title) groups.push(cur);
+      cur = { title: f.section, rows: [] };
+    } else {
+      cur.rows.push(f);
+    }
+  });
+  if (cur.rows.length || cur.title) groups.push(cur);
+
+  return groups.map(g => {
+    const header = `<div class="dj-fieldset-title">${esc(g.title || (SCHEMAS[_fModel]?.label + ' details'))}</div>`;
+    const rows = g.rows.map(f => {
+      const v    = data[f.name] ?? '';
+      const fid  = 'ep_' + f.name;
+      const reqMark = f.required ? `<span class="req">*</span>` : '';
+
+      let widget;
+      if (f.type === 'textarea') {
+        widget = `<textarea class="dj-ta" id="${fid}" name="${f.name}">${esc(String(v))}</textarea>`;
+      } else if (f.type === 'bool') {
+        const chk = v ? 'checked' : '';
+        widget = `<label class="dj-chk"><input type="checkbox" id="${fid}" name="${f.name}" ${chk}> ${esc(f.label)}</label>`;
+      } else if (f.type === 'select') {
+        const opts = f.opts.map(o =>
+          `<option value="${esc(String(o.v))}"${String(v)===String(o.v)?' selected':''}>${esc(o.l)}</option>`
+        ).join('');
+        widget = `<select class="dj-sel" id="${fid}" name="${f.name}">${opts}</select>`;
+      } else if (f.type === 'fk') {
+        widget = `<select class="dj-sel" id="${fid}" name="${f.name}" data-fk="${esc(f.fkApi)}" data-selected="${esc(String(v ?? ''))}"><option value="">Loading…</option></select>`;
+      } else {
+        widget = `<input class="dj-inp" type="${f.type||'text'}" id="${fid}" name="${f.name}" value="${esc(String(v))}">`;
+      }
+
+      const labelText = f.type === 'bool' ? '' : `<label class="dj-lbl" for="${fid}">${esc(f.label)}:${reqMark}</label>`;
+      const valClass  = f.type === 'bool' ? 'dj-val' : 'dj-val';
+      return `<div class="dj-row">${labelText}<div class="${valClass}">${widget}</div></div>`;
+    }).join('');
+
+    return `<div class="dj-fieldset">${header}${rows}</div>`;
+  }).join('');
+}
+
+async function loadFKOptions(sel, api, selectedId) {
+  try {
+    const res  = await req(api);
+    const opts = await res.json();
+    sel.innerHTML = '<option value="">— none —</option>' +
+      opts.map(o => `<option value="${o.id}"${String(o.id)===String(selectedId)?' selected':''}>${esc(o.label)}</option>`).join('');
+  } catch { sel.innerHTML = '<option value="">Error loading</option>'; }
+}
+
+async function saveForm() {
+  const schema = SCHEMAS[_fModel];
+  if (!schema) return;
+  const formBody = document.getElementById('form-body');
+  const errEl    = document.getElementById('form-err');
+  errEl.innerHTML = '';
+  const payload = {};
+  schema.fields.forEach(f => {
+    if (f.section) return;
+    const el = formBody.querySelector(`[name="${f.name}"]`);
+    if (!el) return;
+    if (f.type === 'bool') { payload[f.name] = el.checked; return; }
+    payload[f.name] = el.value === '' ? null : el.value;
+  });
+  const saveBtn = document.getElementById('form-save');
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Saving…';
+  try {
+    const url    = schema.api + (_fId ? _fId + '/' : '');
+    const method = _fId ? 'PATCH' : 'POST';
+    const res    = await req(url, {method, headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+    const json   = await res.json();
+    if (!res.ok) {
+      errEl.innerHTML = `<div class="alert alert-danger">${esc(json.error || 'Save failed.')}</div>`;
+      saveBtn.disabled = false; saveBtn.textContent = 'Save';
+      return;
+    }
+    toast('Saved successfully.', 'ok');
+    loadAdminSection(_fSec);
+  } catch {
+    errEl.innerHTML = `<div class="alert alert-danger">Network error.</div>`;
+    saveBtn.disabled = false; saveBtn.textContent = 'Save';
+  }
+}
+
+async function deleteForm() {
+  if (!_fId) return;
+  if (!confirm('Delete this record? This cannot be undone.')) return;
+  const schema = SCHEMAS[_fModel];
+  const res = await req(schema.api + _fId + '/', {method:'DELETE'});
+  if (res.status === 204 || res.ok) {
+    toast('Record deleted.', 'ok');
+    loadAdminSection(_fSec);
+  } else {
+    const j = await res.json().catch(()=>({}));
+    toast(j.error || 'Delete failed.', 'err');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+// ── Payment — redirect to Stripe Checkout ─────────────────────
+async function openPay(regId, btn) {
+  const orig = btn.textContent;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="pay-spinner-sm"></span> Redirecting...';
+
+  try {
+    const res  = await req(`/member/pay/${regId}/`, { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok) {
+      toast(data.error || 'Could not start payment. Please try again.', 'err');
+      btn.disabled = false; btn.textContent = orig;
+      return;
+    }
+    // Hand off to Stripe's hosted checkout page — no card data on our platform
+    window.location.href = data.checkout_url;
+  } catch {
+    toast('Network error. Please try again.', 'err');
+    btn.disabled = false; btn.textContent = orig;
+  }
+}
+
+// Handle return from Stripe Checkout (success or cancelled)
+function _handlePaymentReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get('payment');
+  if (!status) return;
+
+  // Clean the URL without reloading
+  const clean = window.location.pathname;
+  window.history.replaceState({}, '', clean);
+
+  if (status === 'success') {
+    toast('Payment received — your registration is confirmed. A receipt has been sent to your email.', 'ok');
+  } else if (status === 'cancelled') {
+    toast('Payment was cancelled. You can try again from your registrations page.', '');
+  }
+}
+</script>
+
+</body>
+</html>
