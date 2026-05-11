@@ -29,9 +29,10 @@ urlpatterns = [
     path('season_schedule/', views.season_schedule, name='schedule'),
     path('coaches/', views.coaches, name='coaches'),
     path('contact/', include('contact.urls')),
-    path('api/athlete_records/', include('athlete_records.urls')),
+    # path('api/athlete_records/', include('athlete_records.urls')),
     path('registeration/', views.registeration_view, name='registeration'),
+    # path('hq/', include('hq.urls')),
  #   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 #    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-     
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

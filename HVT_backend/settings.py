@@ -22,7 +22,11 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =  os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+STRIPE_SECRET_KEY      = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_WEBHOOK_SECRET  = os.getenv('STRIPE_WEBHOOK_SECRET', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -43,12 +47,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 EXTERNAL_APPS = [
-    'contact', 
+    'contact',
     'athlete_records',
     'merch',
+    'hq',
+    'organizations',
+    'analytics',
+    'athletes',
+    'teams',
+    'events',
+    'finance',
+    'communications',
+    'registration',
+    'compliance',
+    'leagues',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
-    'drf_yasg'# add corsheaders to prevent CORS error
+    'drf_yasg',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
