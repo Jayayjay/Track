@@ -31,7 +31,7 @@ STRIPE_WEBHOOK_SECRET  = os.getenv('STRIPE_WEBHOOK_SECRET', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [ 'www.highvoltagetrack.com','highvoltagetrack.com', '*']
+ALLOWED_HOSTS = [ 'www.highvoltagetrack.com','highvoltagetrack.com',]
 
 
 # Application definition
