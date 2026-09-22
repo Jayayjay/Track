@@ -29,9 +29,9 @@ STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY', '')
 STRIPE_WEBHOOK_SECRET  = os.getenv('STRIPE_WEBHOOK_SECRET', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [ 'www.highvoltagetrack.com','highvoltagetrack.com', '127.0.0.1']
+ALLOWED_HOSTS = [ 'www.highvoltagetrack.com','highvoltagetrack.com',]
 
 
 # Application definition
